@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabela Raoni — Projeção de posição</title>
+  <meta name="description" content="Ferramenta simples para projetar posição provável em concursos a partir de dados do ranking e percentual de faltosos." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="nav">
+      <a class="brand" href="index.html" aria-label="Ir para a página inicial">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Tabela Raoni</span>
+      </a>
+      <nav class="menu" aria-label="Menu principal">
+        <a href="index.html" aria-current="page">Ferramenta</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="termos.html">Termos</a>
+        <a href="privacidade.html">Privacidade</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1 class="h1">Projeção de posição provável em concursos</h1>
+      <p class="p">
+        Use a calculadora para estimar sua posição provável com base nos dados do ranking, número oficial de inscritos
+        e percentual de faltosos. A projeção pode incluir uma margem de erro para refletir incertezas do cenário.
+      </p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Calculadora</h2>
+
+        <form id="calcForm" class="form">
+          <div class="row">
+            <div>
+              <label for="inscritosTotal">Inscritos totais (oficial)</label>
+              <input id="inscritosTotal" inputmode="numeric" placeholder="Ex.: 12000" required />
+            </div>
+            <div>
+              <label for="inscritosRanking">Inscritos no ranking / lista</label>
+              <input id="inscritosRanking" inputmode="numeric" placeholder="Ex.: 8000" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="suaPosicao">Sua posição no ranking</label>
+              <input id="suaPosicao" inputmode="numeric" placeholder="Ex.: 450" required />
+            </div>
+            <div>
+              <label for="faltososPct">% de faltosos</label>
+              <input id="faltososPct" inputmode="decimal" placeholder="Ex.: 40" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="margemErroPct">Margem de erro (%)</label>
+              <input id="margemErroPct" inputmode="decimal" placeholder="Ex.: 7" value="7" />
+            </div>
+            <div style="display:flex; align-items:end;">
+              <button class="btn" type="submit">Calcular projeção</button>
+            </div>
+          </div>
+        </form>
+
+        <div id="resultado" class="result" style="display:block;">
+          Preencha os dados e clique em <strong>Calcular projeção</strong>.
+        </div>
+      </div>
+
+      <aside class="card">
+        <h2>Como usar</h2>
+        <ul>
+          <li>Informe o número <strong>oficial</strong> de inscritos no concurso.</li>
+          <li>Informe quantos aparecem no <strong>ranking/lista</strong> que você está usando.</li>
+          <li>Digite sua <strong>posição</strong> atual na lista.</li>
+          <li>Informe o <strong>% de faltosos</strong> (estimado ou divulgado).</li>
+          <li>Opcional: ajuste a <strong>margem de erro</strong> para um intervalo mais conservador.</li>
+        </ul>
+        <p>
+          <strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital,
+          empates, recursos, convocações, desistências e particularidades do concurso.
+        </p>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> Tabela Raoni</div>
+      <div class="small-links">
+        <a href="termos.html">Termos</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="contato.html">Contato</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

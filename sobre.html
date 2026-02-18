@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre — Tabela Raoni</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="nav">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Tabela Raoni</span>
+      </a>
+      <nav class="menu" aria-label="Menu principal">
+        <a href="index.html">Ferramenta</a>
+        <a href="sobre.html" aria-current="page">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="termos.html">Termos</a>
+        <a href="privacidade.html">Privacidade</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1 class="h1">Sobre a ferramenta</h1>
+      <p class="p">
+        A Tabela Raoni é uma ferramenta de apoio para estimar posição provável em concursos,
+        a partir de dados públicos/estimados como total de inscritos, ranking e percentual de faltosos.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Objetivo</h2>
+      <p>
+        Dar ao candidato uma visão rápida e prática de cenário, ajudando na tomada de decisão
+        (acompanhar etapas, planejar recursos, avaliar probabilidade de nomeação etc.).
+      </p>
+
+      <h2>Limitações</h2>
+      <ul>
+        <li>O resultado é estimativo e pode variar por regras do edital, empates, recursos e desistências.</li>
+        <li>Percentual de faltosos e base do ranking impactam diretamente a projeção.</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> Tabela Raoni</div>
+      <div class="small-links">
+        <a href="termos.html">Termos</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="contato.html">Contato</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
