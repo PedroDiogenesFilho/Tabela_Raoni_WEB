@@ -4,7 +4,301 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sobre — Tabela Raoni</title>
-  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/style.css?v=20260218" />
+  <style>
+:root {
+  --bg: #0b1020;
+  --bg-soft: #111933;
+  --surface: rgba(20, 29, 56, 0.78);
+  --surface-solid: #182449;
+  --text: #e9ecf7;
+  --text-muted: #b4bfdc;
+  --primary: #4f7dff;
+  --primary-soft: #7ea0ff;
+  --success: #3dd598;
+  --danger: #ff6b8a;
+  --border: rgba(164, 180, 230, 0.26);
+  --shadow: 0 24px 60px rgba(5, 10, 25, 0.35);
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 8% -10%, #2f4e9f 0%, transparent 35%),
+    radial-gradient(circle at 90% 0%, #5f2e8f 0%, transparent 32%),
+    linear-gradient(145deg, #080d1d 20%, #111b38 100%);
+  min-height: 100vh;
+}
+
+.container {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 28px 0 44px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 0 24px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary) 0%, #8f67ff 100%);
+  box-shadow: 0 10px 24px rgba(95, 124, 255, 0.45);
+  position: relative;
+}
+
+.logo::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.menu a:hover,
+.menu a[aria-current="page"] {
+  color: var(--text);
+  background: rgba(130, 155, 255, 0.2);
+}
+
+.hero,
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.hero {
+  padding: 34px;
+  margin-bottom: 24px;
+}
+
+.h1 {
+  font-size: clamp(1.5rem, 1.2rem + 1.35vw, 2.4rem);
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.p {
+  margin: 16px 0 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 72ch;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  padding: 28px;
+}
+
+.card h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+input {
+  width: 100%;
+  border: 1px solid transparent;
+  background: rgba(16, 25, 50, 0.95);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 12px 13px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder {
+  color: #8f9ac0;
+}
+
+input:focus {
+  border-color: rgba(120, 146, 255, 0.9);
+  box-shadow: 0 0 0 3px rgba(113, 137, 255, 0.2);
+}
+
+.button-wrap {
+  display: flex;
+  align-items: end;
+}
+
+.btn {
+  width: 100%;
+  border: 0;
+  background: linear-gradient(120deg, var(--primary) 0%, #7a77ff 100%);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+  box-shadow: 0 14px 30px rgba(79, 125, 255, 0.34);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.result {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  line-height: 1.5;
+  border: 1px solid rgba(138, 159, 236, 0.3);
+  background: rgba(14, 22, 46, 0.72);
+}
+
+.result.success {
+  border-color: rgba(61, 213, 152, 0.44);
+  box-shadow: inset 0 0 0 1px rgba(61, 213, 152, 0.16);
+}
+
+.result.error {
+  border-color: rgba(255, 107, 138, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 107, 138, 0.15);
+}
+
+.result strong {
+  color: #fff;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+ul {
+  padding-left: 1.2rem;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  color: var(--text-muted);
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.footer {
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: #a6b0cf;
+  font-size: 0.92rem;
+}
+
+.small-links {
+  display: flex;
+  gap: 12px;
+}
+
+.small-links a {
+  color: #c0cae8;
+  text-decoration: none;
+}
+
+.small-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .container {
+    width: min(1100px, 94vw);
+    padding-top: 18px;
+  }
+
+  .hero,
+  .card {
+    padding: 20px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .nav {
+    align-items: flex-start;
+  }
+}
+
+  </style>
 </head>
 <body>
   <div class="container">
@@ -24,7 +318,7 @@
 
     <section class="hero">
       <h1 class="h1">Sobre a ferramenta</h1>
-      <p class="p">
+      <p>
         A Tabela Raoni é uma ferramenta de apoio para estimar posição provável em concursos,
         a partir de dados públicos/estimados como total de inscritos, ranking e percentual de faltosos.
       </p>
