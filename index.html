@@ -16,7 +16,6 @@
       --bg0:#070b18;
       --bg1:#0c1330;
       --surface: rgba(16, 22, 46, .70);
-      --surface2: rgba(12, 18, 40, .72);
       --text:#eef2ff;
       --muted:#b8c3e6;
       --line: rgba(164,180,230,.26);
@@ -286,36 +285,6 @@
 
     .muted{ color: var(--muted); }
 
-    .slider-wrap{
-      margin-top: 14px;
-      padding: 12px 12px;
-      border-radius: var(--r-md);
-      background: rgba(10, 14, 32, .35);
-      border: 1px solid rgba(164,180,230,.18);
-    }
-
-    .slider-top{ display:flex; align-items:center; justify-content:space-between; gap: 12px; margin-bottom: 10px; }
-    .slider-top .label{ font-weight: 700; }
-
-    .bubble{
-      min-width: 56px;
-      text-align:center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(79,125,255,.18);
-      border: 1px solid rgba(79,125,255,.28);
-      font-weight: 800;
-      color: rgba(230,236,255,.94);
-    }
-
-    input[type="range"]{
-      width: 100%;
-      margin: 4px 0 6px;
-      accent-color: rgba(79,125,255,1);
-    }
-
-    .slider-scale{ display:flex; justify-content:space-between; color: rgba(184,195,230,.70); font-size:.9rem; }
-
     .below{
       border-radius: var(--r-lg);
       background: var(--surface);
@@ -380,8 +349,8 @@
     <section class="hero">
       <h1>Projeção de posição provável em concursos</h1>
       <p>
-        Descubra uma estimativa rápida da sua posição com base no ranking, no número oficial de inscritos e no percentual de faltosos.
-        Ajuste a margem de erro para simular cenários mais conservadores.
+        Estime sua posição a partir do ranking (sua lista), do número oficial de inscritos e do percentual de faltosos.
+        O cálculo segue as constantes e a faixa estimada da <strong>Tabela Raoni 3.0</strong>.
       </p>
     </section>
 
@@ -451,20 +420,6 @@
                 </div>
               </div>
 
-              <div class="slider-wrap" aria-label="Margem de erro">
-                <div class="slider-top">
-                  <div class="label">
-                    <span class="icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M3 17h3v4H3v-4zm5-6h3v10H8V11zm5-8h3v18h-3V3zm5 10h3v8h-3v-8z"/></svg>
-                    </span>
-                    <span>Margem de erro</span>
-                  </div>
-                  <div class="bubble" id="margemBubble">5%</div>
-                </div>
-                <input id="margemErroPct" type="range" min="0" max="10" step="1" value="5" />
-                <div class="slider-scale"><span>0%</span><span>10%</span></div>
-              </div>
-
               <div class="rowwide">
                 <div class="note">
                   <strong>Dica:</strong> se você não souber o % de faltosos, use um valor divulgado ou uma estimativa conservadora.
@@ -485,7 +440,6 @@
           <li>Informe quantos aparecem no <strong>ranking/lista</strong> que você está usando.</li>
           <li>Digite sua <strong>posição</strong> atual na lista.</li>
           <li>Informe o <strong>% de faltosos</strong> (estimado ou divulgado).</li>
-          <li>Ajuste a <strong>margem de erro</strong> para obter uma faixa mais conservadora.</li>
         </ul>
         <p>
           <strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital,
@@ -507,15 +461,33 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // Tabela Raoni 3.0 (intervalos de chance de colocação x constante)
+    // Fonte: tabela_raoni_3.0 (script enviado)
     const tabelaRaoni = [
-      [0, 3, 1.0], [3, 5, 1.125], [5, 10, 1.177],
-      [10, 15, 1.202], [15, 20, 1.367], [20, 25, 1.456],
-      [25, 30, 1.5642], [30, 35, 1.786], [35, 40, 1.924],
-      [40, 45, 2.2121], [45, 50, 2.352], [50, 55, 2.564],
-      [55, 60, 2.876], [60, 65, 3.08765], [65, 70, 3.222],
-      [70, 75, 3.421], [75, 80, 3.656], [80, 85, 3.945],
-      [85, 90, 4.331], [90, 95, 4.567], [95, 100, 4.7125]
+      [0, 3, 1.0],
+      [3, 5, 1.125],
+      [5, 10, 1.177],
+      [10, 15, 1.202],
+      [15, 20, 1.367],
+      [20, 25, 1.456],
+      [25, 30, 1.5642],
+      [30, 35, 1.786],
+      [35, 40, 1.924],
+      [40, 45, 2.2121],
+      [45, 50, 2.352],
+      [50, 55, 2.564],
+      [55, 60, 2.876],
+      [60, 65, 3.08765],
+      [65, 70, 3.222],
+      [70, 75, 3.421],
+      [75, 80, 3.656],
+      [80, 85, 3.945],
+      [85, 90, 4.331],
+      [90, 95, 4.567],
+      [95, 100, 4.7125]
     ];
+
+    const DEFAULT_CONSTANTE = 5.0025;
 
     const parseNumber = (value) => {
       const raw = String(value ?? "").trim();
@@ -525,12 +497,19 @@
 
     const formatBR = (value) => new Intl.NumberFormat("pt-BR").format(Math.round(value));
 
+    function buscarConstante(chanceColocacao) {
+      for (const [ini, fim, k] of tabelaRaoni) {
+        if (chanceColocacao >= ini && chanceColocacao < fim) return k;
+      }
+      return DEFAULT_CONSTANTE;
+    }
+
     function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos) {
-      if (inscritosOficial <= 0) throw new Error("Inscritos totais (oficial) deve ser maior que zero.");
+      if (inscritosOficial <= 0) throw new Error("Inscritos no concurso deve ser maior que zero.");
       if (inscritosRanking <= 0) throw new Error("Inscritos no ranking deve ser maior que zero.");
       if (minhaPosicao <= 0) throw new Error("Sua posição deve ser maior que zero.");
       if (minhaPosicao > inscritosRanking) throw new Error("Sua posição não pode ser maior que os inscritos no ranking.");
-      if (percentualFaltosos < 0 || percentualFaltosos > 100) throw new Error("% de faltosos deve estar entre 0 e 100.");
+      if (percentualFaltosos < 0 || percentualFaltosos > 100) throw new Error("Percentual de faltosos deve estar entre 0 e 100.");
 
       const faltosos = inscritosOficial * (percentualFaltosos / 100);
       const presentes = inscritosOficial - faltosos;
@@ -538,21 +517,19 @@
       const posicaoPercentual = minhaPosicao / inscritosRanking;
       const chanceColocacao = posicaoPercentual * presentes;
 
-      const match = tabelaRaoni.find(([ini, fim]) => chanceColocacao >= ini && chanceColocacao < fim);
-      const constante = match ? match[2] : 5.0025;
-
+      const constante = buscarConstante(chanceColocacao);
       const classificacao = Math.ceil(minhaPosicao * constante);
-      const margemMin = Math.max(1, classificacao - 5);
-      const margemMax = classificacao + 2;
 
-      return { classificacao, margemMin, margemMax, presentes };
+      // Faixa estimada (min/max) conforme tabela_raoni_3.0
+      const faixaMin = Math.max(1, classificacao - 5);
+      const faixaMax = classificacao + 2;
+
+      return { classificacao, faixaMin, faixaMax, presentes };
     }
 
     (function init(){
       const form = document.getElementById("calcForm");
       const res = document.getElementById("resultado");
-      const margem = document.getElementById("margemErroPct");
-      const bubble = document.getElementById("margemBubble");
 
       const elTotal = document.getElementById("inscritosTotal");
       const elRank = document.getElementById("inscritosRanking");
@@ -564,14 +541,10 @@
         res.innerHTML = html;
       };
 
-      const setBubble = () => { bubble.textContent = `${margem.value}%`; };
-      setBubble();
-      margem.addEventListener("input", setBubble);
-
       const setHint = (id, value) => {
         const node = document.getElementById(id);
         if (!node) return;
-        node.textContent = Number.isFinite(value) ? formatBR(value) : "\u00A0";
+        node.textContent = Number.isFinite(value) ? formatBR(value) : " ";
       };
 
       const syncHints = () => {
@@ -580,7 +553,7 @@
         setHint("hintSuaPosicao", parseNumber(elPos.value));
         const f = parseNumber(elFalt.value);
         const node = document.getElementById("hintFaltosos");
-        if (node) node.textContent = Number.isFinite(f) ? `${String(f).replace(".", ",")}%` : "\u00A0";
+        if (node) node.textContent = Number.isFinite(f) ? `${String(f).replace(".", ",")}%` : " ";
       };
 
       [elTotal, elRank, elPos, elFalt].forEach((el) => el.addEventListener("input", syncHints));
@@ -593,7 +566,6 @@
         const inscritosRanking = parseNumber(elRank.value);
         const suaPosicao = parseNumber(elPos.value);
         const faltososPct = parseNumber(elFalt.value);
-        const margemErroPct = Number(margem.value);
 
         if ([inscritosTotal, inscritosRanking, suaPosicao, faltososPct].some(Number.isNaN)) {
           setResult("Verifique os campos. Use apenas números válidos.", "error");
@@ -601,22 +573,16 @@
         }
 
         try {
-          const { classificacao, margemMin, margemMax, presentes } = calcularProjecao(
+          const { classificacao, faixaMin, faixaMax, presentes } = calcularProjecao(
             inscritosTotal,
             inscritosRanking,
             suaPosicao,
             faltososPct
           );
 
-          const ajuste = Math.max(0, margemErroPct) / 100;
-          const larguraBase = Math.max(1, margemMax - margemMin);
-          const extra = Math.ceil(larguraBase * ajuste);
-          const faixaMin = Math.max(1, margemMin - extra);
-          const faixaMax = margemMax + extra;
-
           setResult(
             `<strong>Classificação projetada:</strong> ${formatBR(classificacao)}<br>` +
-            `<span class="muted"><strong>Faixa estimada:</strong> ${formatBR(faixaMin)} a ${formatBR(faixaMax)}</span><br>` +
+            `<strong>Faixa estimada de posição:</strong> ${formatBR(faixaMin)} — ${formatBR(faixaMax)}<br>` +
             `<span class="muted"><strong>Presentes estimados:</strong> ${formatBR(presentes)} candidatos</span>`,
             "success"
           );
@@ -628,4 +594,3 @@
   </script>
 </body>
 </html>
-
