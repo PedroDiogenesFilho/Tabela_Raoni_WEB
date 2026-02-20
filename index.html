@@ -520,9 +520,9 @@
       const constante = buscarConstante(chanceColocacao);
       const classificacao = Math.ceil(minhaPosicao * constante);
 
-      // Faixa estimada (min/max) conforme tabela_raoni_3.0
-      const faixaMin = Math.max(1, classificacao - 5);
-      const faixaMax = classificacao + 2;
+      
+      const faixaMin = Math.max(1, Math.floor(classificacao * 0.70));
+      const faixaMax = Math.ceil(classificacao * 1.50);
 
       return { classificacao, faixaMin, faixaMax, presentes };
     }
