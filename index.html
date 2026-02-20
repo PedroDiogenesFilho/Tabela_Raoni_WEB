@@ -6,6 +6,13 @@
   <title>Tabela Raoni — Projeção de posição</title>
   <meta name="description" content="Ferramenta simples para projetar posição provável em concursos a partir de dados do ranking e percentual de faltosos." />
   <link rel="stylesheet" href="assets/style.css?v=20260218" />
+
+  <!--
+    Estrutura atualizada para bater com a imagem:
+    - Calculadora em evidência, centralizada
+    - "Como usar" abaixo da calculadora
+    - Cores e identidade visual preservadas
+  -->
   <style>
 :root {
   --bg: #0b1020;
@@ -25,9 +32,7 @@
   --radius-sm: 10px;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -115,7 +120,7 @@ body {
 
 .hero {
   padding: 34px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .h1 {
@@ -129,13 +134,19 @@ body {
   margin: 16px 0 0;
   color: var(--text-muted);
   line-height: 1.6;
-  max-width: 72ch;
+  max-width: 78ch;
 }
 
-.grid {
+/* NOVA ESTRUTURA: coluna única, com a calculadora em evidência */
+.stack {
   display: grid;
-  grid-template-columns: 1.45fr 1fr;
-  gap: 20px;
+  gap: 18px;
+}
+
+/* Área central para dar destaque (igual ao mock) */
+.center {
+  width: min(980px, 100%);
+  margin: 0 auto;
 }
 
 .card {
@@ -176,9 +187,7 @@ input {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-input::placeholder {
-  color: #8f9ac0;
-}
+input::placeholder { color: #8f9ac0; }
 
 input:focus {
   border-color: rgba(120, 146, 255, 0.9);
@@ -203,9 +212,7 @@ input:focus {
   box-shadow: 0 14px 30px rgba(79, 125, 255, 0.34);
 }
 
-.btn:hover {
-  transform: translateY(-1px);
-}
+.btn:hover { transform: translateY(-1px); }
 
 .result {
   margin-top: 20px;
@@ -226,13 +233,8 @@ input:focus {
   box-shadow: inset 0 0 0 1px rgba(255, 107, 138, 0.15);
 }
 
-.result strong {
-  color: #fff;
-}
-
-.muted {
-  color: var(--text-muted);
-}
+.result strong { color: #fff; }
+.muted { color: var(--text-muted); }
 
 ul {
   padding-left: 1.2rem;
@@ -268,15 +270,7 @@ p {
   text-decoration: none;
 }
 
-.small-links a:hover {
-  text-decoration: underline;
-}
-
-@media (max-width: 980px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
+.small-links a:hover { text-decoration: underline; }
 
 @media (max-width: 680px) {
   .container {
@@ -294,13 +288,9 @@ p {
     gap: 12px;
   }
 
-  .nav {
-    align-items: flex-start;
-  }
+  .nav { align-items: flex-start; }
 }
-
   </style>
-
 </head>
 <body>
   <div class="container">
@@ -320,14 +310,15 @@ p {
 
     <section class="hero">
       <h1 class="h1">Projeção de posição provável em concursos</h1>
-      <p>
+      <p class="p">
         Descubra uma estimativa rápida da sua posição com base no ranking, no número oficial de inscritos e no percentual de faltosos.
         A simulação inclui uma margem de erro para refletir diferentes cenários.
       </p>
     </section>
 
-    <section class="grid">
-      <div class="card">
+    <!-- Estrutura conforme a imagem: calculadora central e "Como usar" abaixo -->
+    <main class="stack center" aria-label="Ferramenta de projeção">
+      <section class="card" aria-label="Calculadora">
         <h2>Calculadora</h2>
 
         <form id="calcForm" class="form">
@@ -367,9 +358,9 @@ p {
         <div id="resultado" class="result">
           Preencha os dados e clique em <strong>Calcular projeção</strong>.
         </div>
-      </div>
+      </section>
 
-      <aside class="card">
+      <section class="card" aria-label="Como usar">
         <h2>Como usar</h2>
         <ul>
           <li>Informe o número <strong>oficial</strong> de inscritos no concurso.</li>
@@ -382,8 +373,8 @@ p {
           <strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital,
           empates, recursos, convocações, desistências e particularidades do concurso.
         </p>
-      </aside>
-    </section>
+      </section>
+    </main>
 
     <footer class="footer">
       <div>© <span id="year"></span> Tabela Raoni</div>
@@ -399,6 +390,7 @@ p {
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
   <script src="assets/app.js?v=20260218"></script>
+
   <script>
 const tabelaRaoni = [
   [0, 3, 1.0], [3, 5, 1.125], [5, 10, 1.177],
@@ -465,7 +457,7 @@ function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, perc
     }
 
     try {
-      const { classificacao, margemMin, margemMax, presentes, constante } = calcularProjecao(
+      const { classificacao, margemMin, margemMax, presentes } = calcularProjecao(
         inscritosTotal,
         inscritosRanking,
         suaPosicao,
@@ -491,7 +483,6 @@ function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, perc
     }
   });
 })();
-
   </script>
 </body>
 </html>
