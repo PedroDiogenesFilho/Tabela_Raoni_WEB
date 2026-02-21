@@ -467,7 +467,7 @@
               </div>
             </form>
 
-            <div id="resultado" class="result">Preencha os dados e clique em <strong>Calcular projeção</strong>.</div>
+            <div id="resultado" class="result" aria-live="polite"></div>
           </div>
         </div>
       </section>
@@ -500,8 +500,6 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Tabela Raoni 3.0 (intervalos de chance de colocação x constante)
-    // Fonte: tabela_raoni_3.0 (script enviado)
     const tabelaRaoni = [
       [0, 3, 1.0],
       [3, 5, 1.125],
@@ -559,7 +557,6 @@
       const constante = buscarConstante(chanceColocacao);
       const classificacao = Math.ceil(minhaPosicao * constante);
 
-      
       const faixaMin = Math.max(1, Math.floor(classificacao * 0.70));
       const faixaMax = Math.ceil(classificacao * 1.50);
 
@@ -576,14 +573,14 @@
       const elFalt = document.getElementById("faltososPct");
 
       const setResult = (html, type) => {
-        res.className = `result ${type || ""}`.trim();
+        res.className = `result is-visible ${type || ""}`.trim();
         res.innerHTML = html;
       };
 
       const setHint = (id, value) => {
         const node = document.getElementById(id);
         if (!node) return;
-        node.textContent = Number.isFinite(value) ? formatBR(value) : " ";
+        node.textContent = Number.isFinite(value) ? formatBR(value) : "\u00A0";
       };
 
       const syncHints = () => {
@@ -592,7 +589,7 @@
         setHint("hintSuaPosicao", parseNumber(elPos.value));
         const f = parseNumber(elFalt.value);
         const node = document.getElementById("hintFaltosos");
-        if (node) node.textContent = Number.isFinite(f) ? `${String(f).replace(".", ",")}%` : " ";
+        if (node) node.textContent = Number.isFinite(f) ? `${String(f).replace(".", ",")}%` : "\u00A0";
       };
 
       [elTotal, elRank, elPos, elFalt].forEach((el) => el.addEventListener("input", syncHints));
@@ -607,7 +604,7 @@
         const faltososPct = parseNumber(elFalt.value);
 
         if ([inscritosTotal, inscritosRanking, suaPosicao, faltososPct].some(Number.isNaN)) {
-          setResult("Verifique os campos. Use apenas números válidos.", "error");
+          setResult("<strong>Verifique os campos.</strong> Use apenas números válidos.", "error");
           return;
         }
 
