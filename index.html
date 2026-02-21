@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tabela Raoni — Projeção de posição</title>
-  <meta name="description" content="Ferramenta simples para projetar posição provável em concursos a partir de dados do ranking e percentual de faltosos." />
+  <title>Tabela Raoni — Projeção de Posição</title>
+  <meta name="description" content="Ferramenta simples para projetar posição provável em concursos a partir de dados do ranking de concursos e percentual de faltosos." />
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5754272579077136" crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-5754272579077136" />
@@ -367,6 +367,233 @@
       .tool-body{ padding: 0 18px 18px; }
       .below{ padding: 20px; }
     }
+
+    /* Resultado em cards + abas (Compartilhar / PDF) */
+    .result-cards{
+      margin-top: 16px;
+      border-radius: var(--r-lg);
+      background: rgba(12, 18, 40, .55);
+      border: 1px solid rgba(164,180,230,.22);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+    }
+
+    .result-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-bottom: 14px;
+    }
+
+    .result-head h3{ margin:0; font-size:1.12rem; letter-spacing:-.01em; }
+    .result-meta{ color: rgba(230,236,255,.78); font-size: .9rem; font-weight: 700; }
+    .result-subline{ margin-top: 6px; color: rgba(184,195,230,.92); font-size: .92rem; }
+
+    .result-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .r-card{
+      border-radius: var(--r-md);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(160,176,230,.20);
+      padding: 14px;
+      box-shadow: 0 18px 50px rgba(6, 10, 26, .35);
+      overflow:hidden;
+    }
+
+    .r-label{ color: rgba(230,236,255,.86); font-weight: 800; font-size: .95rem; }
+    .r-value{ margin-top: 8px; font-size: 1.55rem; font-weight: 900; letter-spacing:-.02em; }
+    .r-sub{ margin-top: 8px; color: rgba(184,195,230,.92); font-size: .9rem; line-height: 1.45; }
+
+    .conf-pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(164,180,230,.26);
+      background: rgba(10, 14, 32, .45);
+      font-size: .95rem;
+      font-weight: 900;
+      width: fit-content;
+    }
+
+    .conf-dot{
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(184,195,230,.92);
+      box-shadow: 0 0 0 4px rgba(184,195,230,.14);
+      flex: 0 0 auto;
+    }
+
+    .conf-low .conf-dot{ background: rgba(255,107,138,.95); box-shadow: 0 0 0 4px rgba(255,107,138,.16); }
+    .conf-med .conf-dot{ background: rgba(255,214,102,.95); box-shadow: 0 0 0 4px rgba(255,214,102,.16); }
+    .conf-high .conf-dot{ background: rgba(61,213,152,.95); box-shadow: 0 0 0 4px rgba(61,213,152,.18); }
+
+    .result-extra{
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--r-md);
+      border: 1px solid rgba(164,180,230,.18);
+      background: rgba(7, 10, 24, .30);
+      color: rgba(230,236,255,.86);
+      line-height: 1.55;
+    }
+
+    .tabs{ margin-top: 14px; }
+
+    .tablist{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+
+    .tab-btn{
+      border: 1px solid rgba(164,180,230,.18);
+      background: rgba(10, 14, 32, .35);
+      color: rgba(230,236,255,.88);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform .12s ease, background .16s ease, border-color .16s ease;
+    }
+
+    .tab-btn:hover{ transform: translateY(-1px); background: rgba(130,155,255,.14); }
+    .tab-btn.is-active{ background: rgba(130,155,255,.20); border-color: rgba(160,176,230,.28); color: var(--text); }
+
+    .tab-panel{ display:grid; gap: 12px; }
+
+    .panel-card{
+      border-radius: var(--r-md);
+      background: rgba(10, 14, 32, .35);
+      border: 1px solid rgba(164,180,230,.18);
+      padding: 14px;
+    }
+
+    .panel-title{ font-weight: 900; margin-bottom: 10px; color: rgba(230,236,255,.92); }
+
+    .panel-row{
+      display:grid;
+      grid-template-columns: 1fr 140px;
+      gap: 10px;
+      align-items:center;
+    }
+
+    .panel-card input[type="text"],
+    .panel-card textarea{
+      width:100%;
+      border: 1px solid rgba(164,180,230,.18);
+      background: rgba(10, 14, 32, .55);
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: var(--r-sm);
+      outline:none;
+      font-size: .98rem;
+    }
+
+    .panel-card textarea{ resize: vertical; min-height: 110px; }
+
+    .panel-options{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px 14px;
+      margin-top: 12px;
+      color: rgba(230,236,255,.86);
+      font-weight: 700;
+      font-size: .92rem;
+    }
+
+    .chk{ display:flex; align-items:center; gap: 10px; }
+    .chk input{ accent-color: var(--a1); }
+
+    .panel-actions{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .panel-hint{
+      color: rgba(184,195,230,.92);
+      font-size: .9rem;
+      line-height: 1.45;
+      max-width: 72ch;
+    }
+
+    .btn{
+      height: 44px;
+      padding: 0 14px;
+      border-radius: var(--r-md);
+      border: 1px solid rgba(164,180,230,.22);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.95);
+      cursor:pointer;
+      font-weight: 900;
+      letter-spacing:.01em;
+      transition: transform .12s ease, filter .12s ease, background .16s ease;
+      width:100%;
+    }
+
+    .btn:hover{ transform: translateY(-1px); background: rgba(130,155,255,.14); }
+    .btn.primary{ border:0; background: var(--grad); box-shadow: var(--grad-shadow); }
+    .btn.primary:hover{ filter: brightness(1.03); }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(10, 14, 32, .86);
+      border: 1px solid rgba(164,180,230,.22);
+      color: rgba(255,255,255,.95);
+      padding: 10px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow2);
+      z-index: 50;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .toast.is-visible{ opacity: 1; transform: translateX(-50%) translateY(-2px); }
+
+    @media (max-width: 920px){
+      .result-grid{ grid-template-columns: 1fr; }
+      .panel-row{ grid-template-columns: 1fr; }
+      .btn{ width: 100%; }
+    }
+
+    /* Impressão / PDF */
+    #printArea{ display:none; }
+    @media print{
+      @page { margin: 12mm; }
+      body{
+        background: #0c1330 !important;
+        color: var(--text) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .nav, .hero, .below, .footer{ display:none !important; }
+      .container{ width:auto !important; margin:0 !important; padding:0 !important; }
+      .tool-spotlight{ padding:0 !important; border:none !important; box-shadow:none !important; background: transparent !important; }
+      .tool-card{ box-shadow:none !important; }
+      #resultadoMsg{ display:none !important; }
+      #resultadoCards{ display:block !important; }
+
+      body.print-hide-inputs .grid,
+      body.print-hide-inputs .rowwide{ display:none !important; }
+
+      body.print-hide-time #resultadoMeta{ display:none !important; }
+    }
   </style>
 </head>
 <body>
@@ -388,7 +615,7 @@
     <section class="hero">
       <h1>Projeção de posição provável em concursos</h1>
       <p>
-        Estime sua posição a partir do ranking (sua lista), do número oficial de inscritos e do percentual de faltosos.
+        Estime sua posição a partir do ranking de concursos (lista de inscritos), do número oficial de inscritos do concurso e do percentual de faltosos.
         O cálculo segue as constantes e a faixa estimada da <strong>Tabela Raoni 3.0</strong>.
       </p>
     </section>
@@ -412,7 +639,7 @@
                       <span class="icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4zm0 6h10v10H4V10zm12 0h4v10h-4V10z"/></svg>
                       </span>
-                      <span>Inscritos totais (oficial)</span>
+                      <span>Inscritos totais do concurso (oficial divulgado pela banca)</span>
                     </div>
                     <div class="hint" id="hintInscritosTotal">&nbsp;</div>
                   </div>
@@ -425,7 +652,7 @@
                       <span class="icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24"><path d="M3 7h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"/></svg>
                       </span>
-                      <span>Inscritos no ranking / lista</span>
+                      <span>Inscritos no ranking do concurso / lista</span>
                     </div>
                     <div class="hint" id="hintInscritosRanking">&nbsp;</div>
                   </div>
@@ -461,13 +688,95 @@
 
               <div class="rowwide">
                 <div class="note">
-                  <strong>Dica:</strong> se você não souber o % de faltosos, use um valor divulgado ou uma estimativa conservadora.
+                  <strong>Dica:</strong> se o % de faltosos não for divulgado pela banca examinadora, use um valor padrão entre 35 a 50 %.
                 </div>
-                <button class="cta" type="submit">Calcular projeção</button>
+                <button class="cta" type="submit">Calcular Posição</button>
               </div>
             </form>
 
-            <div id="resultado" class="result" aria-live="polite"></div>
+            <div id="resultadoMsg" class="result" aria-live="polite"></div>
+
+            <section id="resultadoCards" class="result-cards" aria-label="Resultado" hidden>
+              <div class="result-head">
+                <div>
+                  <h3>Resultado</h3>
+                  <div class="result-subline" id="resultadoSubline">—</div>
+                </div>
+                <div class="result-meta" id="resultadoMeta">Atualizado em —</div>
+              </div>
+
+              <div class="result-grid" role="group" aria-label="Resumo do resultado">
+                <div class="r-card">
+                  <div class="r-label">Posição projetada</div>
+                  <div class="r-value" id="cardPosicao">—</div>
+                  <div class="r-sub">Estimativa central</div>
+                </div>
+
+                <div class="r-card">
+                  <div class="r-label">Faixa estimada de posição</div>
+                  <div class="r-value" id="cardFaixa">—</div>
+                  <div class="r-sub">Mín — Máx</div>
+                </div>
+
+                <div class="r-card">
+                  <div class="r-label">Grau de confiança</div>
+                  <div class="r-value">
+                    <span class="conf-pill conf-med" id="cardConfianca">
+                      <span class="conf-dot" aria-hidden="true"></span>
+                      <span id="cardConfiancaText">—</span>
+                    </span>
+                  </div>
+                  <div class="r-sub" id="cardConfiancaDesc">—</div>
+                </div>
+              </div>
+
+              <div class="result-extra" id="resultadoExtra">—</div>
+
+              <div class="tabs" aria-label="Ações do resultado">
+                <div class="tablist" role="tablist" aria-label="Ações">
+                  <button type="button" class="tab-btn is-active" role="tab" aria-selected="true" aria-controls="panelShare" id="tabShare">Compartilhar</button>
+                  <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panelPdf" id="tabPdf">Salvar em PDF</button>
+                </div>
+
+                <div class="tab-panels">
+                  <div id="panelShare" class="tab-panel" role="tabpanel" aria-labelledby="tabShare">
+                    <div class="panel-card">
+                      <div class="panel-title">Link do resultado</div>
+                      <div class="panel-row">
+                        <input id="shareLink" type="text" readonly aria-label="Link do resultado" />
+                        <button type="button" class="btn" id="btnCopyLink">Copiar</button>
+                      </div>
+                      <div class="panel-options">
+                        <label class="chk"><input type="checkbox" id="optShareInputs" checked> Incluir dados de entrada no resumo</label>
+                        <label class="chk"><input type="checkbox" id="optShareTime" checked> Incluir data/hora no resumo</label>
+                      </div>
+                    </div>
+
+                    <div class="panel-card">
+                      <div class="panel-title">Resumo para copiar</div>
+                      <textarea id="shareSummary" rows="5" readonly aria-label="Resumo do resultado"></textarea>
+                      <div class="panel-actions">
+                        <button type="button" class="btn" id="btnCopySummary">Copiar resumo</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="panelPdf" class="tab-panel" role="tabpanel" aria-labelledby="tabPdf" hidden>
+                    <div class="panel-card">
+                      <div class="panel-title">Salvar em PDF</div>
+                      <div class="panel-options">
+                        <label class="chk"><input type="checkbox" id="optPdfInputs" checked> Incluir dados de entrada</label>
+                        <label class="chk"><input type="checkbox" id="optPdfTime" checked> Incluir data/hora</label>
+                      </div>
+                      <div class="panel-actions">
+                        <button type="button" class="btn primary" id="btnPdf">Gerar PDF</button>
+                        <div class="panel-hint">Abrirá o diálogo de impressão do navegador. Selecione “Salvar como PDF”.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </section>
@@ -481,8 +790,7 @@
           <li>Informe o <strong>% de faltosos</strong> (estimado ou divulgado).</li>
         </ul>
         <p>
-          <strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital,
-          empates, recursos, convocações, desistências e particularidades do concurso.
+          <strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, convocações, anulações de questões, desistências e particularidades do concurso.
         </p>
       </section>
     </main>
@@ -534,6 +842,13 @@
 
     const formatBR = (value) => new Intl.NumberFormat("pt-BR").format(Math.round(value));
 
+    const pad2 = (n) => String(n).padStart(2, "0");
+
+    const formatDateTimeBR = (d) => {
+      const dt = d instanceof Date ? d : new Date(d);
+      return `${pad2(dt.getDate())}/${pad2(dt.getMonth() + 1)}/${dt.getFullYear()} ${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
+    };
+
     function buscarConstante(chanceColocacao) {
       for (const [ini, fim, k] of tabelaRaoni) {
         if (chanceColocacao >= ini && chanceColocacao < fim) return k;
@@ -560,21 +875,159 @@
       const faixaMin = Math.max(1, Math.floor(classificacao * 0.70));
       const faixaMax = Math.ceil(classificacao * 1.50);
 
-      return { classificacao, faixaMin, faixaMax, presentes };
+      return { classificacao, faixaMin, faixaMax, presentes, chanceColocacao };
     }
 
-    (function init(){
+    function calcularConfianca(chanceColocacao) {
+      const v = Number(chanceColocacao);
+
+      // Regra baseada na Tabela Raoni 3.0 (faixas de constantes):
+      // Até 50 → cenário moderado a alto. Acima de 50 → cenário mais sensível (constantes mais altas).
+      if (!Number.isFinite(v)) {
+        return { nivel: "MÉDIA", classe: "conf-med", desc: "Cenário moderado (dados insuficientes para classificar com mais precisão)." };
+      }
+
+      if (v > 50) {
+        return { nivel: "BAIXA", classe: "conf-low", desc: "Cenário mais sensível, quantidade de inscritos no ranking bem abaixo dos 10% em relação ao total oficial de inscritos no concurso ou posição do candidato em relação ao ranking muito baixa." };
+      }
+
+      if (v >= 20) {
+        return { nivel: "MÉDIA", classe: "conf-med", desc: "Cenário moderado, dados como quantidade de inscritos ou posição no ranking afetam negativamente o calculo. Cenário ideal que o ranking possua pelo menos 10% de inscritos em relação a quantidade de inscritos oficial do concurso" };
+      }
+
+      return { nivel: "ALTA", classe: "conf-high", desc: "Cenário mais estável, ranking com mais que 10% de inscritos ou posição do candidato em relação ao número de inscritos no ranking favorável." };
+    }
+
+    function buildShareUrl({ inscritosTotal, inscritosRanking, suaPosicao, faltososPct }) {
+      const base = location.href.split("?")[0];
+      const qs = new URLSearchParams({
+        it: String(Math.round(inscritosTotal)),
+        ir: String(Math.round(inscritosRanking)),
+        p: String(Math.round(suaPosicao)),
+        f: String(faltososPct).replace(",", ".")
+      });
+      return `${base}?${qs.toString()}`;
+    }
+
+    function buildSummary({ classificacao, faixaMin, faixaMax, presentes, confianca, updatedAt, inputs }, includeInputs, includeTime) {
+      const lines = [];
+      lines.push("Tabela Raoni — Projeção de posição");
+      lines.push(`Posição projetada: ${formatBR(classificacao)}`);
+      lines.push(`Faixa estimada de posição: ${formatBR(faixaMin)} — ${formatBR(faixaMax)}`);
+      lines.push(`Presentes estimados: ${formatBR(presentes)}`);
+      lines.push(`Grau de confiança: ${confianca.nivel}`);
+
+      if (includeInputs) {
+        lines.push("");
+        lines.push("Dados informados:");
+        lines.push(`• Inscritos totais (oficial): ${formatBR(inputs.inscritosTotal)}`);
+        lines.push(`• Inscritos no ranking/lista: ${formatBR(inputs.inscritosRanking)}`);
+        lines.push(`• Sua posição no ranking: ${formatBR(inputs.suaPosicao)}`);
+        lines.push(`• % de faltosos: ${String(inputs.faltososPct).replace(".", ",")}%`);
+      }
+
+      if (includeTime) {
+        lines.push("");
+        lines.push(`Atualizado em: ${formatDateTimeBR(updatedAt)}`);
+      }
+
+      return lines.join("\n");
+    }
+
+    async function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      ta.style.top = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+
+    function showToast(message) {
+      let toast = document.getElementById("toast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast";
+        toast.className = "toast";
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.clearTimeout(showToast._t);
+      showToast._t = window.setTimeout(() => toast.classList.remove("is-visible"), 1600);
+    }
+
+    function setTab(activeId) {
+      const tabShare = document.getElementById("tabShare");
+      const tabPdf = document.getElementById("tabPdf");
+      const panelShare = document.getElementById("panelShare");
+      const panelPdf = document.getElementById("panelPdf");
+
+      const isShare = activeId === "share";
+
+      tabShare.classList.toggle("is-active", isShare);
+      tabShare.setAttribute("aria-selected", isShare ? "true" : "false");
+      tabPdf.classList.toggle("is-active", !isShare);
+      tabPdf.setAttribute("aria-selected", !isShare ? "true" : "false");
+
+      panelShare.hidden = !isShare;
+      panelPdf.hidden = isShare;
+    }
+
+    (function init() {
       const form = document.getElementById("calcForm");
-      const res = document.getElementById("resultado");
+
+      const banner = document.getElementById("resultadoMsg");
+      const cards = document.getElementById("resultadoCards");
 
       const elTotal = document.getElementById("inscritosTotal");
       const elRank = document.getElementById("inscritosRanking");
       const elPos = document.getElementById("suaPosicao");
       const elFalt = document.getElementById("faltososPct");
 
-      const setResult = (html, type) => {
-        res.className = `result is-visible ${type || ""}`.trim();
-        res.innerHTML = html;
+      const cardPos = document.getElementById("cardPosicao");
+      const cardFaixa = document.getElementById("cardFaixa");
+      const cardConf = document.getElementById("cardConfianca");
+      const cardConfText = document.getElementById("cardConfiancaText");
+      const cardConfDesc = document.getElementById("cardConfiancaDesc");
+      const meta = document.getElementById("resultadoMeta");
+      const subline = document.getElementById("resultadoSubline");
+      const extra = document.getElementById("resultadoExtra");
+
+      const shareLink = document.getElementById("shareLink");
+      const shareSummary = document.getElementById("shareSummary");
+      const optShareInputs = document.getElementById("optShareInputs");
+      const optShareTime = document.getElementById("optShareTime");
+
+      const optPdfInputs = document.getElementById("optPdfInputs");
+      const optPdfTime = document.getElementById("optPdfTime");
+
+      const btnCopyLink = document.getElementById("btnCopyLink");
+      const btnCopySummary = document.getElementById("btnCopySummary");
+      const btnPdf = document.getElementById("btnPdf");
+
+      let last = null;
+
+      const setBanner = (html, type) => {
+        banner.className = `result is-visible ${type || ""}`.trim();
+        banner.innerHTML = html;
+      };
+
+      const clearBanner = () => {
+        banner.className = "result";
+        banner.innerHTML = "";
+      };
+
+      const hideCards = () => {
+        cards.hidden = true;
       };
 
       const setHint = (id, value) => {
@@ -592,8 +1045,108 @@
         if (node) node.textContent = Number.isFinite(f) ? `${String(f).replace(".", ",")}%` : "\u00A0";
       };
 
-      [elTotal, elRank, elPos, elFalt].forEach((el) => el.addEventListener("input", syncHints));
+      const refreshSharePanels = () => {
+        if (!last) return;
+        shareLink.value = last.shareUrl;
+        shareSummary.value = buildSummary(last.payload, optShareInputs.checked, optShareTime.checked);
+      };
+
+      const renderCards = (payload) => {
+        cards.hidden = false;
+
+        cardPos.textContent = formatBR(payload.classificacao);
+        cardFaixa.textContent = `${formatBR(payload.faixaMin)} — ${formatBR(payload.faixaMax)}`;
+
+        cardConf.classList.remove("conf-low", "conf-med", "conf-high");
+        cardConf.classList.add(payload.confianca.classe);
+        cardConfText.textContent = payload.confianca.nivel;
+        cardConfDesc.textContent = payload.confianca.desc;
+
+        meta.textContent = `Atualizado em ${formatDateTimeBR(payload.updatedAt)}`;
+        subline.textContent = "Resultado baseado nos dados informados.";
+        extra.innerHTML =
+          `<strong>Presentes estimados:</strong> ${formatBR(payload.presentes)} candidatos <span class="muted">•</span> ` +
+          `<span class="muted">Use a aba de compartilhamento para copiar o link ou o resumo.</span>`;
+      };
+
+      [elTotal, elRank, elPos, elFalt].forEach((el) => el.addEventListener("input", () => {
+        syncHints();
+        hideCards();
+      }));
       syncHints();
+
+      document.getElementById("tabShare").addEventListener("click", () => setTab("share"));
+      document.getElementById("tabPdf").addEventListener("click", () => setTab("pdf"));
+      setTab("share");
+
+      optShareInputs.addEventListener("change", refreshSharePanels);
+      optShareTime.addEventListener("change", refreshSharePanels);
+
+      btnCopyLink.addEventListener("click", async () => {
+        if (!last) return;
+        try {
+          await copyToClipboard(last.shareUrl);
+          showToast("Link copiado.");
+        } catch {
+          showToast("Não foi possível copiar o link.");
+        }
+      });
+
+      btnCopySummary.addEventListener("click", async () => {
+        if (!last) return;
+        try {
+          await copyToClipboard(buildSummary(last.payload, optShareInputs.checked, optShareTime.checked));
+          showToast("Resumo copiado.");
+        } catch {
+          showToast("Não foi possível copiar o resumo.");
+        }
+      });
+
+      let printRestore = null;
+
+      const preparePrint = () => {
+        const panelShare = document.getElementById("panelShare");
+        const panelPdf = document.getElementById("panelPdf");
+
+        printRestore = {
+          panelShareHidden: panelShare.hidden,
+          panelPdfHidden: panelPdf.hidden,
+          active: document.getElementById("tabPdf").classList.contains("is-active") ? "pdf" : "share"
+        };
+
+        panelShare.hidden = false;
+        panelPdf.hidden = false;
+
+        document.body.classList.toggle("print-hide-inputs", !optPdfInputs.checked);
+        document.body.classList.toggle("print-hide-time", !optPdfTime.checked);
+      };
+
+      const restorePrint = () => {
+        if (!printRestore) return;
+
+        const panelShare = document.getElementById("panelShare");
+        const panelPdf = document.getElementById("panelPdf");
+
+        panelShare.hidden = printRestore.panelShareHidden;
+        panelPdf.hidden = printRestore.panelPdfHidden;
+
+        document.body.classList.remove("print-hide-inputs", "print-hide-time");
+
+        setTab(printRestore.active);
+        printRestore = null;
+      };
+
+      btnPdf.addEventListener("click", () => {
+        if (!last) {
+          setBanner("<strong>Calcule primeiro</strong> para gerar o PDF do resultado.", "error");
+          return;
+        }
+        clearBanner();
+        preparePrint();
+        window.print();
+      });
+
+      window.addEventListener("afterprint", restorePrint);
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -604,28 +1157,61 @@
         const faltososPct = parseNumber(elFalt.value);
 
         if ([inscritosTotal, inscritosRanking, suaPosicao, faltososPct].some(Number.isNaN)) {
-          setResult("<strong>Verifique os campos.</strong> Use apenas números válidos.", "error");
+          hideCards();
+          setBanner("<strong>Verifique os campos.</strong> Use apenas números válidos.", "error");
           return;
         }
 
         try {
-          const { classificacao, faixaMin, faixaMax, presentes } = calcularProjecao(
-            inscritosTotal,
-            inscritosRanking,
-            suaPosicao,
-            faltososPct
-          );
+          const r = calcularProjecao(inscritosTotal, inscritosRanking, suaPosicao, faltososPct);
+          const confianca = calcularConfianca(r.chanceColocacao);
 
-          setResult(
-            `<strong>Classificação projetada:</strong> ${formatBR(classificacao)}<br>` +
-            `<strong>Faixa estimada de posição:</strong> ${formatBR(faixaMin)} — ${formatBR(faixaMax)}<br>` +
-            `<span class="muted"><strong>Presentes estimados:</strong> ${formatBR(presentes)} candidatos</span>`,
-            "success"
-          );
+          const updatedAt = new Date();
+
+          const payload = {
+            classificacao: r.classificacao,
+            faixaMin: r.faixaMin,
+            faixaMax: r.faixaMax,
+            presentes: r.presentes,
+            confianca,
+            updatedAt,
+            inputs: {
+              inscritosTotal,
+              inscritosRanking,
+              suaPosicao,
+              faltososPct
+            }
+          };
+
+          last = {
+            shareUrl: buildShareUrl(payload.inputs),
+            payload
+          };
+
+          clearBanner();
+          renderCards(payload);
+          refreshSharePanels();
         } catch (err) {
-          setResult(err?.message || "Não foi possível calcular a projeção.", "error");
+          hideCards();
+          setBanner(err?.message || "Não foi possível calcular a projeção.", "error");
         }
       });
+
+      const qs = new URLSearchParams(location.search);
+      const it = parseNumber(qs.get("it"));
+      const ir = parseNumber(qs.get("ir"));
+      const p = parseNumber(qs.get("p"));
+      const f = parseNumber(qs.get("f"));
+
+      const hasAll = [it, ir, p, f].every(Number.isFinite);
+      if (hasAll) {
+        elTotal.value = formatBR(it);
+        elRank.value = formatBR(ir);
+        elPos.value = formatBR(p);
+        elFalt.value = String(f).replace(".", ",");
+        syncHints();
+        form.dispatchEvent(new Event("submit", { cancelable: true }));
+      }
     })();
   </script>
 </body>
