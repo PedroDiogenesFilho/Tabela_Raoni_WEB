@@ -673,7 +673,7 @@
     </header>
 
     <section class="hero">
-      <h1>Projeção de posição provável em concursos</h1>
+      <h1>Projeção de provável colocação em concursos públicos com base em análise de rankings de candidatos</h1>
       <p>
         Estime sua posição a partir do ranking de concursos (lista de inscritos), do número oficial de inscritos do concurso e do percentual de faltosos.
         O cálculo segue as constantes e a faixa estimada da <strong>Tabela Raoni 3.0</strong>.
@@ -686,7 +686,7 @@
           <div class="tool-head">
             <div class="tool-title">
               <h2>Calculadora de Posição</h2>
-              <span>Preencha os campos e calcule sua projeção em segundos.</span>
+              <span>Preencha os campos e calcule sua colocação em segundos.</span>
             </div>
           </div>
 
@@ -748,7 +748,7 @@
 
               <div class="rowwide">
                 <div class="note">
-                  <strong>Dica:</strong> se o % de faltosos não for divulgado pela banca examinadora, use um valor padrão entre 35 a 50 %.
+                  <strong>Dica:</strong> Caso o percentual de faltosos não seja divulgado pela banca examinadora, use um valor padrão entre 35 a 50 %.
                 </div>
                 <button class="cta" type="submit">Calcular Posição</button>
               </div>
@@ -919,6 +919,7 @@
     function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos) {
       if (inscritosOficial <= 0) throw new Error("Inscritos no concurso deve ser maior que zero.");
       if (inscritosRanking <= 0) throw new Error("Inscritos no ranking deve ser maior que zero.");
+      if (inscritosRanking > inscritosOficial) throw new Error("Inscritos no ranking não pode ser maior que os inscritos no concurso.");
       if (minhaPosicao <= 0) throw new Error("Sua posição deve ser maior que zero.");
       if (minhaPosicao > inscritosRanking) throw new Error("Sua posição não pode ser maior que os inscritos no ranking.");
       if (percentualFaltosos < 0 || percentualFaltosos > 100) throw new Error("Percentual de faltosos deve estar entre 0 e 100.");
