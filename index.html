@@ -529,7 +529,8 @@
     .tab-btn:hover{ transform: translateY(-1px); background: rgba(130,155,255,.14); }
     .tab-btn.is-active{ background: rgba(130,155,255,.20); border-color: rgba(160,176,230,.28); color: var(--text); }
 
-    .tab-panel{ display:grid; gap: 12px; }
+    .tab-panel{ display:none; gap: 12px; }
+    .tab-panel.is-open{ display:grid; }
 
     .panel-card{
       border-radius: var(--r-md);
@@ -794,12 +795,12 @@
 
               <div class="tabs" aria-label="Ações do resultado">
                 <div class="tablist" role="tablist" aria-label="Ações">
-                  <button type="button" class="tab-btn is-active" role="tab" aria-selected="true" aria-controls="panelShare" id="tabShare">Compartilhar</button>
+                  <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panelShare" id="tabShare">Compartilhar</button>
                   <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panelPdf" id="tabPdf">Salvar em PDF</button>
                 </div>
 
                 <div class="tab-panels">
-                  <div id="panelShare" class="tab-panel" role="tabpanel" aria-labelledby="tabShare">
+                  <div id="panelShare" class="tab-panel" role="tabpanel" aria-labelledby="tabShare" hidden>
                     <div class="panel-card">
                       <div class="panel-title">Link do resultado</div>
                       <div class="panel-row">
@@ -1057,14 +1058,18 @@
       const panelPdf = document.getElementById("panelPdf");
 
       const isShare = activeId === "share";
+      const isPdf = activeId === "pdf";
 
       tabShare.classList.toggle("is-active", isShare);
       tabShare.setAttribute("aria-selected", isShare ? "true" : "false");
-      tabPdf.classList.toggle("is-active", !isShare);
-      tabPdf.setAttribute("aria-selected", !isShare ? "true" : "false");
+      tabPdf.classList.toggle("is-active", isPdf);
+      tabPdf.setAttribute("aria-selected", isPdf ? "true" : "false");
 
       panelShare.hidden = !isShare;
-      panelPdf.hidden = isShare;
+      panelPdf.hidden = !isPdf;
+
+      panelShare.classList.toggle("is-open", isShare);
+      panelPdf.classList.toggle("is-open", isPdf);
     }
 
     (function init() {
@@ -1162,7 +1167,7 @@
 
       document.getElementById("tabShare").addEventListener("click", () => setTab("share"));
       document.getElementById("tabPdf").addEventListener("click", () => setTab("pdf"));
-      setTab("share");
+      setTab(null);
 
       optShareInputs.addEventListener("change", refreshSharePanels);
       optShareTime.addEventListener("change", refreshSharePanels);
@@ -1201,6 +1206,8 @@
 
         panelShare.hidden = false;
         panelPdf.hidden = false;
+        panelShare.classList.add("is-open");
+        panelPdf.classList.add("is-open");
 
         document.body.classList.toggle("print-hide-inputs", !optPdfInputs.checked);
         document.body.classList.toggle("print-hide-time", !optPdfTime.checked);
@@ -1214,6 +1221,8 @@
 
         panelShare.hidden = printRestore.panelShareHidden;
         panelPdf.hidden = printRestore.panelPdfHidden;
+        panelShare.classList.toggle("is-open", !printRestore.panelShareHidden);
+        panelPdf.classList.toggle("is-open", !printRestore.panelPdfHidden);
 
         document.body.classList.remove("print-hide-inputs", "print-hide-time");
 
