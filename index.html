@@ -742,7 +742,7 @@
                     </div>
                     <div class="hint" id="hintFaltosos">&nbsp;</div>
                   </div>
-                  <input id="faltososPct" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex.: 40" required />
+                  <input id="faltososPct" type="number" inputmode="decimal" autocomplete="off" placeholder="Ex.: 40" min="20" max="50" step="0.01" required />
                 </div>
               </div>
 
@@ -946,7 +946,7 @@
       if (inscritosRanking > inscritosOficial) throw new Error("Inscritos no ranking não pode ser maior que os inscritos no concurso.");
       if (minhaPosicao <= 0) throw new Error("Sua posição deve ser maior que zero.");
       if (minhaPosicao > inscritosRanking) throw new Error("Sua posição não pode ser maior que os inscritos no ranking.");
-      if (percentualFaltosos < 0 || percentualFaltosos > 100) throw new Error("Percentual de faltosos deve estar entre 0 e 100.");
+      if (percentualFaltosos < 20 || percentualFaltosos > 50) throw new Error("Percentual de faltosos deve estar entre 20 e 50.");
 
       const faltosos = inscritosOficial * (percentualFaltosos / 100);
       const presentes = inscritosOficial - faltosos;
