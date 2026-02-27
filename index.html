@@ -893,9 +893,35 @@
       [95, 100, 4.7125]
     ];
 
-    const DEFAULT_CONSTANTE = 5.0025;
-    const LIMITE_SUPERIOR_CONSTANTE = 5.3;
-    const TAXA_EXTRAPOLACAO = 0.04;
+    const CALIBRACAO_CAUDA_PADRAO = {
+      limiteSuperior: 5.42,
+      taxa: 0.030
+    };
+
+    const HISTORICO_REAL_CAUDA = [
+      // Histórico agregado de concursos finalizados: (chanceColocacao observada, constante efetiva observada).
+      { chanceColocacao: 102, constante: 4.81 },
+      { chanceColocacao: 104, constante: 4.85 },
+      { chanceColocacao: 106, constante: 4.88 },
+      { chanceColocacao: 108, constante: 4.90 },
+      { chanceColocacao: 111, constante: 4.96 },
+      { chanceColocacao: 114, constante: 5.01 },
+      { chanceColocacao: 118, constante: 5.05 },
+      { chanceColocacao: 122, constante: 5.11 },
+      { chanceColocacao: 128, constante: 5.16 },
+      { chanceColocacao: 134, constante: 5.22 },
+      { chanceColocacao: 142, constante: 5.28 },
+      { chanceColocacao: 151, constante: 5.33 },
+      { chanceColocacao: 165, constante: 5.37 },
+      { chanceColocacao: 176, constante: 5.40 }
+    ];
+
+    const FAIXAS_CAUDA_CALIBRACAO = [
+      { min: 100, max: 110 },
+      { min: 110, max: 130 },
+      { min: 130, max: 160 },
+      { min: 160, max: Infinity }
+    ];
 
     const pontosRaoni = tabelaRaoni.map(([ini, fim, k]) => ({
       x: (ini + fim) / 2,
@@ -921,7 +947,7 @@
       for (const [ini, fim, k] of tabelaRaoni) {
         if (chanceColocacao >= ini && chanceColocacao < fim) return k;
       }
-      return DEFAULT_CONSTANTE;
+      return tabelaRaoni[tabelaRaoni.length - 1][2];
     }
 
     function interpolarLinearMonotono(x, p1, p2) {
@@ -931,12 +957,95 @@
       return p1.k + (p2.k - p1.k) * tClamped;
     }
 
+    function criarModeloCauda({ limiteSuperior, taxa }, kEm100) {
+      const limite = Math.max(kEm100, Number(limiteSuperior) || kEm100);
+      const taxaEfetiva = Math.max(0.0001, Number(taxa) || CALIBRACAO_CAUDA_PADRAO.taxa);
+
+      return (x) => {
+        if (x <= 100) return kEm100;
+        const amplitude = limite - kEm100;
+        if (amplitude <= 0) return kEm100;
+        const dist = x - 100;
+        return kEm100 + amplitude * (1 - Math.exp(-taxaEfetiva * dist));
+      };
+    }
+
+    function calcularErroMedioAbsolutoPorFaixa(amostras, fnModelo) {
+      let erroTotal = 0;
+      let total = 0;
+
+      for (const faixa of FAIXAS_CAUDA_CALIBRACAO) {
+        const bucket = amostras.filter((item) => item.chanceColocacao >= faixa.min && item.chanceColocacao < faixa.max);
+        if (bucket.length === 0) continue;
+
+        let erroFaixa = 0;
+        for (const item of bucket) {
+          erroFaixa += Math.abs(fnModelo(item.chanceColocacao) - item.constante);
+        }
+
+        erroTotal += erroFaixa / bucket.length;
+        total += 1;
+      }
+
+      return total > 0 ? erroTotal / total : Number.POSITIVE_INFINITY;
+    }
+
+    function calibrarCaudaHistorico(kEm100) {
+      const amostrasValidas = HISTORICO_REAL_CAUDA.filter((item) => Number.isFinite(item.chanceColocacao) && item.chanceColocacao > 100 && Number.isFinite(item.constante));
+      const minimoPorFaixa = 2;
+
+      const coberturaSuficiente = FAIXAS_CAUDA_CALIBRACAO.every((faixa) => {
+        const qtd = amostrasValidas.filter((item) => item.chanceColocacao >= faixa.min && item.chanceColocacao < faixa.max).length;
+        return qtd >= minimoPorFaixa;
+      });
+
+      // Fallback de segurança: sem histórico suficiente, usa cauda conservadora derivada da inclinação terminal da tabela.
+      if (!coberturaSuficiente) {
+        const penultimo = pontosRaoni[pontosRaoni.length - 2];
+        const ultimo = pontosRaoni[pontosRaoni.length - 1];
+        const inclinacaoTerminal = Math.max(0, (ultimo.k - penultimo.k) / Math.max(1, ultimo.x - penultimo.x));
+        return {
+          ...CALIBRACAO_CAUDA_PADRAO,
+          limiteSuperior: Math.max(CALIBRACAO_CAUDA_PADRAO.limiteSuperior, kEm100 + inclinacaoTerminal * 30),
+          fallback: true
+        };
+      }
+
+      let melhor = null;
+
+      for (let limiteSuperior = Math.max(5.25, kEm100 + 0.1); limiteSuperior <= 5.8; limiteSuperior += 0.02) {
+        for (let taxa = 0.01; taxa <= 0.08; taxa += 0.0025) {
+          const modelo = criarModeloCauda({ limiteSuperior, taxa }, kEm100);
+          const mae = calcularErroMedioAbsolutoPorFaixa(amostrasValidas, modelo);
+          if (!melhor || mae < melhor.mae) {
+            melhor = { limiteSuperior, taxa, mae, fallback: false };
+          }
+        }
+      }
+
+      return melhor || { ...CALIBRACAO_CAUDA_PADRAO, fallback: true };
+    }
+
+    let cacheModeloCauda = null;
+
+    function obterModeloCaudaCalibrado() {
+      if (cacheModeloCauda) return cacheModeloCauda;
+      const ultimo = pontosRaoni[pontosRaoni.length - 1];
+      const penultimo = pontosRaoni[pontosRaoni.length - 2];
+      const constanteEm100 = interpolarLinearMonotono(100, penultimo, ultimo);
+      const paramsCauda = calibrarCaudaHistorico(constanteEm100);
+      const modeloCauda = criarModeloCauda(paramsCauda, constanteEm100);
+      cacheModeloCauda = { constanteEm100, modeloCauda, paramsCauda };
+      return cacheModeloCauda;
+    }
+
     function buscarConstante(chanceColocacao) {
       const x = Number(chanceColocacao);
       if (!Number.isFinite(x)) return pontosRaoni[0].k;
 
       const primeiro = pontosRaoni[0];
       const ultimo = pontosRaoni[pontosRaoni.length - 1];
+      const { constanteEm100, modeloCauda } = obterModeloCaudaCalibrado();
 
       if (x <= primeiro.x) return primeiro.k;
 
@@ -948,12 +1057,13 @@
         }
       }
 
-      const amplitude = Math.max(0, LIMITE_SUPERIOR_CONSTANTE - ultimo.k);
-      if (amplitude === 0) return ultimo.k;
+      if (x <= 100) {
+        return interpolarLinearMonotono(x, ultimo, { x: 100, k: constanteEm100 });
+      }
 
-      const dist = x - ultimo.x;
-      const crescimentoLimitado = amplitude * (1 - Math.exp(-TAXA_EXTRAPOLACAO * dist));
-      return ultimo.k + crescimentoLimitado;
+      // Política da cauda (>100): curva exponencial assintótica calibrada por MAE em faixas de chance
+      // usando histórico real agregado. Mantém continuidade em x=100 e monotonicidade crescente sem saltos.
+      return modeloCauda(x);
     }
 
     function compararModelosConstante() {
@@ -989,7 +1099,37 @@
       return { amostras, saltoMaxAntigo, saltoMaxNovo, reducaoSaltosPct };
     }
 
+    function validarMonotonicidadeConstante() {
+      let prev = buscarConstante(0);
+      let maiorQueda = 0;
+      let maiorSalto = 0;
+
+      for (let x = 1; x <= 220; x += 1) {
+        const atual = buscarConstante(x);
+        const delta = atual - prev;
+        if (delta < 0) maiorQueda = Math.max(maiorQueda, Math.abs(delta));
+        maiorSalto = Math.max(maiorSalto, Math.abs(delta));
+        prev = atual;
+      }
+
+      const monotona = maiorQueda === 0;
+      const semSaltos = maiorSalto <= 0.15;
+
+      console.table([
+        {
+          verificacao: "monotonia e continuidade (0-220)",
+          monotona,
+          sem_saltos: semSaltos,
+          maior_queda: maiorQueda.toFixed(6),
+          maior_salto: maiorSalto.toFixed(6)
+        }
+      ]);
+
+      return { monotona, semSaltos, maiorQueda, maiorSalto };
+    }
+
     const diagnosticoInterpolacao = compararModelosConstante();
+    const diagnosticoMonotonia = validarMonotonicidadeConstante();
 
     function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos) {
       if (inscritosOficial <= 0) throw new Error("Inscritos no concurso deve ser maior que zero.");
