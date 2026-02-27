@@ -677,7 +677,7 @@
       <h1>Projeção de colocação em concursos públicos</h1>
       <p>
         Estime sua provável colocação no resultado a partir de dados extraidos de rankings de concursos (listagem de pontuação de candidatos extraoficial). 
-        O cálculo segue as constantes e estimativas da <strong>Tabela Raoni 3.0</strong>.
+        O cálculo segue as constantes e estimativas da <strong>Tabela Raoni 3.0</strong>, agora com constante contínua por interpolação entre os pontos da tabela.
       </p>
     </section>
 
@@ -894,6 +894,13 @@
     ];
 
     const DEFAULT_CONSTANTE = 5.0025;
+    const LIMITE_SUPERIOR_CONSTANTE = 5.3;
+    const TAXA_EXTRAPOLACAO = 0.04;
+
+    const pontosRaoni = tabelaRaoni.map(([ini, fim, k]) => ({
+      x: (ini + fim) / 2,
+      k
+    }));
 
     const parseNumber = (value) => {
       const raw = String(value ?? "").trim();
@@ -910,12 +917,79 @@
       return `${pad2(dt.getDate())}/${pad2(dt.getMonth() + 1)}/${dt.getFullYear()} ${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
     };
 
-    function buscarConstante(chanceColocacao) {
+    function buscarConstantePorFaixa(chanceColocacao) {
       for (const [ini, fim, k] of tabelaRaoni) {
         if (chanceColocacao >= ini && chanceColocacao < fim) return k;
       }
       return DEFAULT_CONSTANTE;
     }
+
+    function interpolarLinearMonotono(x, p1, p2) {
+      if (p2.x <= p1.x) return p1.k;
+      const t = (x - p1.x) / (p2.x - p1.x);
+      const tClamped = Math.min(1, Math.max(0, t));
+      return p1.k + (p2.k - p1.k) * tClamped;
+    }
+
+    function buscarConstante(chanceColocacao) {
+      const x = Number(chanceColocacao);
+      if (!Number.isFinite(x)) return pontosRaoni[0].k;
+
+      const primeiro = pontosRaoni[0];
+      const ultimo = pontosRaoni[pontosRaoni.length - 1];
+
+      if (x <= primeiro.x) return primeiro.k;
+
+      for (let i = 0; i < pontosRaoni.length - 1; i += 1) {
+        const atual = pontosRaoni[i];
+        const proximo = pontosRaoni[i + 1];
+        if (x <= proximo.x) {
+          return interpolarLinearMonotono(x, atual, proximo);
+        }
+      }
+
+      const amplitude = Math.max(0, LIMITE_SUPERIOR_CONSTANTE - ultimo.k);
+      if (amplitude === 0) return ultimo.k;
+
+      const dist = x - ultimo.x;
+      const crescimentoLimitado = amplitude * (1 - Math.exp(-TAXA_EXTRAPOLACAO * dist));
+      return ultimo.k + crescimentoLimitado;
+    }
+
+    function compararModelosConstante() {
+      const amostras = [];
+      let saltoMaxAntigo = 0;
+      let saltoMaxNovo = 0;
+
+      for (let x = 0; x <= 120; x += 1) {
+        const antigo = buscarConstantePorFaixa(x);
+        const novo = buscarConstante(x);
+        amostras.push({ x, antigo, novo, delta: novo - antigo });
+
+        if (x > 0) {
+          const prev = amostras[amostras.length - 2];
+          saltoMaxAntigo = Math.max(saltoMaxAntigo, Math.abs(antigo - prev.antigo));
+          saltoMaxNovo = Math.max(saltoMaxNovo, Math.abs(novo - prev.novo));
+        }
+      }
+
+      const reducaoSaltosPct = saltoMaxAntigo > 0
+        ? ((saltoMaxAntigo - saltoMaxNovo) / saltoMaxAntigo) * 100
+        : 0;
+
+      console.table([
+        {
+          grade: "0-120 (passo 1)",
+          salto_max_antigo: saltoMaxAntigo.toFixed(6),
+          salto_max_novo: saltoMaxNovo.toFixed(6),
+          reducao_saltos_pct: `${reducaoSaltosPct.toFixed(2)}%`
+        }
+      ]);
+
+      return { amostras, saltoMaxAntigo, saltoMaxNovo, reducaoSaltosPct };
+    }
+
+    const diagnosticoInterpolacao = compararModelosConstante();
 
     function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos) {
       if (inscritosOficial <= 0) throw new Error("Inscritos no concurso deve ser maior que zero.");
