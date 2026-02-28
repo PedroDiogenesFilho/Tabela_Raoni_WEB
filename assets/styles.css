@@ -17,6 +17,12 @@
   --bad: #ff6b8a;
   --grad: linear-gradient(120deg, rgba(79, 125, 255, 1) 0%, rgba(123, 108, 255, 1) 45%, rgba(180, 76, 255, 1) 100%);
   --grad-shadow: 0 16px 40px rgba(79, 125, 255, 0.28);
+  --brand-size-header: 42px;
+  --brand-size-footer: 34px;
+  --brand-size-favicon: 48px;
+  --brand-size-social: 240px;
+  --brand-gap-header: 12px;
+  --brand-gap-footer: 10px;
 }
 
 /* Layout */
@@ -98,27 +104,38 @@ ul { margin: 0; padding-left: 1.15rem; display: grid; gap: 8px; color: var(--mut
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--brand-gap-header);
   text-decoration: none;
+  color: inherit;
+}
+
+.brand-mark {
+  width: var(--brand-size-header);
+  height: var(--brand-size-header);
+  flex: 0 0 auto;
+  border-radius: 12px;
+  filter: drop-shadow(0 12px 30px rgba(79, 125, 255, 0.28));
+}
+
+.brand-lockup {
+  display: grid;
+  gap: 1px;
+  line-height: 1.1;
+}
+
+.brand-title {
+  display: block;
+  font-size: 1.03rem;
   font-weight: 800;
   letter-spacing: 0.01em;
 }
 
-.logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  background: var(--grad);
-  box-shadow: 0 12px 30px rgba(79, 125, 255, 0.28);
-  position: relative;
-}
-
-.logo::after {
-  content: "";
-  position: absolute;
-  inset: 9px;
-  border-radius: 7px;
-  border: 2px solid rgba(255, 255, 255, 0.78);
+.brand-subtitle {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 560;
+  color: rgba(184, 195, 230, 0.86);
+  letter-spacing: 0.01em;
 }
 
 .menu { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -266,7 +283,8 @@ details.faq-item p { margin: 10px 0 0; }
 
 .footer { margin-top: 26px; border: 1px solid rgba(164, 180, 230, 0.2); background: rgba(10, 15, 34, 0.45); border-radius: var(--r-md); padding: 18px 20px; display: grid; gap: 14px; color: rgba(184, 195, 230, 0.86); font-size: 0.92rem; }
 .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.footer-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.footer-brand { display: inline-flex; align-items: center; gap: var(--brand-gap-footer); text-decoration: none; color: inherit; }
+.footer-brand .brand-mark { width: var(--brand-size-footer); height: var(--brand-size-footer); }
 .footer-brand strong { display: block; color: rgba(238, 242, 255, 0.95); font-size: 0.98rem; }
 .footer-brand small { display: block; color: rgba(184, 195, 230, 0.82); font-size: 0.82rem; }
 .footer-copy { color: rgba(184, 195, 230, 0.78); }
