@@ -7,6 +7,7 @@
   const GRANTED = 'granted';
 
   let currentConsent = null;
+  let originalBodyOverflow = null;
   const adsAllowedOnPage = !document.querySelector('meta[name="tr-ads-policy"][content="disabled"]');
 
   const defaultConsent = {
@@ -139,20 +140,38 @@
 
   function hideBanner() {
     const root = document.getElementById('consent-root');
+    const backdrop = document.getElementById('consent-backdrop');
     if (root) root.hidden = true;
+    if (backdrop) backdrop.hidden = true;
+    if (originalBodyOverflow !== null) {
+      document.body.style.overflow = originalBodyOverflow;
+      originalBodyOverflow = null;
+    }
   }
 
   function showBanner() {
     const root = document.getElementById('consent-root');
+    const backdrop = document.getElementById('consent-backdrop');
     if (root) root.hidden = false;
+    if (backdrop) backdrop.hidden = false;
     const panel = document.getElementById('consent-panel');
     if (panel) panel.hidden = true;
+    if (originalBodyOverflow === null) {
+      originalBodyOverflow = document.body.style.overflow;
+    }
+    document.body.style.overflow = 'hidden';
+    const initialFocusButton = document.getElementById('consent-accept') || document.getElementById('consent-reject') || document.getElementById('consent-customize');
+    if (initialFocusButton) {
+      initialFocusButton.focus();
+    }
   }
 
   function createUI() {
     const style = document.createElement('style');
     style.textContent = `
-      .consent-root{position:fixed;inset:auto 16px 16px 16px;z-index:1000;background:#0c1330;color:#eef2ff;border:1px solid rgba(164,180,230,.35);border-radius:14px;padding:14px;box-shadow:0 18px 50px rgba(3,7,20,.55);max-width:760px;margin:0 auto}
+      .consent-backdrop{position:fixed;inset:0;background:rgba(3,7,20,.6);z-index:999}
+      .consent-backdrop[hidden]{display:none !important}
+      .consent-root{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 32px));z-index:1000;background:#0c1330;color:#eef2ff;border:1px solid rgba(164,180,230,.35);border-radius:14px;padding:14px;box-shadow:0 18px 50px rgba(3,7,20,.55)}
       .consent-title{font-size:1rem;font-weight:800;margin:0 0 8px}
       .consent-text{margin:0;color:#cbd5ff;line-height:1.45;font-size:.92rem}
       .consent-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
@@ -162,14 +181,23 @@
       .consent-panel[hidden]{display:none !important}
       .consent-option{display:flex;gap:8px;align-items:flex-start;color:#d8e0ff;font-size:.9rem}
       .consent-review-link{background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;padding:0;font:inherit;opacity:.9}
-      @media (min-width:900px){.consent-root{left:50%;transform:translateX(-50%);right:auto;width:min(760px,calc(100vw - 32px));}}
     `;
     document.head.appendChild(style);
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'consent-backdrop';
+    backdrop.id = 'consent-backdrop';
+    backdrop.hidden = true;
+    backdrop.addEventListener('click', function (event) {
+      event.preventDefault();
+    });
+    document.body.appendChild(backdrop);
 
     const root = document.createElement('section');
     root.className = 'consent-root';
     root.id = 'consent-root';
     root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'true');
     root.setAttribute('aria-live', 'polite');
     root.hidden = true;
     root.innerHTML = `
