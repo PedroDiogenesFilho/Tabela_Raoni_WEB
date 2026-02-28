@@ -3,7 +3,6 @@
   const CONSENT_VERSION = 1;
   const ADSENSE_SRC = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5754272579077136';
   const GTAG_SRC = 'https://www.googletagmanager.com/gtag/js?id=G-QLZDGBFWT3';
-  const CLARITY_ID = 'vl0wxrq9o2';
 
   let currentConsent = null;
 
@@ -66,18 +65,6 @@
     window.gtag('js', new Date());
     window.gtag('config', 'G-QLZDGBFWT3');
 
-    if (!window.clarity) {
-      (function (c, l, a, r, i, t, y) {
-        c[a] = c[a] || function () {
-          (c[a].q = c[a].q || []).push(arguments);
-        };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = 'https://www.clarity.ms/tag/' + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, 'clarity', 'script', CLARITY_ID);
-    }
   }
 
   function loadAds(consent) {
@@ -105,6 +92,8 @@
   function showBanner() {
     const root = document.getElementById('consent-root');
     if (root) root.hidden = false;
+    const panel = document.getElementById('consent-panel');
+    if (panel) panel.hidden = true;
   }
 
   function createUI() {
@@ -117,6 +106,7 @@
       .consent-btn{border:1px solid rgba(164,180,230,.4);background:rgba(255,255,255,.06);color:#fff;padding:9px 12px;border-radius:999px;font-weight:700;cursor:pointer}
       .consent-btn.primary{background:linear-gradient(120deg, rgba(79,125,255,1) 0%, rgba(123,108,255,1) 45%, rgba(180,76,255,1) 100%);border:none}
       .consent-panel{margin-top:12px;border-top:1px solid rgba(164,180,230,.22);padding-top:12px;display:grid;gap:8px}
+      .consent-panel[hidden]{display:none !important}
       .consent-option{display:flex;gap:8px;align-items:flex-start;color:#d8e0ff;font-size:.9rem}
       .consent-review-link{background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;padding:0;font:inherit;opacity:.9}
       @media (min-width:900px){.consent-root{left:50%;transform:translateX(-50%);right:auto;width:min(760px,calc(100vw - 32px));}}
@@ -131,14 +121,14 @@
     root.hidden = true;
     root.innerHTML = `
       <h2 class="consent-title">Preferências de cookies e medição</h2>
-      <p class="consent-text">Usamos cookies/identificadores para métricas (Google Analytics e Microsoft Clarity) e publicidade (Google AdSense). Você pode aceitar, rejeitar ou personalizar.</p>
+      <p class="consent-text">Usamos cookies/identificadores para métricas (Google Analytics) e publicidade (Google AdSense). Você pode aceitar, rejeitar ou personalizar.</p>
       <div class="consent-actions">
         <button type="button" class="consent-btn primary" id="consent-accept">Aceitar tudo</button>
         <button type="button" class="consent-btn" id="consent-reject">Rejeitar não essenciais</button>
         <button type="button" class="consent-btn" id="consent-customize">Personalizar</button>
       </div>
       <div class="consent-panel" id="consent-panel" hidden>
-        <label class="consent-option"><input type="checkbox" id="consent-analytics"> Permitir medição de uso (Google Analytics e Microsoft Clarity).</label>
+        <label class="consent-option"><input type="checkbox" id="consent-analytics"> Permitir medição de uso (Google Analytics).</label>
         <label class="consent-option"><input type="checkbox" id="consent-ads"> Permitir carregamento de anúncios (Google AdSense).</label>
         <label class="consent-option"><input type="checkbox" id="consent-personalization"> Permitir personalização de anúncios (quando anúncios estiverem ativos).</label>
         <div class="consent-actions"><button type="button" class="consent-btn primary" id="consent-save">Salvar preferências</button></div>
@@ -189,7 +179,7 @@
     reviewBtn.addEventListener('click', function () {
       showBanner();
       const panel = document.getElementById('consent-panel');
-      if (panel) panel.hidden = false;
+      if (panel) panel.hidden = true;
     });
     linksContainer.appendChild(reviewBtn);
   }
