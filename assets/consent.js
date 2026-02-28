@@ -112,14 +112,6 @@
     }
   }
 
-  function normalizeConsentForPage(consent) {
-    if (adsAllowedOnPage) return consent;
-    return {
-      ...consent,
-      ads: false,
-      personalization: false
-    };
-  }
 
   initConsentModeDefaults();
 
@@ -207,22 +199,6 @@
       }));
     });
 
-    if (!adsAllowedOnPage) {
-      const adsInput = document.getElementById('consent-ads');
-      const personalizationInput = document.getElementById('consent-personalization');
-      const policyNote = document.getElementById('consent-ads-policy-note');
-      if (adsInput) {
-        adsInput.checked = false;
-        adsInput.disabled = true;
-      }
-      if (personalizationInput) {
-        personalizationInput.checked = false;
-        personalizationInput.disabled = true;
-      }
-      if (policyNote) {
-        policyNote.hidden = false;
-      }
-    }
   }
 
   function addReviewButton() {
