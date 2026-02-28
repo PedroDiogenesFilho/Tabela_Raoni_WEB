@@ -38,7 +38,7 @@
 
   <url>
     <loc>https://tabelaraoni.com.br/guias/index.html</loc>
-    <lastmod>2026-03-02</lastmod>
+    <lastmod>2026-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -64,12 +64,25 @@
     <priority>0.7</priority>
   </url>
 
-
   <url>
     <loc>https://tabelaraoni.com.br/guias/artigo-tabela-raoni-pos-prova-ciclo-estudos.html</loc>
     <lastmod>2026-03-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://tabelaraoni.com.br/guias/noticias-2026-02-edital-trf1-analistas.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://tabelaraoni.com.br/guias/noticias-2026-02-revisao-cronograma-pf-adm.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <url>
