@@ -7,6 +7,7 @@
   const GRANTED = 'granted';
 
   let currentConsent = null;
+  const adsAllowedOnPage = !document.querySelector('meta[name="tr-ads-policy"][content="disabled"]');
 
   const defaultConsent = {
     version: CONSENT_VERSION,
@@ -106,7 +107,7 @@
     if (consent.analytics) {
       loadAnalytics();
     }
-    if (consent.ads) {
+    if (consent.ads && adsAllowedOnPage) {
       loadAds(consent);
     }
   }
@@ -161,6 +162,7 @@
         <label class="consent-option"><input type="checkbox" id="consent-analytics"> Permitir medição de uso (Google Analytics).</label>
         <label class="consent-option"><input type="checkbox" id="consent-ads"> Permitir carregamento de anúncios (Google AdSense).</label>
         <label class="consent-option"><input type="checkbox" id="consent-personalization"> Permitir personalização de anúncios (quando anúncios estiverem ativos).</label>
+        <p class="consent-text" id="consent-ads-policy-note" hidden>Nesta página, anúncios estão desativados por política editorial.</p>
         <div class="consent-actions"><button type="button" class="consent-btn primary" id="consent-save">Salvar preferências</button></div>
       </div>
     `;
@@ -168,7 +170,7 @@
     document.body.appendChild(root);
 
     document.getElementById('consent-accept').addEventListener('click', function () {
-      saveConsent({ decision: 'accepted', analytics: true, ads: true, personalization: true });
+      saveConsent(normalizeConsentForPage({ decision: 'accepted', analytics: true, ads: true, personalization: true }));
     });
 
     document.getElementById('consent-reject').addEventListener('click', function () {
@@ -189,12 +191,12 @@
       const analytics = document.getElementById('consent-analytics').checked;
       const ads = document.getElementById('consent-ads').checked;
       const personalization = ads && document.getElementById('consent-personalization').checked;
-      saveConsent({
+      saveConsent(normalizeConsentForPage({
         decision: 'custom',
         analytics,
         ads,
         personalization
-      });
+      }));
     });
 
   }
@@ -216,7 +218,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    currentConsent = readConsent();
+    currentConsent = normalizeConsentForPage(readConsent());
     createUI();
     addReviewButton();
 
