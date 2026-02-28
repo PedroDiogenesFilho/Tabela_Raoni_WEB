@@ -20,7 +20,14 @@
   };
 
   function normalizeConsentForPage(consent) {
-    const normalized = { ...defaultConsent, ...consent };
+    const safeConsent = consent && typeof consent === 'object' ? consent : {};
+    const normalized = {
+      ...defaultConsent,
+      ...safeConsent,
+      analytics: Boolean(safeConsent.analytics),
+      ads: Boolean(safeConsent.ads),
+      personalization: Boolean(safeConsent.personalization)
+    };
 
     if (!adsAllowedOnPage) {
       normalized.ads = false;
@@ -114,6 +121,7 @@
     ensureScript('tr-gtag-js', GTAG_SRC);
     window.gtag('js', new Date());
     window.gtag('config', 'G-QLZDGBFWT3');
+    window.gtag('config', 'G-QLZDGBFWT3', { anonymize_ip: true });
 
   }
 
