@@ -379,6 +379,35 @@
 
     .below p{ margin: 12px 0 0; color: var(--muted); line-height:1.6; }
 
+    .info-section{
+      border-radius: var(--r-lg);
+      background: var(--surface);
+      border: 1px solid rgba(164,180,230,.22);
+      box-shadow: var(--shadow2);
+      padding: 24px;
+    }
+
+    .info-section h3{ margin:0 0 12px; font-size:1.15rem; }
+    .info-section h4{ margin:16px 0 10px; font-size:1rem; }
+    .info-section p{ margin: 0 0 12px; color: var(--muted); line-height:1.6; }
+    .info-section ul{ margin:0 0 10px; }
+
+    details.faq-item{
+      border: 1px solid rgba(164,180,230,.18);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      background: rgba(10, 14, 32, .35);
+      margin-bottom: 10px;
+    }
+
+    details.faq-item summary{
+      cursor:pointer;
+      font-weight: 700;
+      color: rgba(230,236,255,.94);
+    }
+
+    details.faq-item p{ margin: 10px 0 0; }
+
     .footer{
       margin-top: 26px;
       display:flex;
@@ -649,6 +678,7 @@
         <a href="index.html" aria-current="page">Ferramenta</a>
         <a href="sobre.html">Sobre</a>
         <a href="contato.html">Contato</a>
+        <a href="guias/index.html">Guias</a>
         <a href="termos.html">Termos</a>
         <a href="privacidade.html">Privacidade</a>
       </nav>
@@ -835,6 +865,42 @@
           <strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso.
         </p>
       </section>
+
+      <section class="info-section" id="exemplos" aria-label="Exemplos completos de interpretação">
+        <h3>Exemplos completos com dados fictícios</h3>
+        <article>
+          <h4>Cenário 1 — Faixa competitiva para cadastro de reserva</h4>
+          <p><strong>Dados:</strong> 18.500 inscritos oficiais, 2.900 no ranking, posição 240, faltosos em 42%.</p>
+          <p><strong>Interpretação:</strong> a projeção tende a colocar o candidato em faixa próxima da metade superior dos presentes. Em um edital com poucas vagas imediatas, isso costuma indicar boa chance de entrar em cadastro de reserva, mas dependência alta de convocações futuras.</p>
+        </article>
+        <article>
+          <h4>Cenário 2 — Corte apertado para vagas imediatas</h4>
+          <p><strong>Dados:</strong> 9.200 inscritos oficiais, 3.400 no ranking, posição 125, faltosos em 28%.</p>
+          <p><strong>Interpretação:</strong> faltosos abaixo da média aumentam concorrência efetiva. Mesmo com posição relativamente boa no ranking extraoficial, a faixa projetada pode ficar no limite da nota de corte para vagas imediatas. Estratégia recomendada: acompanhar recursos e reclassificações diariamente.</p>
+        </article>
+        <article>
+          <h4>Cenário 3 — Projeção conservadora em prova de alta ausência</h4>
+          <p><strong>Dados:</strong> 32.000 inscritos oficiais, 4.100 no ranking, posição 560, faltosos em 51%.</p>
+          <p><strong>Interpretação:</strong> com faltosos altos, a projeção pode subir bastante no resultado final, mas a incerteza também aumenta porque o ranking parcial pode não capturar todos os candidatos competitivos. Use o resultado como intervalo de planejamento, não como posição definitiva.</p>
+        </article>
+      </section>
+
+      <section class="info-section" id="faq" aria-label="Perguntas frequentes">
+        <h3>FAQ — Perguntas reais dos candidatos</h3>
+        <details class="faq-item"><summary>1) A projeção garante minha nomeação?</summary><p>Não. A ferramenta estima uma faixa provável de posição, mas nomeação depende de edital, vagas autorizadas, recursos, desempates e decisões administrativas.</p></details>
+        <details class="faq-item"><summary>2) Qual percentual de faltosos devo usar se a banca não divulgou?</summary><p>Use uma simulação em três cenários (35%, 42% e 50%) para entender sensibilidade do resultado. Compare os intervalos e trabalhe com a hipótese mais conservadora.</p></details>
+        <details class="faq-item"><summary>3) Meu ranking extraoficial é pequeno. Ainda vale calcular?</summary><p>Vale, porém a confiança cai quando a base é pequena. Priorize rankings com maior cobertura e atualizações frequentes.</p></details>
+        <details class="faq-item"><summary>4) O que mais altera o resultado além dos faltosos?</summary><p>A relação entre inscritos oficiais e inscritos no ranking é decisiva. Quanto maior a diferença entre os dois universos, maior a incerteza da projeção.</p></details>
+        <details class="faq-item"><summary>5) Posso usar a ferramenta para concurso de nível municipal e federal?</summary><p>Sim. O método é estatístico e pode ser aplicado a diferentes certames, desde que os dados de entrada sejam consistentes.</p></details>
+        <details class="faq-item"><summary>6) Como interpretar projeção acima da quantidade de vagas imediatas?</summary><p>Geralmente indica cenário de cadastro de reserva. Nesse caso, acompanhe histórico de convocações do órgão para avaliar chance real de chamada.</p></details>
+        <details class="faq-item"><summary>7) A banca divulgou retificação. Preciso recalcular?</summary><p>Sim. Qualquer mudança de gabarito, nota de corte, exclusões ou reintegrações altera o ranking e deve gerar novo cálculo.</p></details>
+        <details class="faq-item"><summary>8) Como usar a projeção para decidir recursos?</summary><p>Se estiver próximo de uma faixa de corte relevante, vale análise de custo-benefício de recurso técnico. Em faixas distantes, o ganho esperado tende a ser menor.</p></details>
+        <details class="faq-item"><summary>9) O resultado da ferramenta substitui assessoria jurídica?</summary><p>Não. Para dúvidas de edital, cotas, fases recursais e judicialização, procure orientação profissional especializada.</p></details>
+        <details class="faq-item"><summary>10) De quanto em quanto tempo devo atualizar minhas simulações?</summary><p>Sempre que houver nova lista, atualização de ranking ou notícia oficial da banca. Em semanas críticas, revise diariamente.</p></details>
+        <details class="faq-item"><summary>11) Onde encontro explicação técnica da metodologia?</summary><p>Na página <a href="sobre.html">Sobre</a> você encontra fórmula, limites estatísticos e cenários de falha do modelo.</p></details>
+        <details class="faq-item"><summary>12) Onde posso acompanhar conteúdo contínuo para melhorar interpretação?</summary><p>Acesse os <a href="guias/index.html">Guias</a>, consulte o <a href="contato.html">suporte</a> para dúvidas e revise também <a href="termos.html">Termos</a> e <a href="privacidade.html">Privacidade</a>.</p></details>
+      </section>
+
     </main>
 
     <footer class="footer">
@@ -842,6 +908,7 @@
       <div class="small-links">
         <a href="termos.html">Termos</a>
         <a href="privacidade.html">Privacidade</a>
+        <a href="guias/index.html">Guias</a>
         <a href="contato.html">Contato</a>
       </div>
     </footer>
