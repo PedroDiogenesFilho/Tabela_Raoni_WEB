@@ -3,6 +3,8 @@
   const CONSENT_VERSION = 1;
   const ADSENSE_SRC = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5754272579077136';
   const GTAG_SRC = 'https://www.googletagmanager.com/gtag/js?id=G-QLZDGBFWT3';
+  const DENIED = 'denied';
+  const GRANTED = 'granted';
 
   let currentConsent = null;
 
@@ -59,6 +61,30 @@
     }
   }
 
+  function toConsentModePayload(consent) {
+    return {
+      ad_storage: consent.ads ? GRANTED : DENIED,
+      analytics_storage: consent.analytics ? GRANTED : DENIED,
+      ad_user_data: consent.ads ? GRANTED : DENIED,
+      ad_personalization: consent.personalization ? GRANTED : DENIED
+    };
+  }
+
+  function initConsentModeDefaults() {
+    setupGtagStub();
+    window.gtag('consent', 'default', {
+      ad_storage: DENIED,
+      analytics_storage: DENIED,
+      ad_user_data: DENIED,
+      ad_personalization: DENIED
+    });
+  }
+
+  function updateConsentMode(consent) {
+    setupGtagStub();
+    window.gtag('consent', 'update', toConsentModePayload(consent));
+  }
+
   function loadAnalytics() {
     setupGtagStub();
     ensureScript('tr-gtag-js', GTAG_SRC);
@@ -76,6 +102,7 @@
   }
 
   function applyConsent(consent) {
+    updateConsentMode(consent);
     if (consent.analytics) {
       loadAnalytics();
     }
@@ -83,6 +110,8 @@
       loadAds(consent);
     }
   }
+
+  initConsentModeDefaults();
 
   function hideBanner() {
     const root = document.getElementById('consent-root');
