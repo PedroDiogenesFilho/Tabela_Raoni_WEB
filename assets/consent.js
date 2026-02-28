@@ -130,7 +130,10 @@
     if (!consent.personalization) {
       window.adsbygoogle.requestNonPersonalizedAds = 1;
     }
-    ensureScript('tr-adsense-js', ADSENSE_SRC, { crossorigin: 'anonymous' });
+    const existingAdsenseScript = document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]');
+    if (!existingAdsenseScript) {
+      ensureScript('tr-adsense-js', ADSENSE_SRC, { crossorigin: 'anonymous' });
+    }
   }
 
   function applyConsent(consent) {
