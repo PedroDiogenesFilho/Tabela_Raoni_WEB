@@ -111,6 +111,7 @@
     }
   }
 
+
   initConsentModeDefaults();
 
   function hideBanner() {
@@ -195,6 +196,7 @@
         personalization
       });
     });
+
   }
 
   function addReviewButton() {
