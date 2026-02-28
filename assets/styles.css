@@ -142,6 +142,23 @@
 
     .card > *:last-child{ margin-bottom: 0; }
 
+    .article-meta{
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(164,180,230,.24);
+      background: rgba(10, 14, 32, .32);
+      display:grid;
+      gap: 6px;
+    }
+
+    .article-meta p{
+      margin:0;
+      font-size:.95rem;
+      color: var(--muted);
+      text-align:left;
+    }
+
     .stack{ display:grid; gap:18px; }
 
     .tool-spotlight{
