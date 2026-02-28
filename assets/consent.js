@@ -18,6 +18,28 @@
     updatedAt: null
   };
 
+  function normalizeConsentForPage(consent) {
+    const normalized = { ...defaultConsent, ...consent };
+
+    if (!adsAllowedOnPage) {
+      normalized.ads = false;
+      normalized.personalization = false;
+    }
+
+    if (!normalized.ads) {
+      normalized.personalization = false;
+    }
+
+    return {
+      decision: normalized.decision,
+      analytics: normalized.analytics,
+      ads: normalized.ads,
+      personalization: normalized.personalization,
+      version: normalized.version,
+      updatedAt: normalized.updatedAt
+    };
+  }
+
   function readConsent() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
