@@ -4,22 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sobre — Tabela Raoni</title>
-  <meta name="description" content="Entenda o que é a Tabela Raoni, como funciona a metodologia e como interpretar os resultados da calculadora." />
+  <meta name="description" content="Metodologia completa da Tabela Raoni: fórmula, limites estatísticos, cenários de falha e comparação por faltosos." />
   <link rel="canonical" href="https://tabelaraoni.com.br/sobre.html" />
 
   <meta property="og:title" content="Sobre — Tabela Raoni" />
-  <meta property="og:description" content="Entenda a metodologia da Tabela Raoni e como interpretar os resultados." />
+  <meta property="og:description" content="Entenda em profundidade a metodologia da Tabela Raoni e como interpretar os resultados." />
   <meta property="og:url" content="https://tabelaraoni.com.br/sobre.html" />
   <meta property="og:image" content="https://tabelaraoni.com.br/assets/og-cover.png" />
 
   <meta name="google-adsense-account" content="ca-pub-5754272579077136" />
   <script defer src="assets/consent.js"></script>
 
-
   <link rel="stylesheet" href="assets/styles.css" />
-  
 </head>
-<body> 
+<body>
   <div class="container">
     <header class="nav">
       <a class="brand" href="index.html">
@@ -30,31 +28,82 @@
         <a href="index.html">Ferramenta</a>
         <a href="sobre.html" aria-current="page">Sobre</a>
         <a href="contato.html">Contato</a>
+        <a href="guias/index.html">Guias</a>
         <a href="termos.html">Termos</a>
         <a href="privacidade.html">Privacidade</a>
       </nav>
     </header>
 
     <section class="hero">
-      <h1 class="h1">Sobre a ferramenta</h1>
+      <h1 class="h1">Metodologia da Tabela Raoni</h1>
       <p>
-        A Tabela Raoni é uma ferramenta de apoio para estimar posição provável em concursos,
-        a partir de dados públicos/estimados como total de inscritos, ranking e percentual de faltosos.
+        Esta página detalha o método da projeção para que você possa interpretar o resultado com responsabilidade:
+        fórmula completa, limites estatísticos, cenários de falha e comparação entre hipóteses de faltosos.
       </p>
     </section>
 
     <section class="card">
       <h2>Objetivo</h2>
       <p>
-        Dar ao candidato uma visão rápida e prática de cenário, ajudando na tomada de decisão
-        (acompanhar etapas, planejar recursos, avaliar probabilidade de nomeação etc.).
+        A Tabela Raoni foi criada para transformar dados públicos e extraoficiais em uma estimativa de faixa de colocação,
+        ajudando candidatos a decidir prioridades (recurso, acompanhamento de chamadas e gestão de expectativas).
       </p>
 
-      <h2>Limitações</h2>
+      <h2>Fórmula completa da projeção</h2>
+      <p>
+        Definimos as variáveis de entrada: <strong>I<sub>of</sub></strong> (inscritos oficiais), <strong>I<sub>rk</sub></strong>
+        (inscritos presentes no ranking/lista), <strong>P<sub>rk</sub></strong> (sua posição no ranking) e
+        <strong>f</strong> (percentual de faltosos em decimal).
+      </p>
+      <p>
+        1) Taxa de presença estimada: <strong>p = 1 - f</strong>.<br />
+        2) Competidores prováveis no dia da prova: <strong>N = I<sub>of</sub> × p</strong>.<br />
+        3) Chance relativa de colocação no recorte do ranking: <strong>C = (P<sub>rk</sub> / I<sub>rk</sub>) × 100</strong>.<br />
+        4) Constante de ajuste: <strong>k(C)</strong>, obtida por interpolação contínua da Tabela Raoni e cauda calibrada para C &gt; 100.<br />
+        5) Posição projetada: <strong>P<sub>proj</sub> = N × (P<sub>rk</sub> / I<sub>rk</sub>) × k(C)</strong>.
+      </p>
+      <p>
+        A interpolação contínua evita saltos abruptos entre faixas e melhora estabilidade de leitura quando sua posição muda pouco
+        entre atualizações de ranking.
+      </p>
+
+      <h2>Limites estatísticos recomendados</h2>
       <ul>
-        <li>O resultado é estimativo e pode variar por regras do edital, empates, recursos e desistências.</li>
-        <li>Percentual de faltosos e base do ranking impactam diretamente a projeção.</li>
+        <li><strong>Baixa confiança:</strong> ranking com cobertura reduzida (&lt; 10% do total de inscritos oficiais).</li>
+        <li><strong>Confiança moderada:</strong> cobertura entre 10% e 25%, com faltosos apenas estimados.</li>
+        <li><strong>Confiança alta:</strong> cobertura acima de 25% e faltosos próximos do dado oficial publicado.</li>
+        <li><strong>Boa prática:</strong> rode 3 cenários de faltosos (conservador, central e otimista) e trabalhe com intervalo.</li>
       </ul>
+
+      <h2>Quando a projeção pode falhar</h2>
+      <ul>
+        <li>Quando o ranking extraoficial não representa bem os candidatos de melhor desempenho.</li>
+        <li>Após retificações relevantes: mudanças de gabarito, anulação de questões ou reprocessamento de notas.</li>
+        <li>Em concursos com múltiplas fases e pesos distintos (objetiva, discursiva, títulos, TAF, curso de formação).</li>
+        <li>Quando há regras complexas de desempate, cotas, sub-listas regionais ou classificação por cargo/localidade.</li>
+        <li>Em cenários de judicialização que alterem a ordem de classificação.</li>
+      </ul>
+
+      <h2>Comparação entre cenários de faltosos</h2>
+      <p>
+        Exemplo fictício (I<sub>of</sub> = 20.000, I<sub>rk</sub> = 2.500, P<sub>rk</sub> = 180):
+      </p>
+      <ul>
+        <li><strong>Faltosos 30%</strong> → presença de 14.000 candidatos: cenário mais competitivo, projeção tende a posição mais alta (pior número).</li>
+        <li><strong>Faltosos 40%</strong> → presença de 12.000 candidatos: cenário central, normalmente usado como referência neutra.</li>
+        <li><strong>Faltosos 50%</strong> → presença de 10.000 candidatos: cenário otimista para quem está bem posicionado no ranking parcial.</li>
+      </ul>
+      <p>
+        Interpretação prática: se sua faixa ainda fica próxima das vagas mesmo no cenário de 30% faltosos, o sinal é mais robusto.
+        Se só melhora no cenário de 50%, trate como hipótese otimista e mantenha planejamento conservador.
+      </p>
+
+      <h2>Leituras complementares</h2>
+      <p>
+        Para aprofundar interpretação, consulte os <a href="guias/index.html">Guias</a>. Em caso de dúvida pontual,
+        use a página de <a href="contato.html">Contato</a>. Questões legais e de uso estão em
+        <a href="termos.html">Termos</a> e <a href="privacidade.html">Privacidade</a>.
+      </p>
     </section>
 
     <footer class="footer">
@@ -62,6 +111,7 @@
       <div class="small-links">
         <a href="termos.html">Termos</a>
         <a href="privacidade.html">Privacidade</a>
+        <a href="guias/index.html">Guias</a>
         <a href="contato.html">Contato</a>
       </div>
     </footer>
