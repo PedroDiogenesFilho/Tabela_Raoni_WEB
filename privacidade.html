@@ -41,7 +41,7 @@
       <p class="p">Última atualização: <strong>28/02/2026</strong></p>
       <div class="badge" role="note" aria-label="Resumo">
         <strong>Resumo:</strong>
-        <span class="muted">A calculadora funciona no seu navegador. O gestor de consentimento controla Google Analytics 4 (GA4), Google AdSense e personalização de anúncios. No código atual, Microsoft Clarity não está habilitado.</span>
+        <span class="muted">A calculadora funciona no seu navegador. O gestor de consentimento usa Google Consent Mode v2 com padrão negado até decisão do usuário e controla Google Analytics 4 (GA4), Google AdSense e personalização de anúncios. No código atual, Microsoft Clarity não está habilitado.</span>
       </div>
     </section>
 
@@ -108,6 +108,7 @@
       <h2 id="tecnologias">4. Tecnologias de terceiros (mapa objetivo)</h2>
       <p>
         Abaixo está o mapeamento entre o que esta política informa e o que está implementado no gestor de consentimento do site.
+        O site opera com <strong>Google Consent Mode v2</strong>: antes da sua escolha, os sinais <code>ad_storage</code>, <code>analytics_storage</code>, <code>ad_user_data</code> e <code>ad_personalization</code> ficam em <strong>denied</strong> (negado por padrão) e só passam para <strong>granted</strong> quando você permite.
       </p>
       <ul>
         <li>
@@ -162,6 +163,7 @@
       <p><strong>5.3 Consentimento de cookies (quando aplicável)</strong></p>
       <p>
         Exibimos um aviso/gestor de consentimento para que você possa aceitar, rejeitar ou ajustar preferências de medição, publicidade e personalização.
+        A cada ação (aceitar, rejeitar ou salvar personalização), enviamos uma atualização do Consent Mode v2 via <code>gtag('consent', 'update', ...)</code> com os quatro sinais acima.
         Enquanto não houver consentimento para finalidades não essenciais, esses scripts permanecem bloqueados.
       </p>
 
