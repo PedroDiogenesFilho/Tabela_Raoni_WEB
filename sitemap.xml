@@ -86,6 +86,20 @@
   </url>
 
   <url>
+    <loc>https://tabelaraoni.com.br/blog/index.html</loc>
+    <lastmod>2026-03-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://tabelaraoni.com.br/blog/materiais-estudo-concursos.html</loc>
+    <lastmod>2026-03-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://tabelaraoni.com.br/changelog.html</loc>
     <lastmod>2026-03-02</lastmod>
     <changefreq>weekly</changefreq>

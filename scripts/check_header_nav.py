@@ -14,9 +14,11 @@ FILES = [
     "guias/erros-comuns.html",
     "guias/estudo-caso.html",
     "guias/ranking-concursos.html",
+    "blog/index.html",
+    "blog/materiais-estudo-concursos.html",
 ]
 
-EXPECTED_LABELS = ["Ferramenta", "Sobre", "Contato", "Guias", "Termos", "Privacidade"]
+EXPECTED_LABELS = ["Ferramenta", "Sobre", "Contato", "Guias", "Blog", "Termos", "Privacidade"]
 
 class HeaderNavParser(HTMLParser):
     def __init__(self):
