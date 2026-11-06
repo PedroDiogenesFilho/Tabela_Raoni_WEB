@@ -39,6 +39,7 @@ produção. Validar localmente antes de abrir PR:
 
 ```bash
 python3 scripts/check_header_nav.py && python3 scripts/check_links.py && python3 scripts/build_hmg.py
+wc -c assets/styles.css               # folha única; manter ≤ 30720 bytes
 python3 -m http.server -d dist 8080   # abrir http://localhost:8080/
 ```
 
