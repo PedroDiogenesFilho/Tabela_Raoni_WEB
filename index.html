@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Tabela Raoni — Projeção de Posição em Concursos</title>
-  <meta name="description" content="Ferramenta da Tabela Raoni para projetar faixa estimada de posição em concursos a partir do ranking/lista, inscritos oficiais e percentual de faltosos (Tabela Raoni 3.0)." />
+  <title>Tabela Raoni — Projeção de posição em concursos</title>
+  <meta name="description" content="Projete sua posição provável em concursos públicos com a Tabela Raoni 3.0 a partir dos inscritos oficiais, do ranking extraoficial, da sua posição e dos faltosos. Grátis, no navegador." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://tabelaraoni.com.br/" />
 
@@ -13,41 +13,66 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Tabela Raoni" />
   <meta property="og:locale" content="pt_BR" />
-  <meta property="og:title" content="Tabela Raoni — Projeção de Posição" />
-  <meta property="og:description" content="Calcule sua posição projetada e a faixa estimada de posição com base na Tabela Raoni 3.0." />
+  <meta property="og:title" content="Tabela Raoni — Projeção de posição em concursos" />
+  <meta property="og:description" content="Calcule sua posição projetada e a faixa estimada de colocação com base na Tabela Raoni 3.0." />
   <meta property="og:url" content="https://tabelaraoni.com.br/" />
   <meta property="og:image" content="https://tabelaraoni.com.br/assets/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Tabela Raoni: régua com a posição projetada 2.030 entre 1.420 e 3.050" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Tabela Raoni — Projeção de Posição" />
+  <meta name="twitter:title" content="Tabela Raoni — Projeção de posição em concursos" />
   <meta name="twitter:description" content="Estime sua faixa de posição em concursos com base em inscritos, ranking e faltosos (Tabela Raoni 3.0)." />
   <meta name="twitter:image" content="https://tabelaraoni.com.br/assets/og-cover.png" />
 
   <meta name="google-adsense-account" content="ca-pub-5754272579077136" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5754272579077136" crossorigin="anonymous"></script>
   <script defer src="assets/consent.js"></script>
-  
 
   <!-- Structured Data (SEO) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Tabela Raoni",
-      "url": "https://tabelaraoni.com.br/",
-      "inLanguage": "pt-BR",
-      "description": "Ferramenta da Tabela Raoni para projetar faixa estimada de posição em concursos públicos.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Tabela Raoni"
-      }
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://tabelaraoni.com.br/#website",
+          "name": "Tabela Raoni",
+          "url": "https://tabelaraoni.com.br/",
+          "inLanguage": "pt-BR",
+          "description": "Ferramenta da Tabela Raoni para projetar faixa estimada de posição em concursos públicos.",
+          "publisher": { "@id": "https://tabelaraoni.com.br/#organizacao" }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://tabelaraoni.com.br/#calculadora",
+          "name": "Calculadora Tabela Raoni 3.0",
+          "url": "https://tabelaraoni.com.br/",
+          "applicationCategory": "UtilityApplication",
+          "operatingSystem": "Web",
+          "browserRequirements": "Requer JavaScript",
+          "inLanguage": "pt-BR",
+          "isAccessibleForFree": true,
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+          "description": "Projeta a posição provável e a faixa estimada de colocação em concursos públicos a partir dos inscritos oficiais, do ranking extraoficial, da posição do candidato e do percentual de faltosos.",
+          "isPartOf": { "@id": "https://tabelaraoni.com.br/#website" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://tabelaraoni.com.br/#organizacao",
+          "name": "Tabela Raoni",
+          "url": "https://tabelaraoni.com.br/",
+          "logo": { "@type": "ImageObject", "url": "https://tabelaraoni.com.br/assets/apple-touch-icon.png", "width": 180, "height": 180 },
+          "sameAs": ["https://www.instagram.com/tabelaraoni/", "https://x.com/tabelaraoni", "https://www.youtube.com/@tabelaraoni"],
+          "contactPoint": { "@type": "ContactPoint", "contactType": "customer support", "email": "tabelaraoni@gmail.com", "availableLanguage": "pt-BR" }
+        }
+      ]
     }
   </script>
 
-    <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="assets/marca.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <meta name="theme-color" content="#FFFFFF" />
@@ -70,230 +95,191 @@
       </nav>
     </header>
 
-    <main id="conteudo" class="stack">
+    <main id="conteudo">
+      <section class="calc sheet" id="calculadora" aria-labelledby="titulo">
+        <h1 id="titulo">Projeção de colocação em concursos públicos</h1>
+        <p class="lead">Com os inscritos oficiais, o ranking extraoficial, a sua posição nele e o percentual de faltosos, a Tabela Raoni 3.0 projeta a sua posição provável no resultado e a faixa em que ela tende a ficar.</p>
 
-    <section class="hero">
-      <h1>Projeção de colocação em concursos públicos</h1>
-      <p>
-        Estime sua provável colocação no resultado a partir de dados extraídos de <strong>ranks de concursos</strong> (listagem de pontuação extraoficial).
-        O cálculo gera uma <strong>estimativa provável</strong> de posição com base nos seus dados de entrada.
-      </p>
-      <p>
-        A metodologia segue as constantes e estimativas da <strong>Tabela Raoni 3.0</strong>, com constante contínua por interpolação entre os pontos da tabela.
-      </p>
-    </section>
+        <form id="calcForm" novalidate>
+          <div class="grid">
+            <div class="field">
+              <div class="field-head">
+                <label for="inscritosTotal">Inscritos no concurso</label>
+                <span class="hint" id="hintInscritosTotal">&nbsp;</span>
+              </div>
+              <p class="help" id="helpInscritosTotal">Número oficial divulgado pela banca.</p>
+              <input id="inscritosTotal" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="helpInscritosTotal hintInscritosTotal" />
+            </div>
 
-      <section class="tool-spotlight" aria-label="Calculadora em destaque">
-        <div class="tool-card">
-          <div class="tool-head">
-            <div class="tool-title">
-              <h2>Calculadora de Posição</h2>
-              <span>Preencha os campos e calcule sua colocação em segundos.</span>
+            <div class="field">
+              <div class="field-head">
+                <label for="inscritosRanking">Candidatos no ranking</label>
+                <span class="hint" id="hintInscritosRanking">&nbsp;</span>
+              </div>
+              <p class="help" id="helpInscritosRanking">Quantos candidatos estão no ranking ou lista extraoficial que você usa.</p>
+              <input id="inscritosRanking" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="helpInscritosRanking hintInscritosRanking" />
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="suaPosicao">Sua posição no ranking</label>
+                <span class="hint" id="hintSuaPosicao">&nbsp;</span>
+              </div>
+              <p class="help" id="helpSuaPosicao">Sua colocação nessa mesma lista.</p>
+              <input id="suaPosicao" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="helpSuaPosicao hintSuaPosicao" />
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="faltososPct">Faltosos (%)</label>
+                <span class="hint" id="hintFaltosos">&nbsp;</span>
+              </div>
+              <p class="help" id="helpFaltosos">Percentual de ausentes na prova. Sem dado da banca, use entre 35 e 50.</p>
+              <div class="affix"><input id="faltososPct" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="helpFaltosos hintFaltosos" /><span aria-hidden="true">%</span></div>
             </div>
           </div>
 
-          <div class="tool-body">
-            <form id="calcForm" novalidate>
-              <div class="grid">
-                <div class="field">
-                  <div class="top">
-                    <div class="label">
-                      <span class="icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4V4zm0 6h10v10H4V10zm12 0h4v10h-4V10z"/></svg>
-                      </span>
-                      <span>Inscritos totais do concurso (Oficial divulgado pela banca)</span>
-                    </div>
-                    <div class="hint" id="hintInscritosTotal">&nbsp;</div>
-                  </div>
-                  <input id="inscritosTotal" type="text" inputmode="numeric" autocomplete="off" placeholder="Ex.: 12.000" required />
-                </div>
-
-                <div class="field">
-                  <div class="top">
-                    <div class="label">
-                      <span class="icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M3 7h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"/></svg>
-                      </span>
-                      <span>Candidatos inscritos no ranking / listagem extraoficial</span>
-                    </div>
-                    <div class="hint" id="hintInscritosRanking">&nbsp;</div>
-                  </div>
-                  <input id="inscritosRanking" type="text" inputmode="numeric" autocomplete="off" placeholder="Ex.: 1.000" required />
-                </div>
-
-                <div class="field">
-                  <div class="top">
-                    <div class="label">
-                      <span class="icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>
-                      </span>
-                      <span>Sua posição no ranking / listagem</span>
-                    </div>
-                    <div class="hint" id="hintSuaPosicao">&nbsp;</div>
-                  </div>
-                  <input id="suaPosicao" type="text" inputmode="numeric" autocomplete="off" placeholder="Ex.: 5" required />
-                </div>
-
-                <div class="field">
-                  <div class="top">
-                    <div class="label">
-                      <span class="icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 17.93V20h-2v-.07A8 8 0 0 1 4.07 13H4v-2h.07A8 8 0 0 1 11 4.07V4h2v.07A8 8 0 0 1 19.93 11H20v2h-.07A8 8 0 0 1 13 19.93z"/></svg>
-                      </span>
-                      <span>% de faltosos</span>
-                    </div>
-                    <div class="hint" id="hintFaltosos">&nbsp;</div>
-                  </div>
-                  <input id="faltososPct" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex.: 40" required />
-                </div>
-              </div>
-
-              <div class="rowwide">
-                <div class="note">
-                  <strong>Dica:</strong> Caso o percentual de faltosos não seja divulgado pela banca examinadora, use um valor padrão entre 35 a 50 %.
-                </div>
-                <button class="cta" type="submit">Calcular Posição <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" style="vertical-align:middle;margin-left:8px;fill:#fff"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></button>
-              </div>
-            </form>
-
-            <div id="resultadoMsg" class="result" aria-live="polite"></div>
-
-            <section id="resultadoCards" class="result-cards" aria-label="Resultado" hidden>
-              <div class="result-head">
-                <div>
-                  <h3>Resultado</h3>
-                  <div class="result-subline" id="resultadoSubline">—</div>
-                </div>
-                <div class="result-meta" id="resultadoMeta">Atualizado em —</div>
-              </div>
-
-              <div class="result-grid" role="group" aria-label="Resumo do resultado">
-                <div class="r-card">
-                  <div class="r-label">Posição projetada</div>
-                  <div class="r-value" id="cardPosicao">—</div>
-                  <div class="r-sub">Estimativa central</div>
-                </div>
-
-                <div class="r-card">
-                  <div class="r-label">Faixa estimada de colocação</div>
-                  <div class="r-value" id="cardFaixa">—</div>
-                  <div class="r-sub">Mín — Máx</div>
-                </div>
-
-                <div class="r-card">
-                  <div class="r-label">Grau de confiança</div>
-                  <div class="r-value">
-                    <span class="conf-pill conf-med" id="cardConfianca">
-                      <span class="conf-dot" aria-hidden="true"></span>
-                      <span id="cardConfiancaText">—</span>
-                    </span>
-                  </div>
-                  <div class="r-sub" id="cardConfiancaDesc">—</div>
-                </div>
-              </div>
-
-              <div class="result-extra" id="resultadoExtra">—</div>
-
-              <div class="tabs" role="group" aria-label="Ações do resultado">
-                <div class="tablist" role="tablist" aria-label="Ações">
-                  <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panelShare" id="tabShare">Compartilhar</button>
-                  <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panelPdf" id="tabPdf">Salvar em PDF</button>
-                </div>
-
-                <div class="tab-panels">
-                  <div id="panelShare" class="tab-panel" role="tabpanel" aria-labelledby="tabShare" hidden>
-                    <div class="panel-card">
-                      <div class="panel-title">Link do resultado</div>
-                      <div class="panel-row">
-                        <input id="shareLink" type="text" readonly aria-label="Link do resultado" />
-                        <button type="button" class="btn" id="btnCopyLink">Copiar</button>
-                      </div>
-                      <div class="panel-options">
-                        <label class="chk"><input type="checkbox" id="optShareInputs" checked> Incluir dados de entrada no resumo</label>
-                        <label class="chk"><input type="checkbox" id="optShareTime" checked> Incluir data/hora no resumo</label>
-                      </div>
-                    </div>
-
-                    <div class="panel-card">
-                      <div class="panel-title">Resumo para copiar</div>
-                      <textarea id="shareSummary" rows="5" readonly aria-label="Resumo do resultado"></textarea>
-                      <div class="panel-actions">
-                        <button type="button" class="btn" id="btnCopySummary">Copiar resumo</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="panelPdf" class="tab-panel" role="tabpanel" aria-labelledby="tabPdf" hidden>
-                    <div class="panel-card">
-                      <div class="panel-title">Salvar em PDF</div>
-                      <div class="panel-options">
-                        <label class="chk"><input type="checkbox" id="optPdfInputs" checked> Incluir dados de entrada</label>
-                        <label class="chk"><input type="checkbox" id="optPdfTime" checked> Incluir data/hora</label>
-                      </div>
-                      <div class="panel-actions">
-                        <button type="button" class="btn primary" id="btnPdf">Gerar PDF</button>
-                        <div class="panel-hint">Abrirá o diálogo de impressão do navegador. Selecione “Salvar como PDF”.</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+          <div class="rowwide">
+            <button class="btn primary btn-lg" type="submit">Calcular posição</button>
           </div>
-        </div>
+        </form>
+
+        <div id="resultadoMsg" class="result" aria-live="polite"></div>
+
+        <section id="resultadoCards" class="result-cards" aria-labelledby="resultadoTitulo" hidden>
+          <div class="result-head">
+            <h2 id="resultadoTitulo" tabindex="-1">Resultado</h2>
+            <p class="result-meta" id="resultadoMeta">Atualizado em —</p>
+          </div>
+          <p class="result-subline" id="resultadoSubline">—</p>
+
+          <div class="faixa" id="ruler">
+            <p class="faixa-central"><span class="faixa-rotulo">Posição projetada</span><strong class="marca marca-grande" id="cardPosicao">—</strong></p>
+            <div class="faixa-regua" aria-hidden="true"><span class="faixa-pino"></span></div>
+            <p class="faixa-extremos" id="cardFaixa">
+              <span class="faixa-rotulo visually-hidden">Faixa estimada</span>
+              <span class="faixa-extremo"><span class="num" id="rulerMin">—</span><span class="faixa-rotulo">melhor</span></span>
+              <span class="faixa-extremo"><span class="num" id="rulerMax">—</span><span class="faixa-rotulo">pior</span></span>
+            </p>
+          </div>
+
+          <p class="result-status">
+            <span class="result-k">Confiança da estimativa</span>
+            <span class="conf-pill" id="cardConfianca"><span class="conf-dot" aria-hidden="true"></span><span id="cardConfiancaText">—</span></span>
+          </p>
+          <p class="result-desc" id="cardConfiancaDesc">—</p>
+          <p class="result-extra" id="resultadoExtra">—</p>
+          <p class="print-only" id="printLink"></p>
+
+          <div class="result-actions">
+            <button type="button" class="btn" id="tabShare" aria-expanded="false" aria-controls="panelShare">Compartilhar</button>
+            <button type="button" class="btn" id="tabPdf" aria-expanded="false" aria-controls="panelPdf">Salvar em PDF</button>
+            <a class="result-next" href="#proximos-passos">O que fazer com esse número</a>
+          </div>
+
+          <div id="panelShare" class="panel" hidden>
+            <label for="shareLink">Link do resultado</label>
+            <div class="panel-row">
+              <input id="shareLink" type="text" readonly />
+              <button type="button" class="btn" id="btnCopyLink">Copiar link</button>
+            </div>
+            <label for="shareSummary">Resumo em texto</label>
+            <textarea id="shareSummary" rows="6" readonly></textarea>
+            <div class="panel-options">
+              <label class="chk"><input type="checkbox" id="optShareInputs" checked /> Incluir dados informados</label>
+              <label class="chk"><input type="checkbox" id="optShareTime" checked /> Incluir data e hora</label>
+            </div>
+            <div><button type="button" class="btn" id="btnCopySummary">Copiar resumo</button></div>
+          </div>
+
+          <div id="panelPdf" class="panel" hidden>
+            <div class="panel-options">
+              <label class="chk"><input type="checkbox" id="optPdfInputs" checked /> Incluir dados informados</label>
+              <label class="chk"><input type="checkbox" id="optPdfTime" checked /> Incluir data e hora</label>
+            </div>
+            <div><button type="button" class="btn primary" id="btnPdf">Gerar PDF</button></div>
+            <p class="panel-hint">Abre a impressão do navegador; escolha “Salvar como PDF”.</p>
+          </div>
+        </section>
       </section>
 
-      <section class="below" aria-label="Como usar">
-        <h3>Como usar</h3>
-        <ul>
-          <li><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:8px;fill:var(--a0);flex-shrink:0"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3a1 1 0 0 1 1 1v1h1a1 1 0 0 1 0 2h-1v1a1 1 0 0 1-2 0v-1H9a1 1 0 0 1 0-2h2V7a1 1 0 0 1 1-1zm-5 8h10v2H7v-2zm0-3h4v2H7v-2z"/></svg>Informe o número <strong>oficial</strong> de inscritos no concurso divulgado pela banca examinadora / concorrência.</li>
-          <li><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:8px;fill:var(--a0);flex-shrink:0"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>Informe o número de candidatos cadastrados no <strong>ranking/listagem</strong> que você está extraindo os dados.</li>
-          <li><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:8px;fill:var(--a0);flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Digite sua <strong>posição/colocação</strong> atual no ranking/listagem.</li>
-          <li><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:8px;fill:var(--a0);flex-shrink:0"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>Informe o <strong>% de faltosos</strong> (valor estimado ou divulgado pela banca examinadora).</li>
+      <section class="content" id="proximos-passos" aria-labelledby="proximos-titulo">
+        <h2 id="proximos-titulo">O que fazer com esse número</h2>
+        <p>A projeção é um intervalo de planejamento, não uma posição definitiva. Estes guias mostram como usá-la:</p>
+        <ul class="next-list">
+          <li><a href="guias/erros-comuns.html">Erros comuns em projeção de classificação</a>
+            <p>Para não decidir com um único cenário de faltosos: compare 35%, 42% e 50% e trabalhe com o mais conservador.</p></li>
+          <li><a href="guias/ranking-concursos.html">Como interpretar ranking de concursos</a>
+            <p>Para saber se o ranking que você usa representa a concorrência e como o viés da lista desloca a faixa.</p></li>
+          <li><a href="guias/estudo-caso.html">Estudo de caso: da posição mediana à convocação</a>
+            <p>Para ver uma posição parecida evoluir, lista a lista, até a convocação.</p></li>
+          <li><a href="guias/artigo-tabela-raoni-pos-prova-ciclo-estudos.html">Do pós-prova ao ciclo de estudos</a>
+            <p>Para decidir quando parar de recalcular e voltar a estudar.</p></li>
         </ul>
-        <p>
-          <strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso.
-        </p>
+        <p><a href="guias/index.html">Todos os guias e notícias</a></p>
       </section>
 
-      <section class="info-section" id="exemplos" aria-label="Exemplos completos de interpretação">
-        <h3>Exemplos completos com dados fictícios</h3>
-        <div class="scenarios-grid">
-          <article class="scenario-card">
-            <h4>Cenário 1 — Faixa competitiva para cadastro de reserva</h4>
-            <p><strong>Dados:</strong> <span class="data-pill">18.500 inscritos oficiais</span> <span class="data-pill">2.900 no ranking</span> <span class="data-pill">posição 240</span> <span class="data-pill">faltosos 42%</span></p>
-            <p><strong>Interpretação:</strong> a projeção tende a colocar o candidato em faixa próxima da metade superior dos presentes. Em um edital com poucas vagas imediatas, isso costuma indicar <strong>boa chance de cadastro de reserva</strong>, mas dependência alta de convocações futuras.</p>
-          </article>
-          <article class="scenario-card">
-            <h4>Cenário 2 — Corte apertado para vagas imediatas</h4>
-            <p><strong>Dados:</strong> <span class="data-pill">9.200 inscritos oficiais</span> <span class="data-pill">3.400 no ranking</span> <span class="data-pill">posição 125</span> <span class="data-pill">faltosos 28%</span></p>
-            <p><strong>Interpretação:</strong> faltosos abaixo da média aumentam concorrência efetiva. Mesmo com posição relativamente boa no ranking extraoficial, a faixa projetada pode ficar <strong>no limite da nota de corte</strong> para vagas imediatas. Estratégia recomendada: acompanhar recursos e reclassificações diariamente.</p>
-          </article>
-          <article class="scenario-card">
-            <h4>Cenário 3 — Projeção conservadora em prova de alta ausência</h4>
-            <p><strong>Dados:</strong> <span class="data-pill">32.000 inscritos oficiais</span> <span class="data-pill">4.100 no ranking</span> <span class="data-pill">posição 560</span> <span class="data-pill">faltosos 51%</span></p>
-            <p><strong>Interpretação:</strong> com faltosos altos, a projeção pode <strong>subir bastante no resultado final</strong>, mas a incerteza também aumenta porque o ranking parcial pode não capturar todos os candidatos competitivos. Use o resultado como intervalo de planejamento, não como posição definitiva.</p>
-          </article>
-        </div>
+      <section class="content" id="como-usar" aria-labelledby="como-usar-titulo">
+        <h2 id="como-usar-titulo">Como usar</h2>
+        <ol>
+          <li><strong>Inscritos no concurso:</strong> copie o número oficial divulgado pela banca examinadora (por exemplo, 12.000).</li>
+          <li><strong>Candidatos no ranking:</strong> informe quantos candidatos estão na listagem de pontuação extraoficial de onde você tira os dados.</li>
+          <li><strong>Sua posição no ranking:</strong> digite a sua colocação nessa listagem.</li>
+          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50.</li>
+        </ol>
+        <p>Toque em <strong>Calcular posição</strong>. O resultado mostra a posição projetada, a faixa estimada e a confiança da estimativa.</p>
+        <p><strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso. O cálculo segue a Tabela Raoni 3.0, com constante contínua por interpolação entre os pontos da tabela; a fórmula completa está em <a href="sobre.html">Sobre</a>.</p>
       </section>
 
-      <section class="info-section" id="faq" aria-label="Perguntas frequentes">
-        <h3>FAQ — Perguntas reais dos candidatos</h3>
-        <details class="faq-item"><summary>1) A projeção garante minha nomeação?</summary><p><strong>Não.</strong> A ferramenta estima uma faixa provável de posição, mas nomeação depende de edital, vagas autorizadas, recursos, desempates e decisões administrativas.</p></details>
-        <details class="faq-item"><summary>2) Qual percentual de faltosos devo usar se a banca não divulgou?</summary><p>Use uma simulação em <strong>três cenários (35%, 42% e 50%)</strong> para entender sensibilidade do resultado. Compare os intervalos e trabalhe com a hipótese mais conservadora.</p></details>
-        <details class="faq-item"><summary>3) Meu ranking extraoficial é pequeno. Ainda vale calcular?</summary><p>Vale, porém <strong>a confiança cai quando a base é pequena.</strong> Priorize rankings com maior cobertura e atualizações frequentes.</p></details>
-        <details class="faq-item"><summary>4) O que mais altera o resultado além dos faltosos?</summary><p>A <strong>relação entre inscritos oficiais e inscritos no ranking</strong> é decisiva. Quanto maior a diferença entre os dois universos, maior a incerteza da projeção.</p></details>
-        <details class="faq-item"><summary>5) Posso usar a ferramenta para concurso de nível municipal e federal?</summary><p><strong>Sim.</strong> O método é estatístico e pode ser aplicado a diferentes certames, desde que os dados de entrada sejam consistentes.</p></details>
-        <details class="faq-item"><summary>6) Como interpretar projeção acima da quantidade de vagas imediatas?</summary><p>Geralmente indica <strong>cenário de cadastro de reserva.</strong> Nesse caso, acompanhe histórico de convocações do órgão para avaliar chance real de chamada.</p></details>
-        <details class="faq-item"><summary>7) A banca divulgou retificação. Preciso recalcular?</summary><p><strong>Sim.</strong> Qualquer mudança de gabarito, nota de corte, exclusões ou reintegrações altera o ranking e deve gerar novo cálculo.</p></details>
-        <details class="faq-item"><summary>8) Como usar a projeção para decidir recursos?</summary><p>Se estiver <strong>próximo de uma faixa de corte relevante</strong>, vale análise de custo-benefício de recurso técnico. Em faixas distantes, o ganho esperado tende a ser menor.</p></details>
-        <details class="faq-item"><summary>9) O resultado da ferramenta substitui assessoria jurídica?</summary><p><strong>Não.</strong> Para dúvidas de edital, cotas, fases recursais e judicialização, procure orientação profissional especializada.</p></details>
-        <details class="faq-item"><summary>10) De quanto em quanto tempo devo atualizar minhas simulações?</summary><p><strong>Sempre que houver nova lista</strong>, atualização de ranking ou notícia oficial da banca. Em semanas críticas, revise diariamente.</p></details>
-        <details class="faq-item"><summary>11) Onde encontro explicação técnica da metodologia?</summary><p>Na página <a href="sobre.html">Sobre</a> você encontra <strong>fórmula, limites estatísticos e cenários de falha do modelo.</strong></p></details>
-        <details class="faq-item"><summary>12) Onde posso acompanhar conteúdo contínuo para melhorar interpretação?</summary><p>Acesse os <a href="guias/index.html">Guias</a>, consulte o <a href="contato.html">suporte</a> para dúvidas e revise também <a href="termos.html">Termos</a> e <a href="privacidade.html">Privacidade</a>.</p></details>
+      <section class="content" id="exemplos" aria-labelledby="exemplos-titulo">
+        <h2 id="exemplos-titulo">Exemplos com dados fictícios</h2>
+        <p>Três cenários para calibrar a leitura. Os números da coluna de resultado são os que a calculadora devolve para esses dados.</p>
+        <table class="examples">
+          <caption class="visually-hidden">Três cenários fictícios: dados de entrada, resultado da calculadora e leitura</caption>
+          <thead>
+            <tr><th scope="col">Cenário</th><th scope="col">Inscritos</th><th scope="col">No ranking</th><th scope="col">Posição</th><th scope="col">Faltosos</th><th scope="col">Resultado e leitura</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Cadastro de reserva provável</th>
+              <td data-label="Inscritos">18.500</td><td data-label="No ranking">2.900</td><td data-label="Posição">240</td><td data-label="Faltosos">42%</td>
+              <td data-label="Resultado e leitura"><strong>1.308</strong> (faixa de 915 a 1.962, confiança baixa). Projeção na metade superior dos presentes: com poucas vagas imediatas, boa chance de cadastro de reserva, mas dependência de convocações futuras. <a href="?it=18500&amp;ir=2900&amp;p=240&amp;f=42">Calcular este cenário</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Corte apertado</th>
+              <td data-label="Inscritos">9.200</td><td data-label="No ranking">3.400</td><td data-label="Posição">125</td><td data-label="Faltosos">28%</td>
+              <td data-label="Resultado e leitura"><strong>681</strong> (faixa de 476 a 1.022, confiança baixa). Faltosos abaixo da média aumentam a concorrência efetiva: mesmo com boa posição no ranking, a faixa pode ficar no limite do corte para vagas imediatas. Acompanhe recursos e reclassificações diariamente. <a href="?it=9200&amp;ir=3400&amp;p=125&amp;f=28">Calcular este cenário</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Alta ausência</th>
+              <td data-label="Inscritos">32.000</td><td data-label="No ranking">4.100</td><td data-label="Posição">560</td><td data-label="Faltosos">51%</td>
+              <td data-label="Resultado e leitura"><strong>3.052</strong> (faixa de 2.136 a 4.578, confiança baixa). Com muitos faltosos a projeção melhora bastante, mas a incerteza aumenta: o ranking parcial pode não capturar todos os candidatos competitivos. Trate o resultado como intervalo de planejamento. <a href="?it=32000&amp;ir=4100&amp;p=560&amp;f=51">Calcular este cenário</a></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
+      <section class="content" id="faq" aria-labelledby="faq-titulo">
+        <h2 id="faq-titulo">Perguntas frequentes</h2>
 
+        <h3>Sobre o resultado</h3>
+        <details><summary>A projeção garante minha nomeação?</summary><p><strong>Não.</strong> A ferramenta estima uma faixa provável de posição, mas nomeação depende de edital, vagas autorizadas, recursos, desempates e decisões administrativas.</p></details>
+        <details><summary>Como interpretar projeção acima da quantidade de vagas imediatas?</summary><p>Geralmente indica <strong>cenário de cadastro de reserva.</strong> Nesse caso, acompanhe o histórico de convocações do órgão para avaliar a chance real de chamada; o <a href="guias/estudo-caso.html">estudo de caso</a> mostra um ciclo completo até a convocação.</p></details>
+        <details><summary>Como usar a projeção para decidir recursos?</summary><p>Se estiver <strong>próximo de uma faixa de corte relevante</strong>, vale análise de custo-benefício de recurso técnico. Em faixas distantes, o ganho esperado tende a ser menor. Veja os <a href="guias/erros-comuns.html">erros comuns em projeção</a> antes de decidir.</p></details>
+        <details><summary>O resultado da ferramenta substitui assessoria jurídica?</summary><p><strong>Não.</strong> Para dúvidas de edital, cotas, fases recursais e judicialização, procure orientação profissional especializada.</p></details>
+
+        <h3>Sobre os dados de entrada</h3>
+        <details><summary>Qual percentual de faltosos devo usar se a banca não divulgou?</summary><p>Use uma simulação em <strong>três cenários (35%, 42% e 50%)</strong> para entender a sensibilidade do resultado. Compare os intervalos e trabalhe com a hipótese mais conservadora; o guia de <a href="guias/erros-comuns.html">erros comuns</a> explica o risco do cenário único.</p></details>
+        <details><summary>Meu ranking extraoficial é pequeno. Ainda vale calcular?</summary><p>Vale, porém <strong>a confiança cai quando a base é pequena.</strong> Priorize rankings com maior cobertura e atualizações frequentes; veja <a href="guias/ranking-concursos.html">como interpretar ranking de concursos</a>.</p></details>
+        <details><summary>O que mais altera o resultado além dos faltosos?</summary><p>A <strong>relação entre inscritos oficiais e inscritos no ranking</strong> é decisiva. Quanto maior a diferença entre os dois universos, maior a incerteza da projeção, como detalha o guia de <a href="guias/ranking-concursos.html">interpretação de ranking</a>.</p></details>
+        <details><summary>Posso usar a ferramenta para concurso de nível municipal e federal?</summary><p><strong>Sim.</strong> O método é estatístico e pode ser aplicado a diferentes certames, desde que os dados de entrada sejam consistentes.</p></details>
+
+        <h3>Atualizações e metodologia</h3>
+        <details><summary>A banca divulgou retificação. Preciso recalcular?</summary><p><strong>Sim.</strong> Qualquer mudança de gabarito, nota de corte, exclusões ou reintegrações altera o ranking e deve gerar novo cálculo.</p></details>
+        <details><summary>De quanto em quanto tempo devo atualizar minhas simulações?</summary><p><strong>Sempre que houver nova lista</strong>, atualização de ranking ou notícia oficial da banca. Em semanas críticas, revise diariamente; o <a href="guias/estudo-caso.html">estudo de caso</a> mostra esse acompanhamento semana a semana.</p></details>
+        <details><summary>Onde encontro explicação técnica da metodologia?</summary><p>Na página <a href="sobre.html">Sobre</a> você encontra <strong>fórmula, limites estatísticos e cenários de falha do modelo.</strong></p></details>
+        <details><summary>Onde posso acompanhar conteúdo contínuo para melhorar interpretação?</summary><p>Acesse os <a href="guias/index.html">Guias</a>, comece pelo artigo <a href="guias/artigo-tabela-raoni-pos-prova-ciclo-estudos.html">do pós-prova ao ciclo de estudos</a>, consulte o <a href="contato.html">contato</a> para dúvidas e revise também <a href="termos.html">Termos</a> e <a href="privacidade.html">Privacidade</a>.</p></details>
+      </section>
     </main>
 
     <footer class="footer">
@@ -339,8 +325,11 @@
     </footer>
   </div>
 
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     const tabelaRaoni = [
       [0, 3, 1.0],
@@ -401,13 +390,22 @@
       k
     }));
 
+    // Aceita "12.000", "12000", "40,5", "40.5" e "40,5 %". Pontos só são separador de milhar quando
+    // formam grupos de três dígitos; assim um link antigo com f=40.5 continua valendo 40,5.
     const parseNumber = (value) => {
-      const raw = String(value ?? "").trim();
+      let raw = String(value ?? "").trim().replace(/[\s%]/g, "");
       if (!raw) return NaN;
-      return Number(raw.replace(/\./g, "").replace(",", "."));
+      if (raw.includes(",")) {
+        raw = raw.replace(/\./g, "").replace(",", ".");
+      } else if (/^-?\d{1,3}(\.\d{3})+$/.test(raw)) {
+        raw = raw.replace(/\./g, "");
+      }
+      return /^-?\d+(\.\d+)?$/.test(raw) ? Number(raw) : NaN;
     };
 
     const formatBR = (value) => new Intl.NumberFormat("pt-BR").format(Math.round(value));
+
+    const formatPct = (value) => String(value).replace(".", ",");
 
     const pad2 = (n) => String(n).padStart(2, "0");
 
@@ -601,16 +599,21 @@
       return { monotona, semSaltos, maiorQueda, maiorSalto };
     }
 
-    const diagnosticoInterpolacao = compararModelosConstante();
-    const diagnosticoMonotonia = validarMonotonicidadeConstante();
+    // Diagnósticos do modelo só com ?debug na URL (não poluem o console de quem usa a ferramenta).
+    if (new URLSearchParams(location.search).has("debug")) {
+      compararModelosConstante();
+      validarMonotonicidadeConstante();
+    }
+
+    const erroDeCampo = (message, field) => Object.assign(new Error(message), { field });
 
     function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos) {
-      if (inscritosOficial <= 0) throw new Error("Inscritos no concurso deve ser maior que zero.");
-      if (inscritosRanking <= 0) throw new Error("Inscritos no ranking deve ser maior que zero.");
-      if (inscritosRanking > inscritosOficial) throw new Error("Inscritos no ranking não pode ser maior que os inscritos no concurso.");
-      if (minhaPosicao <= 0) throw new Error("Sua posição deve ser maior que zero.");
-      if (minhaPosicao > inscritosRanking) throw new Error("Sua posição não pode ser maior que os inscritos no ranking.");
-      if (percentualFaltosos < 0 || percentualFaltosos > 60) throw new Error("Percentual de faltosos deve estar entre 0 e 60%.");
+      if (inscritosOficial <= 0) throw erroDeCampo("Inscritos no concurso: informe um número maior que zero.", "inscritosTotal");
+      if (inscritosRanking <= 0) throw erroDeCampo("Candidatos no ranking: informe um número maior que zero.", "inscritosRanking");
+      if (inscritosRanking > inscritosOficial) throw erroDeCampo("Candidatos no ranking não pode ser maior que inscritos no concurso. Confira os dois números.", "inscritosRanking");
+      if (minhaPosicao <= 0) throw erroDeCampo("Sua posição: informe um número maior que zero.", "suaPosicao");
+      if (minhaPosicao > inscritosRanking) throw erroDeCampo("Sua posição não pode ser maior que o número de candidatos no ranking. Confira os dois números.", "suaPosicao");
+      if (percentualFaltosos < 0 || percentualFaltosos > 60) throw erroDeCampo("Faltosos: informe um percentual entre 0 e 60.", "faltososPct");
 
       const faltosos = inscritosOficial * (percentualFaltosos / 100);
       const presentes = inscritosOficial - faltosos;
@@ -633,46 +636,48 @@
       // Regra baseada na Tabela Raoni 3.0 (faixas de constantes):
       // Até 50 → cenário moderado a alto. Acima de 50 → cenário mais sensível (constantes mais altas).
       if (!Number.isFinite(v)) {
-        return { nivel: "MÉDIA", classe: "conf-med", desc: "Cenário moderado (dados insuficientes para classificar com mais precisão)." };
+        return { nivel: "Média", classe: "conf-med", desc: "Cenário moderado: dados insuficientes para classificar com mais precisão." };
       }
 
       if (v > 50) {
-        return { nivel: "BAIXA", classe: "conf-low", desc: "Cenário mais sensível, quantidade de inscritos no ranking bem abaixo dos 10% em relação ao total oficial de inscritos no concurso ou posição do candidato em relação ao ranking muito baixa." };
+        return { nivel: "Baixa", classe: "conf-low", desc: "Cenário mais sensível: o ranking tem bem menos de 10% dos inscritos oficiais ou a sua posição nele é muito baixa. Trate a faixa como hipótese e compare cenários de faltosos." };
       }
 
       if (v >= 20) {
-        return { nivel: "MÉDIA", classe: "conf-med", desc: "Cenário moderado, dados como quantidade de inscritos ou posição no ranking afetam negativamente o calculo. Cenário ideal que o ranking possua pelo menos 10% de inscritos em relação a quantidade de inscritos oficial do concurso" };
+        return { nivel: "Média", classe: "conf-med", desc: "Cenário moderado: o tamanho do ranking ou a sua posição reduz a precisão. O ideal é um ranking com pelo menos 10% dos inscritos oficiais." };
       }
 
-      return { nivel: "ALTA", classe: "conf-high", desc: "Cenário mais estável, ranking com mais que 10% de inscritos ou posição do candidato em relação ao número de inscritos no ranking favorável." };
+      return { nivel: "Alta", classe: "conf-high", desc: "Cenário mais estável: ranking com mais de 10% dos inscritos oficiais ou posição favorável em relação ao tamanho do ranking." };
     }
 
+    // Mantém o f com ponto decimal na URL (compatível com os links já compartilhados) e descarta o #hash.
     function buildShareUrl({ inscritosTotal, inscritosRanking, suaPosicao, faltososPct }) {
-      const base = location.href.split("?")[0];
-      const qs = new URLSearchParams({
+      const url = new URL(location.href);
+      url.hash = "";
+      url.search = new URLSearchParams({
         it: String(Math.round(inscritosTotal)),
         ir: String(Math.round(inscritosRanking)),
         p: String(Math.round(suaPosicao)),
-        f: String(faltososPct).replace(",", ".")
-      });
-      return `${base}?${qs.toString()}`;
+        f: String(faltososPct)
+      }).toString();
+      return url.toString();
     }
 
     function buildSummary({ classificacao, faixaMin, faixaMax, presentes, confianca, updatedAt, inputs }, includeInputs, includeTime) {
       const lines = [];
-      lines.push("Tabela Raoni — Projeção de posição");
+      lines.push("Tabela Raoni: projeção de posição");
       lines.push(`Posição projetada: ${formatBR(classificacao)}`);
-      lines.push(`Faixa estimada de posição: ${formatBR(faixaMin)} — ${formatBR(faixaMax)}`);
+      lines.push(`Faixa estimada: de ${formatBR(faixaMin)} a ${formatBR(faixaMax)}`);
       lines.push(`Presentes estimados: ${formatBR(presentes)}`);
-      lines.push(`Grau de confiança: ${confianca.nivel}`);
+      lines.push(`Confiança da estimativa: ${confianca.nivel}`);
 
       if (includeInputs) {
         lines.push("");
         lines.push("Dados informados:");
-        lines.push(`• Inscritos totais (oficial): ${formatBR(inputs.inscritosTotal)}`);
-        lines.push(`• Inscritos no ranking/lista: ${formatBR(inputs.inscritosRanking)}`);
-        lines.push(`• Sua posição no ranking: ${formatBR(inputs.suaPosicao)}`);
-        lines.push(`• % de faltosos: ${String(inputs.faltososPct).replace(".", ",")}%`);
+        lines.push(`- Inscritos no concurso: ${formatBR(inputs.inscritosTotal)}`);
+        lines.push(`- Candidatos no ranking: ${formatBR(inputs.inscritosRanking)}`);
+        lines.push(`- Sua posição no ranking: ${formatBR(inputs.suaPosicao)}`);
+        lines.push(`- Faltosos: ${formatPct(inputs.faltososPct)}%`);
       }
 
       if (includeTime) {
@@ -706,6 +711,8 @@
         toast = document.createElement("div");
         toast.id = "toast";
         toast.className = "toast";
+        toast.setAttribute("role", "status");
+        toast.setAttribute("aria-live", "polite");
         document.body.appendChild(toast);
       }
       toast.textContent = message;
@@ -714,25 +721,19 @@
       showToast._t = window.setTimeout(() => toast.classList.remove("is-visible"), 1600);
     }
 
+    // Dois botões de abrir/fechar, mutuamente exclusivos; null fecha os dois.
     function setTab(activeId) {
-      const tabShare = document.getElementById("tabShare");
-      const tabPdf = document.getElementById("tabPdf");
-      const panelShare = document.getElementById("panelShare");
-      const panelPdf = document.getElementById("panelPdf");
-
-      const isShare = activeId === "share";
-      const isPdf = activeId === "pdf";
-
-      tabShare.classList.toggle("is-active", isShare);
-      tabShare.setAttribute("aria-selected", isShare ? "true" : "false");
-      tabPdf.classList.toggle("is-active", isPdf);
-      tabPdf.setAttribute("aria-selected", isPdf ? "true" : "false");
-
-      panelShare.hidden = !isShare;
-      panelPdf.hidden = !isPdf;
-
-      panelShare.classList.toggle("is-open", isShare);
-      panelPdf.classList.toggle("is-open", isPdf);
+      const pairs = [
+        ["share", document.getElementById("tabShare"), document.getElementById("panelShare")],
+        ["pdf", document.getElementById("tabPdf"), document.getElementById("panelPdf")]
+      ];
+      for (const [id, btn, panel] of pairs) {
+        const open = activeId === id;
+        btn.classList.toggle("is-active", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        panel.hidden = !open;
+        panel.classList.toggle("is-open", open);
+      }
     }
 
     (function init() {
@@ -755,6 +756,12 @@
       const subline = document.getElementById("resultadoSubline");
       const extra = document.getElementById("resultadoExtra");
 
+      const resultTitle = document.getElementById("resultadoTitulo");
+      const ruler = document.getElementById("ruler");
+      const rulerMin = document.getElementById("rulerMin");
+      const rulerMax = document.getElementById("rulerMax");
+      const printLink = document.getElementById("printLink");
+
       const shareLink = document.getElementById("shareLink");
       const shareSummary = document.getElementById("shareSummary");
       const optShareInputs = document.getElementById("optShareInputs");
@@ -767,7 +774,12 @@
       const btnCopySummary = document.getElementById("btnCopySummary");
       const btnPdf = document.getElementById("btnPdf");
 
+      const fields = { inscritosTotal: elTotal, inscritosRanking: elRank, suaPosicao: elPos, faltososPct: elFalt };
+      const FIELD_LABELS = { inscritosTotal: "Inscritos no concurso", inscritosRanking: "Candidatos no ranking", suaPosicao: "Sua posição no ranking", faltososPct: "Faltosos" };
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
       let last = null;
+      let invalidEl = null;
 
       const setBanner = (html, type) => {
         banner.className = `result is-visible ${type || ""}`.trim();
@@ -779,6 +791,33 @@
         banner.innerHTML = "";
       };
 
+      const clearInvalid = () => {
+        if (!invalidEl) return;
+        invalidEl.removeAttribute("aria-invalid");
+        invalidEl.setAttribute("aria-describedby", invalidEl.dataset.describedby || "");
+        invalidEl = null;
+      };
+
+      // Mostra a mensagem, marca o campo como inválido, liga a mensagem ao campo e leva o foco até ele.
+      const setInvalid = (fieldId, message) => {
+        clearInvalid();
+        setBanner(`<strong>${message}</strong>`, "error");
+        const el = fields[fieldId];
+        if (!el) return;
+        el.dataset.describedby = el.getAttribute("aria-describedby") || "";
+        el.setAttribute("aria-invalid", "true");
+        el.setAttribute("aria-describedby", `resultadoMsg ${el.dataset.describedby}`.trim());
+        invalidEl = el;
+        el.focus();
+      };
+
+      const focusResult = () => {
+        if (!resultTitle) return;
+        resultTitle.focus({ preventScroll: true });
+        const mobile = window.matchMedia("(max-width: 700px)").matches;
+        cards.scrollIntoView({ block: mobile ? "start" : "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+      };
+
       const hideCards = () => {
         cards.hidden = true;
       };
@@ -786,7 +825,7 @@
       const setHint = (id, value) => {
         const node = document.getElementById(id);
         if (!node) return;
-        node.textContent = Number.isFinite(value) ? formatBR(value) : "\u00A0";
+        node.textContent = Number.isFinite(value) ? formatBR(value) : " ";
       };
 
       const syncHints = () => {
@@ -795,20 +834,28 @@
         setHint("hintSuaPosicao", parseNumber(elPos.value));
         const f = parseNumber(elFalt.value);
         const node = document.getElementById("hintFaltosos");
-        if (node) node.textContent = Number.isFinite(f) ? `${String(f).replace(".", ",")}%` : "\u00A0";
+        if (node) node.textContent = Number.isFinite(f) ? `${formatPct(f)}%` : " ";
       };
 
       const refreshSharePanels = () => {
         if (!last) return;
         shareLink.value = last.shareUrl;
         shareSummary.value = buildSummary(last.payload, optShareInputs.checked, optShareTime.checked);
+        if (printLink) printLink.textContent = `Reabrir este resultado: ${last.shareUrl}`;
       };
 
       const renderCards = (payload) => {
         cards.hidden = false;
 
         cardPos.textContent = formatBR(payload.classificacao);
-        cardFaixa.textContent = `${formatBR(payload.faixaMin)} — ${formatBR(payload.faixaMax)}`;
+        if (rulerMin) rulerMin.textContent = formatBR(payload.faixaMin);
+        if (rulerMax) rulerMax.textContent = formatBR(payload.faixaMax);
+        if (ruler) {
+          const span = payload.faixaMax - payload.faixaMin;
+          const pos = span > 0 ? (payload.classificacao - payload.faixaMin) / span : 0.5;
+          ruler.style.setProperty("--pos", `${(Math.min(0.92, Math.max(0.08, pos)) * 100).toFixed(1)}%`);
+        }
+        cardFaixa.setAttribute("data-faixa", `${payload.faixaMin}-${payload.faixaMax}`);
 
         cardConf.classList.remove("conf-low", "conf-med", "conf-high");
         cardConf.classList.add(payload.confianca.classe);
@@ -816,10 +863,9 @@
         cardConfDesc.textContent = payload.confianca.desc;
 
         meta.textContent = `Atualizado em ${formatDateTimeBR(payload.updatedAt)}`;
-        subline.textContent = "Resultado baseado nos dados informados.";
-        extra.innerHTML =
-          `<strong>Presentes estimados:</strong> ${formatBR(payload.presentes)} candidatos <span class="muted">•</span> ` +
-          `<span class="muted">Use a aba de compartilhamento para copiar o link ou o resumo.</span>`;
+        const i = payload.inputs;
+        subline.textContent = `Para ${formatBR(i.inscritosTotal)} inscritos, ${formatBR(i.inscritosRanking)} no ranking, posição ${formatBR(i.suaPosicao)} e ${formatPct(i.faltososPct)}% de faltosos.`;
+        extra.textContent = `Presentes estimados: ${formatBR(payload.presentes)} candidatos.`;
       };
 
       [elTotal, elRank, elPos, elFalt].forEach((el) => el.addEventListener("input", () => {
@@ -828,8 +874,9 @@
       }));
       syncHints();
 
-      document.getElementById("tabShare").addEventListener("click", () => setTab("share"));
-      document.getElementById("tabPdf").addEventListener("click", () => setTab("pdf"));
+      const toggleTab = (id, btn) => setTab(btn.getAttribute("aria-expanded") === "true" ? null : id);
+      document.getElementById("tabShare").addEventListener("click", (e) => toggleTab("share", e.currentTarget));
+      document.getElementById("tabPdf").addEventListener("click", (e) => toggleTab("pdf", e.currentTarget));
       setTab(null);
 
       optShareInputs.addEventListener("change", refreshSharePanels);
@@ -841,7 +888,7 @@
           await copyToClipboard(last.shareUrl);
           showToast("Link copiado.");
         } catch {
-          showToast("Não foi possível copiar o link.");
+          showToast("Não foi possível copiar. Selecione o texto e copie manualmente.");
         }
       });
 
@@ -851,7 +898,7 @@
           await copyToClipboard(buildSummary(last.payload, optShareInputs.checked, optShareTime.checked));
           showToast("Resumo copiado.");
         } catch {
-          showToast("Não foi possível copiar o resumo.");
+          showToast("Não foi possível copiar. Selecione o texto e copie manualmente.");
         }
       });
 
@@ -864,7 +911,8 @@
         printRestore = {
           panelShareHidden: panelShare.hidden,
           panelPdfHidden: panelPdf.hidden,
-          active: document.getElementById("tabPdf").classList.contains("is-active") ? "pdf" : "share"
+          active: document.getElementById("tabPdf").classList.contains("is-active") ? "pdf"
+            : document.getElementById("tabShare").classList.contains("is-active") ? "share" : null
         };
 
         panelShare.hidden = false;
@@ -895,7 +943,7 @@
 
       btnPdf.addEventListener("click", () => {
         if (!last) {
-          setBanner("<strong>Calcule primeiro</strong> para gerar o PDF do resultado.", "error");
+          setBanner("<strong>Calcule a posição antes de gerar o PDF.</strong>", "error");
           return;
         }
         clearBanner();
@@ -907,17 +955,24 @@
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
+        clearInvalid();
 
-        const inscritosTotal = parseNumber(elTotal.value);
-        const inscritosRanking = parseNumber(elRank.value);
-        const suaPosicao = parseNumber(elPos.value);
-        const faltososPct = parseNumber(elFalt.value);
+        const values = {
+          inscritosTotal: parseNumber(elTotal.value),
+          inscritosRanking: parseNumber(elRank.value),
+          suaPosicao: parseNumber(elPos.value),
+          faltososPct: parseNumber(elFalt.value)
+        };
 
-        if ([inscritosTotal, inscritosRanking, suaPosicao, faltososPct].some(Number.isNaN)) {
+        const firstNaN = Object.keys(values).find((k) => Number.isNaN(values[k]));
+        if (firstNaN) {
           hideCards();
-          setBanner("<strong>Verifique os campos.</strong> Use apenas números válidos.", "error");
+          const example = firstNaN === "faltososPct" ? "por exemplo 40 ou 42,5" : "inteiro, por exemplo 12.000";
+          setInvalid(firstNaN, `${FIELD_LABELS[firstNaN]}: preencha com um número ${example}.`);
           return;
         }
+
+        const { inscritosTotal, inscritosRanking, suaPosicao, faltososPct } = values;
 
         try {
           const r = calcularProjecao(inscritosTotal, inscritosRanking, suaPosicao, faltososPct);
@@ -948,9 +1003,10 @@
           clearBanner();
           renderCards(payload);
           refreshSharePanels();
+          focusResult();
         } catch (err) {
           hideCards();
-          setBanner(err?.message || "Não foi possível calcular a projeção.", "error");
+          setInvalid(err && err.field, (err && err.message) || "Não foi possível calcular a projeção. Confira os dados e tente de novo.");
         }
       });
 
@@ -965,7 +1021,7 @@
         elTotal.value = formatBR(it);
         elRank.value = formatBR(ir);
         elPos.value = formatBR(p);
-        elFalt.value = String(f).replace(".", ",");
+        elFalt.value = formatPct(f);
         syncHints();
         form.dispatchEvent(new Event("submit", { cancelable: true }));
       }
