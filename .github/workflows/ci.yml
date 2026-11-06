@@ -26,6 +26,12 @@ jobs:
       - name: Cabeçalho padronizado
         run: python3 scripts/check_header_nav.py
 
+      - name: Contraste dos tokens (temas claro e escuro)
+        run: python3 scripts/check_contrast.py
+
+      - name: Tamanho da folha de estilos (≤ 30720 bytes)
+        run: test "$(wc -c < assets/styles.css)" -le 30720
+
       - name: Links internos e sitemap
         run: python3 scripts/check_links.py
 
