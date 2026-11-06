@@ -1,0 +1,49 @@
+name: Deploy HMG
+
+on:
+  push:
+    branches: [hmg]
+  workflow_dispatch:   # permite publicar manualmente qualquer branch no HMG (a faixa mostra branch e commit)
+
+permissions:
+  contents: read       # o push para o repo HMG usa a deploy key, não o GITHUB_TOKEN
+
+concurrency:
+  group: deploy-hmg
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: hmg        # só para o link "View deployment"; não confundir com o ambiente github-pages (produção)
+      url: https://pedrodiogenesfilho.github.io/Tabela_Raoni_HMG/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Cabeçalho padronizado (fonte)
+        run: python3 scripts/check_header_nav.py
+
+      - name: Gerar HMG em dist/
+        env:
+          HMG_CNAME: ${{ vars.HMG_CNAME }}   # variável opcional do repositório; vazia = sem domínio custom
+        run: python3 scripts/build_hmg.py --out dist ${HMG_CNAME:+--cname "$HMG_CNAME"}
+
+      - name: Cabeçalho padronizado (dist/)
+        working-directory: dist
+        run: python3 ../scripts/check_header_nav.py
+
+      - name: Publicar no repositório Tabela_Raoni_HMG
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
+        with:
+          deploy_key: ${{ secrets.HMG_DEPLOY_KEY }}
+          external_repository: PedroDiogenesFilho/Tabela_Raoni_HMG
+          publish_branch: main
+          publish_dir: ./dist
+          force_orphan: true   # sempre 1 commit; a action também cria .nojekyll (enable_jekyll=false)
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "HMG ${{ github.ref_name }}@${{ github.sha }}"

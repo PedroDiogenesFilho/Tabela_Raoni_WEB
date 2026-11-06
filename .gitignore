@@ -1,0 +1,4 @@
+# saída do build de homologação (scripts/build_hmg.py); nunca commitar
+dist/
+__pycache__/
+*.pyc
