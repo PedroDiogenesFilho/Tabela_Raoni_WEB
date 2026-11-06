@@ -27,7 +27,7 @@ Uso licenciado a Pedro Diogenes
 | Ambiente | Branch | URL | Como publica |
 |---|---|---|---|
 | Produção | `main` | https://tabelaraoni.com.br | GitHub Pages deste repositório ("Deploy from a branch", `main`, raiz) |
-| Homologação (HMG) | `hmg` (branch padrão) | https://pedrodiogenesfilho.github.io/Tabela_Raoni_HMG/ | Action `Deploy HMG` gera `dist/` com `scripts/build_hmg.py` e publica no repositório `Tabela_Raoni_HMG` |
+| Homologação (HMG) | `hmg` (branch padrão) | https://hmg.tabelaraoni.com.br/ | Action `Deploy HMG` gera `dist/` com `scripts/build_hmg.py` e publica no repositório `Tabela_Raoni_HMG` |
 
 Fluxo: branch de trabalho → PR para `hmg` → deploy automático no HMG → testar na URL de HMG →
 PR `hmg` → `main` (**sempre "Create a merge commit"**, nunca squash) → produção.
