@@ -20,6 +20,52 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5754272579077136" crossorigin="anonymous"></script>
   <script defer src="assets/consent.js"></script>
 
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tabela Raoni" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:title" content="Sobre — Tabela Raoni" />
+  <meta name="twitter:description" content="Metodologia completa da Tabela Raoni: fórmula, limites estatísticos, cenários de falha e comparação por faltosos." />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "AboutPage",
+          "@id": "https://tabelaraoni.com.br/sobre.html",
+          "url": "https://tabelaraoni.com.br/sobre.html",
+          "name": "Metodologia da Tabela Raoni",
+          "description": "Metodologia completa da Tabela Raoni: fórmula, limites estatísticos, cenários de falha e comparação por faltosos.",
+          "inLanguage": "pt-BR",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Tabela Raoni",
+            "url": "https://tabelaraoni.com.br/"
+          },
+          "about": {
+            "@type": "Organization",
+            "name": "Tabela Raoni",
+            "url": "https://tabelaraoni.com.br/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://tabelaraoni.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Sobre"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="assets/marca.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
@@ -43,94 +89,97 @@
       </nav>
     </header>
 
-    <main id="conteudo">
+    <main id="conteudo" class="page page-article">
+    <nav class="breadcrumbs" aria-label="Você está aqui"><ol><li><a href="./">Início</a></li><li aria-current="page">Sobre</li></ol></nav>
+    <article class="article">
+      <header class="article-header">
+        <h1>Metodologia da Tabela Raoni</h1>
+        <p class="article-lead">Esta página detalha o método da projeção para que você possa interpretar o resultado com responsabilidade: fórmula completa, limites estatísticos, cenários de falha e comparação entre hipóteses de faltosos.</p>
+      </header>
 
-    <section class="hero">
-      <h1 class="h1">Metodologia da Tabela Raoni</h1>
-      <p>
-        Esta página detalha o método da projeção para que você possa interpretar o resultado com responsabilidade:
-        fórmula completa, limites estatísticos, cenários de falha e comparação entre hipóteses de faltosos.
-      </p>
-    </section>
+      <div class="prose">
+        <h2 id="objetivo">Objetivo</h2>
+        <p>A Tabela Raoni foi criada para transformar dados públicos e extraoficiais em uma estimativa de faixa de colocação, ajudando candidatos a decidir prioridades (recurso, acompanhamento de chamadas e gestão de expectativas).</p>
 
-    <section class="card">
-      <h2>Objetivo</h2>
-      <p>
-        A Tabela Raoni foi criada para transformar dados públicos e extraoficiais em uma estimativa de faixa de colocação,
-        ajudando candidatos a decidir prioridades (recurso, acompanhamento de chamadas e gestão de expectativas).
-      </p>
+        <h2 id="formula">Fórmula completa da projeção</h2>
+        <p>Definimos as variáveis de entrada: <strong>I<sub>of</sub></strong> (inscritos oficiais), <strong>I<sub>rk</sub></strong> (inscritos presentes no ranking/lista), <strong>P<sub>rk</sub></strong> (sua posição no ranking) e <strong>f</strong> (percentual de faltosos em decimal).</p>
+        <figure class="formula">
+          <ol class="formula-steps">
+            <li>Taxa de presença estimada: <code class="math"><var>p</var> = 1 − <var>f</var></code></li>
+            <li>Competidores prováveis no dia da prova: <code class="math"><var>N</var> = I<sub>of</sub> × <var>p</var></code></li>
+            <li>Chance relativa de colocação no recorte do ranking: <code class="math"><var>C</var> = (P<sub>rk</sub> / I<sub>rk</sub>) × 100</code></li>
+            <li>Constante de ajuste: <code class="math"><var>k</var>(<var>C</var>)</code>, obtida por interpolação contínua da Tabela Raoni e cauda calibrada para <var>C</var> &gt; 100.</li>
+            <li>Posição projetada: <code class="math">P<sub>proj</sub> = <var>N</var> × (P<sub>rk</sub> / I<sub>rk</sub>) × <var>k</var>(<var>C</var>)</code></li>
+          </ol>
+          <figcaption>I<sub>of</sub> = inscritos oficiais; I<sub>rk</sub> = inscritos no ranking; P<sub>rk</sub> = sua posição no ranking; f = faltosos em decimal.</figcaption>
+        </figure>
+        <p>A interpolação contínua evita saltos abruptos entre faixas e melhora a estabilidade de leitura quando sua posição muda pouco entre atualizações de ranking.</p>
 
-      <h2>Fórmula completa da projeção</h2>
-      <p>
-        Definimos as variáveis de entrada: <strong>I<sub>of</sub></strong> (inscritos oficiais), <strong>I<sub>rk</sub></strong>
-        (inscritos presentes no ranking/lista), <strong>P<sub>rk</sub></strong> (sua posição no ranking) e
-        <strong>f</strong> (percentual de faltosos em decimal).
-      </p>
-      <p>
-        1) Taxa de presença estimada: <strong>p = 1 - f</strong>.<br />
-        2) Competidores prováveis no dia da prova: <strong>N = I<sub>of</sub> × p</strong>.<br />
-        3) Chance relativa de colocação no recorte do ranking: <strong>C = (P<sub>rk</sub> / I<sub>rk</sub>) × 100</strong>.<br />
-        4) Constante de ajuste: <strong>k(C)</strong>, obtida por interpolação contínua da Tabela Raoni e cauda calibrada para C &gt; 100.<br />
-        5) Posição projetada: <strong>P<sub>proj</sub> = N × (P<sub>rk</sub> / I<sub>rk</sub>) × k(C)</strong>.
-      </p>
-      <p>
-        A interpolação contínua evita saltos abruptos entre faixas e melhora estabilidade de leitura quando sua posição muda pouco
-        entre atualizações de ranking.
-      </p>
+        <h2 id="limites">Limites estatísticos recomendados</h2>
+        <div class="table-wrap" role="region" aria-label="Confiança da estimativa conforme a cobertura do ranking" tabindex="0">
+          <table class="data">
+            <caption>Confiança da estimativa conforme a cobertura do ranking</caption>
+            <thead><tr><th scope="col">Cobertura do ranking</th><th scope="col">Faltosos</th><th scope="col">Confiança</th></tr></thead>
+            <tbody>
+              <tr><td>Menos de 10% dos inscritos oficiais</td><td>Apenas estimados</td><td>Baixa</td></tr>
+              <tr><td>Entre 10% e 25%</td><td>Apenas estimados</td><td>Moderada</td></tr>
+              <tr><td>Acima de 25%</td><td>Próximos do dado oficial publicado</td><td>Alta</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <aside class="callout"><p><strong>Boa prática:</strong> rode 3 cenários de faltosos (conservador, central e otimista) e trabalhe com intervalo.</p></aside>
 
-      <h2>Limites estatísticos recomendados</h2>
-      <ul>
-        <li><strong>Baixa confiança:</strong> ranking com cobertura reduzida (&lt; 10% do total de inscritos oficiais).</li>
-        <li><strong>Confiança moderada:</strong> cobertura entre 10% e 25%, com faltosos apenas estimados.</li>
-        <li><strong>Confiança alta:</strong> cobertura acima de 25% e faltosos próximos do dado oficial publicado.</li>
-        <li><strong>Boa prática:</strong> rode 3 cenários de faltosos (conservador, central e otimista) e trabalhe com intervalo.</li>
-      </ul>
+        <h2 id="falhas">Quando a projeção pode falhar</h2>
+        <ul>
+          <li>Quando o ranking extraoficial não representa bem os candidatos de melhor desempenho.</li>
+          <li>Após retificações relevantes: mudanças de gabarito, anulação de questões ou reprocessamento de notas.</li>
+          <li>Em concursos com múltiplas fases e pesos distintos (objetiva, discursiva, títulos, TAF, curso de formação).</li>
+          <li>Quando há regras complexas de desempate, cotas, sub-listas regionais ou classificação por cargo/localidade.</li>
+          <li>Em cenários de judicialização que alterem a ordem de classificação.</li>
+        </ul>
 
-      <h2>Quando a projeção pode falhar</h2>
-      <ul>
-        <li>Quando o ranking extraoficial não representa bem os candidatos de melhor desempenho.</li>
-        <li>Após retificações relevantes: mudanças de gabarito, anulação de questões ou reprocessamento de notas.</li>
-        <li>Em concursos com múltiplas fases e pesos distintos (objetiva, discursiva, títulos, TAF, curso de formação).</li>
-        <li>Quando há regras complexas de desempate, cotas, sub-listas regionais ou classificação por cargo/localidade.</li>
-        <li>Em cenários de judicialização que alterem a ordem de classificação.</li>
-      </ul>
+        <h2 id="cenarios">Comparação entre cenários de faltosos</h2>
+        <p>Exemplo fictício (I<sub>of</sub> = 20.000, I<sub>rk</sub> = 2.500, P<sub>rk</sub> = 180):</p>
+        <div class="table-wrap" role="region" aria-label="Presença estimada e papel de cada cenário de faltosos" tabindex="0">
+          <table class="data">
+            <caption>Presença estimada e papel de cada cenário</caption>
+            <thead><tr><th scope="col">Faltosos</th><th scope="col" class="num">Presença estimada (N)</th><th scope="col">Papel do cenário</th></tr></thead>
+            <tbody>
+              <tr><td>30%</td><td class="num">14.000</td><td>Conservador: mais competitivo, a projeção tende a um número pior.</td></tr>
+              <tr><td>40%</td><td class="num"><mark>12.000</mark></td><td>Central: referência neutra, normalmente a usada.</td></tr>
+              <tr><td>50%</td><td class="num">10.000</td><td>Otimista para quem está bem posicionado no ranking parcial.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Interpretação prática: se sua faixa ainda fica próxima das vagas mesmo no cenário de 30% de faltosos, o sinal é mais robusto. Se só melhora no cenário de 50%, trate como hipótese otimista e mantenha planejamento conservador.</p>
 
-      <h2>Comparação entre cenários de faltosos</h2>
-      <p>
-        Exemplo fictício (I<sub>of</sub> = 20.000, I<sub>rk</sub> = 2.500, P<sub>rk</sub> = 180):
-      </p>
-      <ul>
-        <li><strong>Faltosos 30%</strong> → presença de 14.000 candidatos: cenário mais competitivo, projeção tende a posição mais alta (pior número).</li>
-        <li><strong>Faltosos 40%</strong> → presença de 12.000 candidatos: cenário central, normalmente usado como referência neutra.</li>
-        <li><strong>Faltosos 50%</strong> → presença de 10.000 candidatos: cenário otimista para quem está bem posicionado no ranking parcial.</li>
-      </ul>
-      <p>
-        Interpretação prática: se sua faixa ainda fica próxima das vagas mesmo no cenário de 30% faltosos, o sinal é mais robusto.
-        Se só melhora no cenário de 50%, trate como hipótese otimista e mantenha planejamento conservador.
-      </p>
+        <h2 id="quem-mantem">Quem mantém o projeto</h2>
+        <p>A manutenção da Tabela Raoni é conduzida pela equipe editorial e de produto da marca <strong>Tabela Raoni</strong>, com foco em transparência metodológica, revisão de conteúdo e atualização contínua da ferramenta. Dúvidas e sugestões: <a href="contato.html">Contato</a>.</p>
 
-      <h2>Quem mantém o projeto</h2>
-      <p>
-        A manutenção da Tabela Raoni é conduzida pela equipe editorial/produto da marca <strong>Tabela Raoni</strong>,
-        com foco em transparência metodológica, revisão de conteúdo e atualização contínua da ferramenta.
-      </p>
+        <h2 id="validacao">Como validamos melhorias</h2>
+        <ul>
+          <li>revisão manual da regra de cálculo e das hipóteses estatísticas antes de publicar qualquer ajuste;</li>
+          <li>checagem de consistência entre interface, texto explicativo e comportamento da calculadora;</li>
+          <li>registro público das alterações para rastreabilidade no <a href="changelog.html">Histórico de alterações</a>.</li>
+        </ul>
+      </div>
 
-      <h2>Como validamos melhorias</h2>
-      <ul>
-        <li>revisão manual da regra de cálculo e das hipóteses estatísticas antes de publicar qualquer ajuste;</li>
-        <li>checagem de consistência entre interface, texto explicativo e comportamento da calculadora;</li>
-        <li>registro público das alterações para rastreabilidade no <a href="changelog.html">Histórico de Alterações (changelog)</a>.</li>
-      </ul>
+      <aside class="cta-tool" aria-labelledby="cta-titulo">
+      <h2 id="cta-titulo">Aplique ao seu caso</h2>
+      <p>Informe inscritos oficiais, inscritos no ranking, sua posição e o percentual de faltosos; a calculadora devolve a posição projetada e a faixa estimada.</p>
+      <p><a class="button" href="./#calculadora">Abrir a calculadora</a></p>
+    </aside>
 
-      <h2>Leituras complementares</h2>
-      <p>
-        Para aprofundar interpretação, consulte os <a href="guias/index.html">Guias</a>. Em caso de dúvida pontual,
-        use a página de <a href="contato.html">Contato</a>. Questões legais e de uso estão em
-        <a href="termos.html">Termos</a> e <a href="privacidade.html">Privacidade</a>.
-        Para acompanhar manutenção contínua, consulte também o <a href="changelog.html">Histórico de Alterações</a>.
-      </p>
-    </section>
-
+      <nav class="related" aria-labelledby="related-titulo">
+        <h2 id="related-titulo">Leituras complementares</h2>
+        <ul>
+          <li><a href="guias/ranking-concursos.html">Como interpretar ranking de concursos</a><span class="related-why">Como saber se o ranking que você usa representa a concorrência e como o viés da lista desloca a faixa.</span></li>
+          <li><a href="guias/erros-comuns.html">Erros comuns em projeção de classificação</a><span class="related-why">Os sete erros que distorcem a leitura de qualquer ranking, com a correção de cada um.</span></li>
+          <li><a href="guias/estudo-caso.html">Estudo de caso: da posição mediana à convocação</a><span class="related-why">Um ciclo completo, da primeira lista à convocação, com as três projeções a cada atualização.</span></li>
+          <li><a href="guias/artigo-tabela-raoni-pos-prova-ciclo-estudos.html">Do pós-prova ao ciclo de estudos</a><span class="related-why">Quando parar de recalcular e voltar a estudar.</span></li>
+        </ul>
+      </nav>
+    </article>
     </main>
 
     <footer class="footer">

@@ -17,6 +17,47 @@
   <meta name="google-adsense-account" content="ca-pub-5754272579077136" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5754272579077136" crossorigin="anonymous"></script>
   <script defer src="assets/consent.js"></script>
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tabela Raoni" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:title" content="Histórico de Alterações — Tabela Raoni" />
+  <meta name="twitter:description" content="Acompanhe o changelog da Tabela Raoni e as melhorias publicadas." />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://tabelaraoni.com.br/changelog.html",
+          "url": "https://tabelaraoni.com.br/changelog.html",
+          "name": "Histórico de alterações",
+          "description": "Registro público de melhorias e atualizações da Tabela Raoni.",
+          "inLanguage": "pt-BR",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Tabela Raoni",
+            "url": "https://tabelaraoni.com.br/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://tabelaraoni.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Changelog"
+            }
+          ]
+        }
+      ]
+    }
+  </script>
   <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="assets/marca.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
@@ -40,59 +81,78 @@
       </nav>
     </header>
 
-    <main id="conteudo">
-
-    <section class="hero">
-      <h1 class="h1">Histórico de Alterações (changelog)</h1>
-      <p class="p">Este histórico reflete apenas mudanças já implementadas e publicadas em produção.</p>
-    </section>
-
-    <section class="card">
-      <h2>2026-02-28</h2>
-      <ul>
-        <li>Implementação do Google Consent Mode v2 com configuração padrão de consentimento negado e padronização da gestão de consentimento nas páginas.</li>
-        <li>Padronização de integração com AdSense e ajustes de política de anúncios nas páginas de guias/notícias.</li>
-        <li>Reorganização editorial da área de Guias, com revisão de temas fiscais e remoção de páginas de notícias descontinuadas.</li>
-        <li>Padronização de metadados SEO e melhorias de apresentação dos cards/listagens em Guias.</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>2026-02-27</h2>
-      <ul>
-        <li>Atualização da lógica da Tabela Raoni com interpolação contínua da constante e calibração da cauda histórica para melhorar a projeção.</li>
-        <li>Implantação da CMP com bloqueio de scripts por consentimento e ajustes posteriores de personalização.</li>
-        <li>Ampliação de conteúdo institucional (Sobre/Contato), reforço de transparência e publicação desta página de changelog.</li>
-        <li>Padronização global de menu e rodapé, além de revisão da política de privacidade (mapa de tecnologias, consentimento e correções de estrutura).</li>
-        <li>Expansão da seção Guias com conteúdos técnicos mais detalhados e publicação de artigo dedicado para pós-prova e ciclo de estudos.</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>2026-02-24</h2>
-      <ul>
-        <li>Melhoria de usabilidade no index com alternância exclusiva entre as abas de compartilhamento e geração de PDF.</li>
-        <li>Ajustes visuais de tipografia e layout em páginas institucionais com consolidação de estilos no CSS.</li>
-        <li>Atualizações de identidade visual com inclusão dos ativos de logo e capa social.</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>2026-02-21</h2>
-      <ul>
-        <li>Publicação de arquivos técnicos de indexação e rastreamento (sitemap.xml e robots.txt).</li>
-        <li>Estabilização das páginas institucionais (Termos, Privacidade, Sobre e Contato) e ajustes de navegação.</li>
-        <li>Configuração de domínio e ativos estáticos para disponibilização pública contínua do site.</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>2026-02-18</h2>
-      <ul>
-        <li>Lançamento inicial da Tabela Raoni em ambiente de produção.</li>
-      </ul>
-    </section>
-
+    <main id="conteudo" class="page page-article">
+    <nav class="breadcrumbs" aria-label="Você está aqui"><ol><li><a href="./">Início</a></li><li aria-current="page">Changelog</li></ol></nav>
+    <article class="article">
+      <header class="article-header">
+        <h1>Histórico de alterações</h1>
+        <p class="article-lead">Mudanças já publicadas em produção, da mais recente para a mais antiga.</p>
+      </header>
+      <ol class="timeline">
+        <li class="timeline-entry">
+          <h2><time datetime="2026-11-06">6 de novembro de 2026</time></h2>
+          <ul>
+            <li>Remoção de imagens duplicadas na raiz do site, correção do evento de visualização de página duplicado no Google Analytics 4 e publicação direta dos arquivos pelo GitHub Pages.</li>
+            <li>Ambiente de homologação passa a responder em hmg.tabelaraoni.com.br, com publicação automática a cada mudança aprovada.</li>
+          </ul>
+        </li>
+        <li class="timeline-entry">
+          <h2><time datetime="2026-11-05">5 de novembro de 2026</time></h2>
+          <ul>
+            <li>Ambiente de homologação com build próprio: páginas marcadas como não indexáveis, sem tags de publicidade e com faixa de aviso.</li>
+            <li>Integração contínua com checagem do cabeçalho, dos links internos, simulação do build de homologação e validação W3C.</li>
+            <li>Métricas e publicidade passam a carregar apenas nos domínios de produção; correção de HTML em grupos com rótulo acessível.</li>
+          </ul>
+        </li>
+        <li class="timeline-entry">
+          <h2><time datetime="2026-03-02">2 de março de 2026</time></h2>
+          <ul>
+            <li>Página inicial com cartões de resultado, exemplos completos, perguntas frequentes e links para redes sociais.</li>
+          </ul>
+        </li>
+        <li class="timeline-entry">
+          <h2><time datetime="2026-02-28">28 de fevereiro de 2026</time></h2>
+          <ul>
+            <li>Implementação do Google Consent Mode v2 com configuração padrão de consentimento negado e padronização da gestão de consentimento nas páginas.</li>
+            <li>Padronização de integração com AdSense e ajustes de política de anúncios nas páginas de guias/notícias.</li>
+            <li>Reorganização editorial da área de Guias, com revisão de temas fiscais e remoção de páginas de notícias descontinuadas.</li>
+            <li>Padronização de metadados SEO e melhorias de apresentação dos cards/listagens em Guias.</li>
+          </ul>
+        </li>
+        <li class="timeline-entry">
+          <h2><time datetime="2026-02-27">27 de fevereiro de 2026</time></h2>
+          <ul>
+            <li>Atualização da lógica da Tabela Raoni com interpolação contínua da constante e calibração da cauda histórica para melhorar a projeção.</li>
+            <li>Implantação da CMP com bloqueio de scripts por consentimento e ajustes posteriores de personalização.</li>
+            <li>Ampliação de conteúdo institucional (Sobre/Contato), reforço de transparência e publicação desta página de changelog.</li>
+            <li>Padronização global de menu e rodapé, além de revisão da política de privacidade (mapa de tecnologias, consentimento e correções de estrutura).</li>
+            <li>Expansão da seção Guias com conteúdos técnicos mais detalhados e publicação de artigo dedicado para pós-prova e ciclo de estudos.</li>
+          </ul>
+        </li>
+        <li class="timeline-entry">
+          <h2><time datetime="2026-02-24">24 de fevereiro de 2026</time></h2>
+          <ul>
+            <li>Melhoria de usabilidade no index com alternância exclusiva entre as abas de compartilhamento e geração de PDF.</li>
+            <li>Ajustes visuais de tipografia e layout em páginas institucionais com consolidação de estilos no CSS.</li>
+            <li>Atualizações de identidade visual com inclusão dos ativos de logo e capa social.</li>
+          </ul>
+        </li>
+        <li class="timeline-entry">
+          <h2><time datetime="2026-02-21">21 de fevereiro de 2026</time></h2>
+          <ul>
+            <li>Publicação de arquivos técnicos de indexação e rastreamento (sitemap.xml e robots.txt).</li>
+            <li>Estabilização das páginas institucionais (Termos, Privacidade, Sobre e Contato) e ajustes de navegação.</li>
+            <li>Configuração de domínio e ativos estáticos para disponibilização pública contínua do site.</li>
+          </ul>
+        </li>
+        <li class="timeline-entry">
+          <h2><time datetime="2026-02-18">18 de fevereiro de 2026</time></h2>
+          <ul>
+            <li>Lançamento inicial da Tabela Raoni em ambiente de produção.</li>
+          </ul>
+        </li>
+      </ol>
+    </article>
     </main>
 
     <footer class="footer">
