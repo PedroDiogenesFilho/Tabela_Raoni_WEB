@@ -6,6 +6,12 @@
   const DENIED = 'denied';
   const GRANTED = 'granted';
 
+  // Só nestes hosts o GA e o AdSense (via consentimento) são carregados. Em qualquer outro host
+  // (HMG no github.io, hmg.tabelaraoni.com.br, localhost, file://) o modal de consentimento
+  // funciona normalmente, mas analytics/ads viram no-op: nenhuma requisição ao Google.
+  const PRODUCTION_HOSTS = ['tabelaraoni.com.br', 'www.tabelaraoni.com.br'];
+  const isProductionHost = PRODUCTION_HOSTS.includes(window.location.hostname);
+
   let currentConsent = null;
   let originalBodyOverflow = null;
   const adsAllowedOnPage = !document.querySelector('meta[name="tr-ads-policy"][content="disabled"]');
@@ -117,6 +123,7 @@
   }
 
   function loadAnalytics() {
+    if (!isProductionHost) return; // fora de produção: nenhum hit para G-QLZDGBFWT3
     setupGtagStub();
     ensureScript('tr-gtag-js', GTAG_SRC);
     window.gtag('js', new Date());
@@ -126,6 +133,7 @@
   }
 
   function loadAds(consent) {
+    if (!isProductionHost) return; // fora de produção: nunca injeta adsbygoogle.js
     window.adsbygoogle = window.adsbygoogle || [];
     if (!consent.personalization) {
       window.adsbygoogle.requestNonPersonalizedAds = 1;
