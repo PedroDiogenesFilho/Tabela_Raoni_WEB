@@ -14,6 +14,7 @@
 
   let currentConsent = null;
   let originalBodyOverflow = null;
+  let analyticsConfigured = false;
   const adsAllowedOnPage = !document.querySelector('meta[name="tr-ads-policy"][content="disabled"]');
 
   const defaultConsent = {
@@ -124,12 +125,12 @@
 
   function loadAnalytics() {
     if (!isProductionHost) return; // fora de produção: nenhum hit para G-QLZDGBFWT3
+    if (analyticsConfigured) return; // config só uma vez por carregamento: evita page_view duplicado
+    analyticsConfigured = true;
     setupGtagStub();
     ensureScript('tr-gtag-js', GTAG_SRC);
     window.gtag('js', new Date());
-    window.gtag('config', 'G-QLZDGBFWT3');
     window.gtag('config', 'G-QLZDGBFWT3', { anonymize_ip: true });
-
   }
 
   function loadAds(consent) {
