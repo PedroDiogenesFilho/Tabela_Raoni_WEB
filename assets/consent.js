@@ -13,7 +13,6 @@
   const isProductionHost = PRODUCTION_HOSTS.includes(window.location.hostname);
 
   let currentConsent = null;
-  let originalBodyOverflow = null;
   let analyticsConfigured = false;
   const adsAllowedOnPage = !document.querySelector('meta[name="tr-ads-policy"][content="disabled"]');
 
@@ -158,86 +157,70 @@
 
   initConsentModeDefaults();
 
+  // Barra não bloqueante: sem backdrop e sem travar a rolagem. A classe em <html> abre espaço no fim
+  // da página (padding/scroll-padding no styles.css) para o foco nunca ficar atrás da barra.
   function hideBanner() {
     const root = document.getElementById('consent-root');
-    const backdrop = document.getElementById('consent-backdrop');
     if (root) root.hidden = true;
-    if (backdrop) backdrop.hidden = true;
-    if (originalBodyOverflow !== null) {
-      document.body.style.overflow = originalBodyOverflow;
-      originalBodyOverflow = null;
-    }
+    document.documentElement.classList.remove('consent-open');
   }
 
-  function showBanner() {
+  // focusRoot: só quando a pessoa pediu (botão "Revisar consentimento"). No carregamento o foco não é movido.
+  function showBanner(focusRoot) {
     const root = document.getElementById('consent-root');
-    const backdrop = document.getElementById('consent-backdrop');
-    if (root) root.hidden = false;
-    if (backdrop) backdrop.hidden = false;
+    if (!root) return;
+    root.hidden = false;
     const panel = document.getElementById('consent-panel');
     if (panel) panel.hidden = true;
-    if (originalBodyOverflow === null) {
-      originalBodyOverflow = document.body.style.overflow;
-    }
-    document.body.style.overflow = 'hidden';
-    const initialFocusButton = document.getElementById('consent-accept') || document.getElementById('consent-reject') || document.getElementById('consent-customize');
-    if (initialFocusButton) {
-      initialFocusButton.focus();
+    const customize = document.getElementById('consent-customize');
+    if (customize) customize.setAttribute('aria-expanded', 'false');
+    document.documentElement.classList.add('consent-open');
+    if (focusRoot) {
+      root.tabIndex = -1;
+      root.focus();
     }
   }
 
   function createUI() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .consent-backdrop{position:fixed;inset:0;background:rgba(3,7,20,.6);z-index:999}
-      .consent-backdrop[hidden]{display:none !important}
-      .consent-root{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(760px,calc(100vw - 32px));z-index:1000;background:#0c1330;color:#eef2ff;border:1px solid rgba(164,180,230,.35);border-radius:14px;padding:14px;box-shadow:0 18px 50px rgba(3,7,20,.55)}
-      .consent-title{font-size:1rem;font-weight:800;margin:0 0 8px}
-      .consent-text{margin:0;color:#cbd5ff;line-height:1.45;font-size:.92rem}
-      .consent-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-      .consent-btn{border:1px solid rgba(164,180,230,.4);background:rgba(255,255,255,.06);color:#fff;padding:9px 12px;border-radius:999px;font-weight:700;cursor:pointer}
-      .consent-btn.primary{background:linear-gradient(120deg, rgba(79,125,255,1) 0%, rgba(123,108,255,1) 45%, rgba(180,76,255,1) 100%);border:none}
-      .consent-panel{margin-top:12px;border-top:1px solid rgba(164,180,230,.22);padding-top:12px;display:grid;gap:8px}
-      .consent-panel[hidden]{display:none !important}
-      .consent-option{display:flex;gap:8px;align-items:flex-start;color:#d8e0ff;font-size:.9rem}
-      .consent-review-link{background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;padding:0;font:inherit;opacity:.9}
-    `;
-    document.head.appendChild(style);
-
-    const backdrop = document.createElement('div');
-    backdrop.className = 'consent-backdrop';
-    backdrop.id = 'consent-backdrop';
-    backdrop.hidden = true;
-    backdrop.addEventListener('click', function (event) {
-      event.preventDefault();
-    });
-    document.body.appendChild(backdrop);
-
+    // Estilos na seção "Consentimento" de assets/styles.css (classes consent-*).
     const root = document.createElement('section');
     root.className = 'consent-root';
     root.id = 'consent-root';
-    root.setAttribute('role', 'dialog');
-    root.setAttribute('aria-modal', 'true');
-    root.setAttribute('aria-live', 'polite');
+    root.setAttribute('role', 'region');
+    root.setAttribute('aria-labelledby', 'consent-title');
     root.hidden = true;
     root.innerHTML = `
-      <h2 class="consent-title">Preferências de cookies e medição</h2>
-      <p class="consent-text">Usamos cookies/identificadores para métricas (Google Analytics) e publicidade (Google AdSense). Você pode aceitar, rejeitar ou personalizar.</p>
-      <div class="consent-actions">
-        <button type="button" class="consent-btn primary" id="consent-accept">Aceitar tudo</button>
-        <button type="button" class="consent-btn" id="consent-reject">Rejeitar não essenciais</button>
-        <button type="button" class="consent-btn" id="consent-customize">Personalizar</button>
-      </div>
-      <div class="consent-panel" id="consent-panel" hidden>
-        <label class="consent-option"><input type="checkbox" id="consent-analytics"> Permitir medição de uso (Google Analytics).</label>
-        <label class="consent-option"><input type="checkbox" id="consent-ads"> Permitir carregamento de anúncios (Google AdSense).</label>
-        <label class="consent-option"><input type="checkbox" id="consent-personalization"> Permitir personalização de anúncios (quando anúncios estiverem ativos).</label>
-        <p class="consent-text" id="consent-ads-policy-note" hidden>Nesta página, anúncios estão desativados por política editorial.</p>
-        <div class="consent-actions"><button type="button" class="consent-btn primary" id="consent-save">Salvar preferências</button></div>
+      <div class="consent-inner">
+        <div class="consent-copy">
+          <h2 class="consent-title" id="consent-title">Cookies e medição</h2>
+          <p class="consent-text">Usamos cookies/identificadores para métricas (Google Analytics) e publicidade (Google AdSense). Você pode aceitar, rejeitar ou personalizar.</p>
+        </div>
+        <div class="consent-actions">
+          <button type="button" class="consent-btn primary" id="consent-accept">Aceitar tudo</button>
+          <button type="button" class="consent-btn" id="consent-reject">Rejeitar não essenciais</button>
+          <button type="button" class="consent-btn link" id="consent-customize" aria-expanded="false" aria-controls="consent-panel">Personalizar</button>
+        </div>
+        <div class="consent-panel" id="consent-panel" hidden>
+          <label class="consent-option"><input type="checkbox" id="consent-analytics"> Permitir medição de uso (Google Analytics).</label>
+          <label class="consent-option"><input type="checkbox" id="consent-ads"> Permitir carregamento de anúncios (Google AdSense).</label>
+          <label class="consent-option"><input type="checkbox" id="consent-personalization"> Permitir personalização de anúncios (quando anúncios estiverem ativos).</label>
+          <p class="consent-text" id="consent-ads-policy-note" hidden>Nesta página, anúncios estão desativados por política editorial.</p>
+          <div class="consent-actions"><button type="button" class="consent-btn primary" id="consent-save">Salvar preferências</button></div>
+        </div>
       </div>
     `;
 
     document.body.appendChild(root);
+
+    if (!adsAllowedOnPage) {
+      // Página sem anúncios por política (tr-ads-policy): mostra a nota e desliga as opções de anúncios.
+      const note = document.getElementById('consent-ads-policy-note');
+      if (note) note.hidden = false;
+      ['consent-ads', 'consent-personalization'].forEach(function (id) {
+        const box = document.getElementById(id);
+        if (box) box.disabled = true;
+      });
+    }
 
     document.getElementById('consent-accept').addEventListener('click', function () {
       saveConsent(normalizeConsentForPage({ decision: 'accepted', analytics: true, ads: true, personalization: true }));
@@ -250,6 +233,7 @@
     document.getElementById('consent-customize').addEventListener('click', function () {
       const panel = document.getElementById('consent-panel');
       panel.hidden = !panel.hidden;
+      this.setAttribute('aria-expanded', String(!panel.hidden));
       if (!panel.hidden) {
         document.getElementById('consent-analytics').checked = !!currentConsent.analytics;
         document.getElementById('consent-ads').checked = !!currentConsent.ads;
@@ -280,9 +264,7 @@
     reviewBtn.className = 'consent-review-link';
     reviewBtn.textContent = 'Revisar consentimento';
     reviewBtn.addEventListener('click', function () {
-      showBanner();
-      const panel = document.getElementById('consent-panel');
-      if (panel) panel.hidden = true;
+      showBanner(true);
     });
     linksContainer.appendChild(reviewBtn);
   }
@@ -293,7 +275,7 @@
     addReviewButton();
 
     if (currentConsent.decision === 'pending') {
-      showBanner();
+      showBanner(false);
     } else {
       applyConsent(currentConsent);
       hideBanner();
