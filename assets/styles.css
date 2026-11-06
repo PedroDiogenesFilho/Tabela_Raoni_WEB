@@ -181,10 +181,10 @@ a:hover { color: var(--verde-2); text-decoration-thickness: 2px; }
 .btn-block { width: 100%; }
 
 /* 7.2 Formulários */
-.field { display: grid; gap: var(--s-2); }
+.field { display: grid; gap: var(--s-2); grid-template-rows: auto 1fr auto; }
 .field-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3); }
 .field label, .label, .panel > label { font-weight: 600; font-size: var(--t-300); line-height: var(--lh-3); }
-.help { margin: 0; font-size: var(--t-300); color: var(--tinta-2); }
+.help { margin: 0; font-size: var(--t-300); color: var(--tinta-2); align-self: start; }
 .hint { font-size: var(--t-300); color: var(--tinta-2); font-variant-numeric: tabular-nums; min-height: 1.4em; text-align: right; }
 input[type="text"], input[type="number"], textarea, select { width: 100%; min-height: 50px; padding: 12px 14px; background: var(--papel); color: var(--tinta); border: 1px solid var(--linha-2); border-radius: var(--raio-1); font-variant-numeric: tabular-nums; }
 textarea { min-height: 110px; resize: vertical; }
@@ -246,11 +246,11 @@ details > :not(summary):last-child { margin-bottom: 0; }
 /* 8.1 Calculadora (index.html) */
 .calc { max-width: var(--ficha); margin: 0 auto; }
 .calc h1 { margin-bottom: var(--s-2); }
-.calc .lead { margin-bottom: var(--s-5); }
-.grid { display: grid; gap: var(--s-4); }
-.rowwide { margin-top: var(--s-5); display: grid; gap: var(--s-4); align-items: end; }
-.content { margin: var(--s-5) auto 0; max-width: var(--ficha); }
-.content p, .content li, .content details { max-width: var(--medida); }
+.calc .lead { margin-bottom: var(--s-5); max-width: 80ch; }
+.grid { display: grid; gap: var(--s-4) var(--s-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); align-items: stretch; }
+.rowwide { margin-top: var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; }
+.rowwide .btn { flex: 1 1 auto; }
+.content { margin: var(--s-5) auto 0; max-width: var(--coluna); }
 .result-cards { margin-top: var(--s-5); padding: var(--s-5); background: var(--papel-2); border-radius: var(--raio-2); display: grid; gap: var(--s-4); }
 .result-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-2) var(--s-4); }
 .result-head h2 { margin: 0; font-size: var(--t-600); }
@@ -273,20 +273,14 @@ details > :not(summary):last-child { margin-bottom: 0; }
 .panel-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-2); align-items: center; }
 .panel-options { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
 .panel-hint { margin: 0; font-size: var(--t-300); color: var(--tinta-2); }
-.next-list { list-style: none; padding: 0; margin: 0 0 var(--s-4); display: grid; gap: var(--s-3); }
+.next-list { list-style: none; padding: 0; margin: 0 0 var(--s-4); display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
 .next-list li { margin: 0; padding: var(--s-4) var(--s-5); border: 1px solid var(--linha); border-radius: var(--raio-2); max-width: none; }
 .next-list li:hover { border-color: var(--verde); }
 .next-list a { font: 600 var(--t-500)/var(--lh-3) var(--fonte-titulo); }
 .next-list p { margin: var(--s-2) 0 0; color: var(--tinta-2); font-size: var(--t-300); max-width: none; }
 table.examples th[scope="row"] { font-weight: 600; }
-@media (min-width: 640px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-5); }
-  .rowwide { grid-template-columns: minmax(0, 1fr) auto; }
-  .rowwide .btn { width: auto; min-width: 260px; }
-}
-@media (min-width: 700px) { .next-list { grid-template-columns: 1fr 1fr; gap: var(--s-4); } }
+@media (min-width: 640px) { .rowwide .btn { flex: 0 0 auto; min-width: 280px; } }
 @media (max-width: 639px) {
-  .rowwide .btn { width: 100%; }
   .result-actions .btn { flex: 1 1 100%; }
   .result-next { margin-left: 0; }
   table.examples thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
@@ -311,7 +305,7 @@ table.examples th[scope="row"] { font-weight: 600; }
 .related li:last-child { border-bottom: 1px solid var(--linha); }
 .related a { font-weight: 600; }
 .related-why { display: block; margin-top: var(--s-1); color: var(--tinta-2); font-size: var(--t-300); }
-.entries { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-4); }
+.entries { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
 .entry { margin: 0; padding: var(--s-4) var(--s-5); border: 1px solid var(--linha); border-radius: var(--raio-2); }
 .entry:hover { border-color: var(--verde); }
 .entry h3 { font-size: var(--t-500); margin-bottom: var(--s-2); }
@@ -334,7 +328,6 @@ h2[id], h3[id] { scroll-margin-top: var(--s-5); }
 .formula-steps code, code.math { display: inline-block; font-size: 1em; background: var(--papel); padding: .2em .5em; }
 .formula figcaption { margin-top: var(--s-3); font-size: var(--t-300); color: var(--tinta-2); }
 @media (min-width: 640px) { .kv { grid-template-columns: max-content 1fr; } .kv dd { margin: 0; } }
-@media (min-width: 760px) { .entries { grid-template-columns: 1fr 1fr; } }
 
 /* 9. Consentimento (DOM criado por consent.js) */
 .consent-root { position: fixed; inset: auto 0 0 0; z-index: var(--z-consent); color-scheme: dark; background: var(--tinta); color: #fff; box-shadow: var(--sombra-barra); padding: var(--s-4) var(--margem) calc(var(--s-4) + env(safe-area-inset-bottom)); font-size: var(--t-300); line-height: var(--lh-3); }
