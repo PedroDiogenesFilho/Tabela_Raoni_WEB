@@ -40,6 +40,7 @@ produção. Validar localmente antes de abrir PR:
 ```bash
 python3 scripts/check_header_nav.py && python3 scripts/check_links.py && python3 scripts/build_hmg.py
 wc -c assets/styles.css               # folha única; manter ≤ 30720 bytes
+python3 scripts/check_contrast.py     # contraste WCAG dos tokens nos temas claro e escuro
 python3 -m http.server -d dist 8080   # abrir http://localhost:8080/
 ```
 
@@ -48,3 +49,7 @@ hotfix feito direto em `main` deve ser mesclado em `hmg` em seguida; para tirar 
 `git revert -m 1 <sha-do-merge>` em `hmg` (ou, para zerar, `git reset --hard origin/main` +
 `git push --force-with-lease origin hmg`). Se `scripts/build_hmg.py` falhar com "esperado 1x …", uma
 página nova/alterada fugiu do padrão do `<head>`: corrija a página ou atualize o script.
+
+## Tema claro, escuro e sistema
+
+O tema claro é o padrão. O seletor no rodapé (Claro / Escuro / Sistema) grava a escolha em `localStorage` na chave `trTema`; um script inline no `<head>` de cada página aplica `html[data-theme]` antes da folha de estilo (sem flash) e `assets/tema.js` cuida do seletor, da sincronização entre abas e da preferência do sistema. Os tokens do tema escuro ficam num único bloco `@media screen { :root[data-theme="dark"] {…} }` em `assets/styles.css`; a impressão é sempre clara.
