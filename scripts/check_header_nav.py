@@ -3,18 +3,12 @@ from html.parser import HTMLParser
 from pathlib import Path
 import sys
 
-FILES = [
-    "index.html",
-    "sobre.html",
-    "contato.html",
-    "privacidade.html",
-    "termos.html",
-    "changelog.html",
-    "guias/index.html",
-    "guias/erros-comuns.html",
-    "guias/estudo-caso.html",
-    "guias/ranking-concursos.html",
-]
+IGNORED_DIRS = {"dist", ".git"}
+
+
+def discover_files() -> list[Path]:
+    """Todas as páginas .html do site (raiz e subpastas), ignorando dist/ e .git/."""
+    return sorted(p for p in Path(".").rglob("*.html") if not IGNORED_DIRS & set(p.parts))
 
 EXPECTED_LABELS = ["Ferramenta", "Sobre", "Contato", "Guias", "Termos", "Privacidade"]
 
@@ -82,12 +76,13 @@ def check_file(path: Path) -> list[str]:
 
 
 def main() -> int:
+    files = discover_files()
+    if not files:
+        print("Nenhum HTML encontrado (execute a partir da raiz do repositório).")
+        return 1
+
     all_errors = []
-    for file in FILES:
-        path = Path(file)
-        if not path.exists():
-            all_errors.append(f"{path}: arquivo não encontrado")
-            continue
+    for path in files:
         all_errors.extend(check_file(path))
 
     if all_errors:
@@ -96,7 +91,7 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    print("OK: cabeçalho padronizado em todos os HTMLs alvo.")
+    print(f"OK: cabeçalho padronizado em {len(files)} HTMLs.")
     return 0
 
 

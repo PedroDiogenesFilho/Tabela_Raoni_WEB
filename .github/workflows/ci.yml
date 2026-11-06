@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [hmg, main]
+  push:
+    branches: [hmg, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:   # nome usado como status check obrigatório na ruleset da main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Cabeçalho padronizado
+        run: python3 scripts/check_header_nav.py
+
+      - name: Links internos e sitemap
+        run: python3 scripts/check_links.py
+
+      - name: Build HMG (simulação)
+        run: python3 scripts/build_hmg.py --out dist
+
+      - name: Validar HTML (W3C Nu Checker)
+        run: |
+          pipx install html5validator==0.4.2
+          html5validator --root . --blacklist dist --match "*.html" --log INFO
