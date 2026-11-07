@@ -39,7 +39,7 @@ Uso licenciado a Pedro Diogenes
 | Ambiente | Branch | URL | Como publica |
 |---|---|---|---|
 | Produção | `main` | https://tabelaraoni.com.br | GitHub Pages deste repositório ("Deploy from a branch", `main`, raiz) |
-| Homologação (HMG) | `hmg` (branch padrão) | https://hmg.tabelaraoni.com.br/ | Action `Deploy HMG` gera `dist/` com `scripts/build_hmg.py` e publica no repositório `Tabela_Raoni_HMG` |
+| Homologação (HMG) | `hmg` (branch padrão) | https://pedrodiogenesfilho.github.io/Tabela_Raoni_HMG/ | Action `Deploy HMG` gera `dist/` com `scripts/build_hmg.py` e publica no repositório `Tabela_Raoni_HMG` |
 
 Fluxo: branch de trabalho → PR para `hmg` → deploy automático no HMG → testar na URL de HMG →
 PR `hmg` → `main` (**sempre "Create a merge commit"**, nunca squash) → produção.
@@ -63,6 +63,15 @@ hotfix feito direto em `main` deve ser mesclado em `hmg` em seguida; para tirar 
 `git revert -m 1 <sha-do-merge>` em `hmg` (ou, para zerar, `git reset --hard origin/main` +
 `git push --force-with-lease origin hmg`). Se `scripts/build_hmg.py` falhar com "esperado 1x …", uma
 página nova/alterada fugiu do padrão do `<head>`: corrija a página ou atualize o script.
+
+### Ligar e desligar o HMG
+
+O HMG é público (GitHub Pages não tem senha), mas fica fora do domínio da marca, com `noindex`, `robots.txt`
+bloqueando buscadores, sem anúncios nem Analytics e com a faixa de homologação. Para desligá-lo fora dos
+períodos de teste, rode a action **Desligar HMG** (Actions → Desligar HMG → Run workflow): ela publica uma
+página "homologação desligada" no repositório HMG. Qualquer push em `hmg` ou a action **Deploy HMG** religa.
+Para voltar a usar um domínio próprio, crie a variável de repositório `HMG_CNAME` e o CNAME no DNS; o build
+grava o arquivo `CNAME` e o Pages assume o domínio.
 
 ## Tema claro, escuro e sistema
 
