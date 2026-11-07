@@ -20,10 +20,6 @@
   const MARGEM_CONSERVADORA = 0.15; // cenário conservador: proporcional + 15% (autodeclaração otimista, ranking desatualizado)
   const Z = 1.96;                   // margem de amostragem com 95% de confiança
   const FALTOSOS_MAX = 60;
-  const COBERTURA_BAIXA = 0.10;     // limites de confiança (mesmos da página Sobre)
-  const COBERTURA_ALTA = 0.25;
-  const RANKING_PEQUENO = 300;
-  const RANKING_GRANDE = 1000;
 
   const fmt = new Intl.NumberFormat("pt-BR");
   const fmt1 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
@@ -57,7 +53,6 @@
     const ranking = Number(entrada.ranking);
     const pos = Number(entrada.posicao);
     const faltosos = Number(entrada.faltosos);
-    const oficial = Boolean(entrada.oficial);
 
     if (!(inscritos > 0)) throw erro("Inscritos no concurso: informe um número maior que zero.", "inscritosTotal");
     if (!(ranking > 0)) throw erro("Candidatos no ranking: informe um número maior que zero.", "inscritosRanking");
@@ -103,18 +98,8 @@
       conservador,
       margemAmostral,
       limites: { min, max },
-      oficial,
       entrada: { inscritos, ranking, posicao: pos, faltosos }
     };
-  }
-
-  // Confiança conforme a cobertura do ranking, o tamanho da amostra e a origem do dado de presença.
-  function confianca(r) {
-    const cobertura = r.cobertura;
-    const ranking = r.entrada.ranking;
-    if (cobertura < COBERTURA_BAIXA || ranking < RANKING_PEQUENO) return { nivel: "Baixa", classe: "conf-low" };
-    if (cobertura < COBERTURA_ALTA || ranking < RANKING_GRANDE || !r.oficial) return { nivel: "Média", classe: "conf-med" };
-    return { nivel: "Alta", classe: "conf-high" };
   }
 
   root.TabelaRaoni = Object.freeze({
@@ -125,7 +110,6 @@
     FALTOSOS_MAX,
     constante,
     presentesPara,
-    projetar,
-    confianca
+    projetar
   });
 })(typeof globalThis !== "undefined" ? globalThis : this);

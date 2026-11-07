@@ -47,6 +47,9 @@ RE_ADS_JS = re.compile(
 )
 RE_CANONICAL = re.compile(r'[ \t]*<link\b[^>]*\brel="canonical"[^>]*>[ \t]*\r?\n?', re.I)
 RE_ROBOTS = re.compile(r'[ \t]*<meta\b[^>]*\bname="robots"[^>]*>[ \t]*\r?\n?', re.I)
+# CSS e JS locais ganham ?v=<sha> no HMG: o CDN do Pages guarda os arquivos por 10 min e, sem isso,
+# a página nova chegava com a folha de estilo antiga logo depois de um deploy.
+RE_ASSET_LOCAL = re.compile(r'((?:href|src)="(?:\.\./)?assets/[^"?#]+\.(?:css|js))"')
 
 # Nada disto pode sobrar em um HTML de HMG.
 FORBIDDEN = (
@@ -105,7 +108,7 @@ def expect(pattern: re.Pattern[str], text: str, n: int, what: str, page: str) ->
         )
 
 
-def transform_html(page: str, text: str, banner: str) -> str:
+def transform_html(page: str, text: str, banner: str, versao: str) -> str:
     expect(RE_HEAD_END, text, 1, "</head>", page)
     expect(RE_BODY_END, text, 1, "</body>", page)
     expect(RE_ADS_META, text, 1, '<meta name="google-adsense-account">', page)
@@ -116,6 +119,7 @@ def transform_html(page: str, text: str, banner: str) -> str:
         text = pattern.sub("", text)
     text = RE_HEAD_END.sub(lambda m: HEAD_INJECT + m.group(0), text, count=1)
     text = RE_BODY_END.sub(lambda m: banner + m.group(0), text, count=1)
+    text = RE_ASSET_LOCAL.sub(lambda m: f'{m.group(1)}?v={versao}"', text)
 
     for token in FORBIDDEN:
         if token in text:
@@ -185,7 +189,7 @@ def main() -> int:
         src, dst = root / rel, out / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         if rel.suffix.lower() == ".html":
-            dst.write_text(transform_html(posix, src.read_text(encoding="utf-8"), banner), encoding="utf-8")
+            dst.write_text(transform_html(posix, src.read_text(encoding="utf-8"), banner, meta["sha"]), encoding="utf-8")
             pages.append(posix)
         else:
             shutil.copy2(src, dst)

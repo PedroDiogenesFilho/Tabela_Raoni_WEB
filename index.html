@@ -141,7 +141,6 @@
             </div>
 
             <div class="faltosos-extra">
-              <label class="chk"><input type="checkbox" id="presencaOficial" /> O percentual de faltosos é o dado oficial da banca</label>
               <p class="help" id="notaFaltosos"><strong>Correção de novembro de 2026:</strong> o percentual de faltosos agora altera de fato a projeção. Nas versões anteriores, um erro de cálculo fazia o resultado quase não mudar com ele. <a href="changelog.html">Veja o histórico de alterações</a>.</p>
             </div>
           </div>
@@ -170,10 +169,6 @@
             </p>
           </div>
 
-          <p class="result-status">
-            <span class="result-k">Confiança da estimativa</span>
-            <span class="conf-pill" id="cardConfianca"><span class="conf-dot" aria-hidden="true"></span><span id="cardConfiancaText">—</span></span>
-          </p>
           <p class="result-extra" id="resultadoExtra">—</p>
           <p class="print-only" id="printLink"></p>
 
@@ -231,9 +226,9 @@
           <li><strong>Inscritos no concurso:</strong> copie o número oficial divulgado pela banca examinadora (por exemplo, 12.000).</li>
           <li><strong>Candidatos no ranking:</strong> informe quantos candidatos estão na listagem de pontuação extraoficial de onde você tira os dados.</li>
           <li><strong>Sua posição no ranking:</strong> digite a sua colocação nessa listagem.</li>
-          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50. Se for o número oficial, marque a opção abaixo do campo.</li>
+          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50.</li>
         </ol>
-        <p>Toque em <strong>Calcular posição</strong>. O resultado mostra a posição projetada, a faixa estimada e a confiança da estimativa.</p>
+        <p>Toque em <strong>Calcular posição</strong>. O resultado mostra a posição projetada, a faixa do cenário otimista ao conservador e a margem de amostragem.</p>
         <p><strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso. A posição projetada é a proporcional aos presentes estimados; a faixa vai do cenário otimista, dado pela Tabela Raoni, ao conservador, com margem de 15%; a fórmula completa está em <a href="sobre.html">Sobre</a>.</p>
       </section>
 
@@ -249,17 +244,17 @@
             <tr>
               <th scope="row">Cadastro de reserva provável</th>
               <td data-label="Inscritos">18.500</td><td data-label="No ranking">2.900</td><td data-label="Posição">240</td><td data-label="Faltosos">42%</td>
-              <td data-label="Resultado e leitura"><strong>888</strong> (de 272 a 1.022, confiança média). Projeção entre os 10% melhores dos presentes: com poucas vagas imediatas, boa chance de cadastro de reserva, mas dependência de convocações futuras. <a href="?it=18500&amp;ir=2900&amp;p=240&amp;f=42">Calcular este cenário</a></td>
+              <td data-label="Resultado e leitura"><strong>888</strong> (de 272 a 1.022). Projeção entre os 10% melhores dos presentes: com poucas vagas imediatas, boa chance de cadastro de reserva, mas dependência de convocações futuras. <a href="?it=18500&amp;ir=2900&amp;p=240&amp;f=42">Calcular este cenário</a></td>
             </tr>
             <tr>
               <th scope="row">Corte apertado</th>
               <td data-label="Inscritos">9.200</td><td data-label="No ranking">3.400</td><td data-label="Posição">125</td><td data-label="Faltosos">28%</td>
-              <td data-label="Resultado e leitura"><strong>244</strong> (de 129 a 281, confiança média). Ranking com metade dos presentes e poucos faltosos: a faixa é estreita, mas pode ficar no limite do corte para vagas imediatas. Acompanhe recursos e reclassificações diariamente. <a href="?it=9200&amp;ir=3400&amp;p=125&amp;f=28">Calcular este cenário</a></td>
+              <td data-label="Resultado e leitura"><strong>244</strong> (de 129 a 281). Ranking com metade dos presentes e poucos faltosos: a faixa é estreita, mas pode ficar no limite do corte para vagas imediatas. Acompanhe recursos e reclassificações diariamente. <a href="?it=9200&amp;ir=3400&amp;p=125&amp;f=28">Calcular este cenário</a></td>
             </tr>
             <tr>
               <th scope="row">Alta ausência</th>
               <td data-label="Inscritos">32.000</td><td data-label="No ranking">4.100</td><td data-label="Posição">560</td><td data-label="Faltosos">51%</td>
-              <td data-label="Resultado e leitura"><strong>2.142</strong> (de 663 a 2.464, confiança média). Com muitos faltosos a projeção melhora, mas o percentual é só uma estimativa: com 41% de faltosos a posição central iria a 2.579. Trate o resultado como intervalo de planejamento. <a href="?it=32000&amp;ir=4100&amp;p=560&amp;f=51">Calcular este cenário</a></td>
+              <td data-label="Resultado e leitura"><strong>2.142</strong> (de 663 a 2.464). Com muitos faltosos a projeção melhora, mas o percentual é só uma estimativa: com 41% de faltosos a posição central iria a 2.579. Trate o resultado como intervalo de planejamento. <a href="?it=32000&amp;ir=4100&amp;p=560&amp;f=51">Calcular este cenário</a></td>
             </tr>
           </tbody>
         </table>
@@ -276,8 +271,8 @@
 
         <h3>Sobre os dados de entrada</h3>
         <details><summary>Qual percentual de faltosos devo usar se a banca não divulgou?</summary><p>Use uma simulação em <strong>três cenários (35%, 42% e 50%)</strong> para entender a sensibilidade do resultado. Compare os intervalos e trabalhe com a hipótese mais conservadora; o guia de <a href="guias/erros-comuns.html">erros comuns</a> explica o risco do cenário único.</p></details>
-        <details><summary>Meu ranking extraoficial é pequeno. Ainda vale calcular?</summary><p>Vale, porém <strong>a confiança cai quando a base é pequena.</strong> Priorize rankings com maior cobertura e atualizações frequentes; veja <a href="guias/ranking-concursos.html">como interpretar ranking de concursos</a>.</p></details>
-        <details><summary>O que mais altera o resultado além dos faltosos?</summary><p>A <strong>cobertura do ranking</strong> (quantos dos presentes estão nele) e a <strong>sua posição percentual</strong> dentro dele. Quanto menor a cobertura, mais a faixa se abre entre o cenário otimista e o conservador e menor a confiança, como detalha o guia de <a href="guias/ranking-concursos.html">interpretação de ranking</a>.</p></details>
+        <details><summary>Meu ranking extraoficial é pequeno. Ainda vale calcular?</summary><p>Vale, porém <strong>a margem de amostragem cresce quando a base é pequena.</strong> Priorize rankings com maior cobertura e atualizações frequentes; veja <a href="guias/ranking-concursos.html">como interpretar ranking de concursos</a>.</p></details>
+        <details><summary>O que mais altera o resultado além dos faltosos?</summary><p>A <strong>cobertura do ranking</strong> (quantos dos presentes estão nele) e a <strong>sua posição percentual</strong> dentro dele. Quanto menor a cobertura, mais a faixa se abre entre o cenário otimista e o conservador e maior a margem de amostragem, como detalha o guia de <a href="guias/ranking-concursos.html">interpretação de ranking</a>.</p></details>
         <details><summary>Posso usar a ferramenta para concurso de nível municipal e federal?</summary><p><strong>Sim.</strong> O método é estatístico e pode ser aplicado a diferentes certames, desde que os dados de entrada sejam consistentes.</p></details>
 
         <h3>Atualizações e metodologia</h3>
@@ -368,7 +363,7 @@
       return `${pad2(dt.getDate())}/${pad2(dt.getMonth() + 1)}/${dt.getFullYear()} ${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
     };
 
-    // Modelo em assets/modelo.js (window.TabelaRaoni): três cenários, sensibilidades e confiança.
+    // Modelo em assets/modelo.js (window.TabelaRaoni): três cenários e margem de amostragem.
     const modelo = window.TabelaRaoni;
 
     const pctInt = (fracao) => `${Math.round(fracao * 100)}%`;
@@ -389,18 +384,17 @@
       console.log("constante monótona em 0–100:", monotona);
     }
 
-    function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos, presencaOficial) {
+    function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos) {
       return modelo.projetar({
         inscritos: inscritosOficial,
         ranking: inscritosRanking,
         posicao: minhaPosicao,
-        faltosos: percentualFaltosos,
-        oficial: presencaOficial
+        faltosos: percentualFaltosos
       });
     }
 
     // Mantém o f com ponto decimal na URL (compatível com os links já compartilhados) e descarta o #hash.
-    function buildShareUrl({ inscritosTotal, inscritosRanking, suaPosicao, faltososPct, presencaOficial }) {
+    function buildShareUrl({ inscritosTotal, inscritosRanking, suaPosicao, faltososPct }) {
       const url = new URL(location.href);
       url.hash = "";
       const params = new URLSearchParams({
@@ -409,20 +403,18 @@
         p: String(Math.round(suaPosicao)),
         f: String(faltososPct)
       });
-      if (presencaOficial) params.set("o", "1");
       url.search = params.toString();
       return url.toString();
     }
 
-    function buildSummary({ projecao, confianca, updatedAt, inputs }, includeInputs, includeTime) {
+    function buildSummary({ projecao, updatedAt, inputs }, includeInputs, includeTime) {
       const r = projecao;
       const lines = [];
       lines.push("Tabela Raoni: projeção de posição");
       lines.push(`Posição projetada (cenário central): ${formatBR(r.central)}`);
       lines.push(`Faixa estimada: de ${formatBR(r.otimista)} (otimista, Tabela Raoni) a ${formatBR(r.conservador)} (conservador, +${Math.round(modelo.MARGEM_CONSERVADORA * 100)}%)`);
-      lines.push(`Presentes estimados: ${formatBR(r.presentes)}${inputs.presencaOficial ? " (presença oficial)" : ""}`);
+      lines.push(`Presentes estimados: ${formatBR(r.presentes)}`);
       lines.push(`Cobertura do ranking: ${pctInt(r.cobertura)}; posição percentual: ${pct1(r.posicaoPercentual)}; margem de amostragem: ±${pctInt(r.margemAmostral)}`);
-      lines.push(`Confiança da estimativa: ${confianca.nivel}`);
 
       if (includeInputs) {
         lines.push("");
@@ -430,7 +422,7 @@
         lines.push(`- Inscritos no concurso: ${formatBR(inputs.inscritosTotal)}`);
         lines.push(`- Candidatos no ranking: ${formatBR(inputs.inscritosRanking)}`);
         lines.push(`- Sua posição no ranking: ${formatBR(inputs.suaPosicao)}`);
-        lines.push(`- Faltosos: ${formatPct(inputs.faltososPct)}%${inputs.presencaOficial ? " (dado oficial)" : ""}`);
+        lines.push(`- Faltosos: ${formatPct(inputs.faltososPct)}%`);
       }
 
       if (includeTime) {
@@ -499,12 +491,9 @@
       const elRank = document.getElementById("inscritosRanking");
       const elPos = document.getElementById("suaPosicao");
       const elFalt = document.getElementById("faltososPct");
-      const elOficial = document.getElementById("presencaOficial");
 
       const cardPos = document.getElementById("cardPosicao");
       const cardFaixa = document.getElementById("cardFaixa");
-      const cardConf = document.getElementById("cardConfianca");
-      const cardConfText = document.getElementById("cardConfiancaText");
       const meta = document.getElementById("resultadoMeta");
       const subline = document.getElementById("resultadoSubline");
       const extra = document.getElementById("resultadoExtra");
@@ -612,12 +601,8 @@
         }
         cardFaixa.setAttribute("data-faixa", `${r.otimista}-${r.conservador}`);
 
-        cardConf.classList.remove("conf-low", "conf-med", "conf-high");
-        cardConf.classList.add(payload.confianca.classe);
-        cardConfText.textContent = payload.confianca.nivel;
-
         meta.textContent = `Atualizado em ${formatDateTimeBR(payload.updatedAt)}`;
-        subline.textContent = `Para ${formatBR(i.inscritosTotal)} inscritos, ${formatBR(i.inscritosRanking)} no ranking, posição ${formatBR(i.suaPosicao)} e ${formatPct(i.faltososPct)}% de faltosos${i.presencaOficial ? " (dado oficial)" : ""}.`;
+        subline.textContent = `Para ${formatBR(i.inscritosTotal)} inscritos, ${formatBR(i.inscritosRanking)} no ranking, posição ${formatBR(i.suaPosicao)} e ${formatPct(i.faltososPct)}% de faltosos.`;
         extra.textContent = `Presentes estimados: ${formatBR(r.presentes)} candidatos. O ranking cobre ${pctInt(r.cobertura)} deles e você está em ${pct1(r.posicaoPercentual)} do ranking; margem de amostragem de ±${pctInt(r.margemAmostral)}.`;
       };
 
@@ -625,7 +610,6 @@
         syncHints();
         hideCards();
       }));
-      elOficial.addEventListener("change", hideCards);
       syncHints();
 
       const toggleTab = (id, btn) => setTab(btn.getAttribute("aria-expanded") === "true" ? null : id);
@@ -734,24 +718,20 @@
         }
 
         const { inscritosTotal, inscritosRanking, suaPosicao, faltososPct } = values;
-        const presencaOficial = elOficial.checked;
 
         try {
-          const r = calcularProjecao(inscritosTotal, inscritosRanking, suaPosicao, faltososPct, presencaOficial);
-          const confianca = modelo.confianca(r);
+          const r = calcularProjecao(inscritosTotal, inscritosRanking, suaPosicao, faltososPct);
 
           const updatedAt = new Date();
 
           const payload = {
             projecao: r,
-            confianca,
             updatedAt,
             inputs: {
               inscritosTotal,
               inscritosRanking,
               suaPosicao,
-              faltososPct,
-              presencaOficial
+              faltososPct
             }
           };
 
@@ -782,7 +762,6 @@
         elRank.value = formatBR(ir);
         elPos.value = formatBR(p);
         elFalt.value = formatPct(f);
-        elOficial.checked = qs.get("o") === "1";
         syncHints();
         form.dispatchEvent(new Event("submit", { cancelable: true }));
       }

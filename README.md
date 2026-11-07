@@ -23,8 +23,6 @@ Com `Iof` inscritos, `n` candidatos no ranking, posição `p` e `f`% de faltosos
   `k̄ = 4,7125` a da última faixa; **conservador** é o central com margem de 15%;
 - todo cenário fica entre `p` e `p + (N − n)`; a faixa exibida vai do otimista ao conservador;
 - a margem de amostragem é `1,96 × ep / q`, com `ep = sqrt(q(1−q)/n) × sqrt((N−n)/(N−1))`, limitada a 100%;
-- confiança: Baixa com cobertura < 10% ou ranking < 300; Alta com cobertura ≥ 25%, ranking ≥ 1.000 e presença
-  oficial; Média nos demais casos.
 
 ## Observações
 
@@ -48,7 +46,8 @@ PR `hmg` → `main` (**sempre "Create a merge commit"**, nunca squash) → produ
 
 O HMG é gerado **no momento do deploy**, sem nada de ambiente commitado: remove `CNAME`, `ads.txt`,
 `sitemap.xml` e as tags do AdSense, troca o `robots` por `noindex, nofollow`, remove o `canonical` e
-injeta a faixa "AMBIENTE DE HOMOLOGAÇÃO". `assets/consent.js` só carrega GA/AdSense nos hosts de
+injeta a faixa "AMBIENTE DE HOMOLOGAÇÃO" e acrescenta `?v=<sha>` aos CSS e JS locais (o CDN do Pages guarda
+os arquivos por 10 minutos). `assets/consent.js` só carrega GA/AdSense nos hosts de
 produção. Validar localmente antes de abrir PR:
 
 ```bash
