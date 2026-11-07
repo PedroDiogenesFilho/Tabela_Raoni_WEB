@@ -25,18 +25,17 @@ const ok = (cond, msg) => {
 
 // 1. Exemplos da home: valores publicados na tabela "Exemplos com dados fictícios" e links de cálculo.
 const exemplos = [
-  [18500, 2900, 240, 42, { otimista: 272, central: 888, conservador: 1022, presentes: 10730, nivel: "Média" }],
-  [9200, 3400, 125, 28, { otimista: 129, central: 244, conservador: 281, presentes: 6624, nivel: "Média" }],
-  [32000, 4100, 560, 51, { otimista: 663, central: 2142, conservador: 2464, presentes: 15680, nivel: "Média" }]
+  [18500, 2900, 240, 42, { otimista: 272, central: 888, conservador: 1022, presentes: 10730 }],
+  [9200, 3400, 125, 28, { otimista: 129, central: 244, conservador: 281, presentes: 6624 }],
+  [32000, 4100, 560, 51, { otimista: 663, central: 2142, conservador: 2464, presentes: 15680 }]
 ];
 for (const [it, ir, p, f, e] of exemplos) {
   const r = M.projetar({ inscritos: it, ranking: ir, posicao: p, faltosos: f });
-  const c = M.confianca(r);
   ok(
-    r.otimista === e.otimista && r.central === e.central && r.conservador === e.conservador && r.presentes === e.presentes && c.nivel === e.nivel,
-    `exemplo ${it}/${ir}/${p}/${f}: ${r.otimista}/${r.central}/${r.conservador}/${r.presentes}/${c.nivel}`
+    r.otimista === e.otimista && r.central === e.central && r.conservador === e.conservador && r.presentes === e.presentes,
+    `exemplo ${it}/${ir}/${p}/${f}: ${r.otimista}/${r.central}/${r.conservador}/${r.presentes}`
   );
-  const trecho = `<strong>${fmt(e.central)}</strong> (de ${fmt(e.otimista)} a ${fmt(e.conservador)}, confiança ${e.nivel.toLowerCase()})`;
+  const trecho = `<strong>${fmt(e.central)}</strong> (de ${fmt(e.otimista)} a ${fmt(e.conservador)})`;
   ok(html.includes(trecho), `index.html não contém "${trecho}"`);
   ok(html.includes(`?it=${it}&amp;ir=${ir}&amp;p=${p}&amp;f=${f}`), `link do exemplo ${it} ausente na home`);
 }
@@ -121,22 +120,11 @@ ok(erroDe({ inscritos: 100, ranking: 50, posicao: 10, faltosos: 61 }) === "falto
 ok(erroDe({ inscritos: 100, ranking: 50, posicao: 10, faltosos: -1 }) === "faltososPct", "faltosos < 0");
 ok(erroDe({ inscritos: 100, ranking: 50, posicao: 10, faltosos: 50 }) === null, "ranking = presentes deveria passar");
 
-// 7. Presença oficial não muda os cenários, só a confiança.
+// 7. Margem de amostragem do exemplo 1 (cerca de ±10%).
 {
   const r = M.projetar({ inscritos: 18500, ranking: 2900, posicao: 240, faltosos: 42 });
-  const o = M.projetar({ inscritos: 18500, ranking: 2900, posicao: 240, faltosos: 42, oficial: true });
-  ok(o.central === r.central && o.otimista === r.otimista && o.conservador === r.conservador && o.margemAmostral === r.margemAmostral, "presença oficial não deveria mudar os cenários");
   ok(r.margemAmostral > 0.1 && r.margemAmostral < 0.11, `margem de amostragem do exemplo 1: ${r.margemAmostral}`);
 }
-
-// 8. Confiança por cobertura, tamanho do ranking e presença oficial.
-const nivel = (e) => M.confianca(M.projetar(e)).nivel;
-ok(nivel({ inscritos: 25000, ranking: 900, posicao: 120, faltosos: 40 }) === "Baixa", "cobertura 6% deveria ser Baixa");
-ok(nivel({ inscritos: 1000, ranking: 200, posicao: 10, faltosos: 0 }) === "Baixa", "ranking com 200 deveria ser Baixa");
-ok(nivel({ inscritos: 20000, ranking: 2400, posicao: 420, faltosos: 40, oficial: true }) === "Média", "cobertura 20% deveria ser Média");
-ok(nivel({ inscritos: 18500, ranking: 2900, posicao: 240, faltosos: 42 }) === "Média", "presença estimada deveria ser Média");
-ok(nivel({ inscritos: 18500, ranking: 2900, posicao: 240, faltosos: 42, oficial: true }) === "Alta", "cobertura 27% com 2.900 e presença oficial deveria ser Alta");
-ok(nivel({ inscritos: 3000, ranking: 900, posicao: 240, faltosos: 0, oficial: true }) === "Média", "ranking com 900 deveria ser Média mesmo com presença oficial");
 
 // 9. Funções do script da home: parseNumber e buildShareUrl.
 {
@@ -159,11 +147,7 @@ ok(nivel({ inscritos: 3000, ranking: 900, posicao: 240, faltosos: 0, oficial: tr
   }
   ok(
     api.buildShareUrl({ inscritosTotal: 12000, inscritosRanking: 10000, suaPosicao: 100, faltososPct: 40.5 }) === "https://tabelaraoni.com.br/?it=12000&ir=10000&p=100&f=40.5",
-    "buildShareUrl sem presença oficial"
-  );
-  ok(
-    api.buildShareUrl({ inscritosTotal: 12000, inscritosRanking: 10000, suaPosicao: 100, faltososPct: 40.5, presencaOficial: true }) === "https://tabelaraoni.com.br/?it=12000&ir=10000&p=100&f=40.5&o=1",
-    "buildShareUrl com presença oficial (o=1)"
+    "buildShareUrl"
   );
 }
 
