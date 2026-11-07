@@ -22,8 +22,7 @@ Com `Iof` inscritos, `n` candidatos no ranking, posição `p` e `f`% de faltosos
   `q × (k(q) − 1) / (k̄ − 1)`, em que `k(q)` é a constante interpolada da tabela pela posição percentual e
   `k̄ = 4,7125` a da última faixa; **conservador** é o central com margem de 15%;
 - todo cenário fica entre `p` e `p + (N − n)`; a faixa exibida vai do otimista ao conservador;
-- a margem de amostragem é `1,96 × ep / q`, com `ep = sqrt(q(1−q)/n) × sqrt((N−n)/(N−1))`; a sensibilidade
-  a faltosos recalcula o central com `f ± 10` pontos (só quando a presença não é o dado oficial);
+- a margem de amostragem é `1,96 × ep / q`, com `ep = sqrt(q(1−q)/n) × sqrt((N−n)/(N−1))`, limitada a 100%;
 - confiança: Baixa com cobertura < 10% ou ranking < 300; Alta com cobertura ≥ 25%, ranking ≥ 1.000 e presença
   oficial; Média nos demais casos.
 

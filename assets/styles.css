@@ -216,7 +216,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .affix > span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--tinta-2); pointer-events: none; }
 .chk { display: flex; gap: var(--s-3); align-items: flex-start; min-height: 24px; font-weight: 400; }
 .chk input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--verde); flex: none; }
-.faltosos-extra { margin-top: var(--s-4); display: grid; gap: var(--s-2); max-width: var(--medida); }
+.faltosos-extra { grid-column: -2 / -1; align-self: start; display: grid; gap: var(--s-2); }
 
 /* 7.3 Marca-texto */
 mark, .marca { color: var(--marca-tinta); background-color: transparent; background-image: linear-gradient(100deg, transparent 0, var(--marca) 3%, var(--marca) 97%, transparent 100%); padding: .08em .35em .06em; margin-inline: -.1em; border-radius: 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
@@ -286,7 +286,7 @@ details > :not(summary):last-child { margin-bottom: 0; }
 .conf-med .conf-dot { background: var(--aviso-ponto); }
 .conf-high { color: var(--verde); }
 .conf-high .conf-dot { background: var(--verde); }
-.result-desc, .result-extra { margin: 0; color: var(--tinta-2); max-width: var(--medida); }
+.result-extra { margin: 0; color: var(--tinta-2); max-width: var(--medida); }
 .result-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
 .result-next { margin-left: auto; }
 .panel { background: var(--papel); border: 1px solid var(--linha); border-radius: var(--raio-2); padding: var(--s-4); display: grid; gap: var(--s-3); }
