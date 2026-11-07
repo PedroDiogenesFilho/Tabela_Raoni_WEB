@@ -150,9 +150,9 @@
             <caption>Posição estimada conforme o percentual de faltosos</caption>
             <thead><tr><th scope="col" class="num">Faltosos</th><th scope="col" class="num">Posição estimada</th></tr></thead>
             <tbody>
-            <tr><td class="num">30%</td><td class="num">410º</td></tr>
+            <tr><td class="num">30%</td><td class="num">397º</td></tr>
             <tr><td class="num">40%</td><td class="num"><mark>340º</mark></td></tr>
-            <tr><td class="num">50%</td><td class="num">285º</td></tr>
+            <tr><td class="num">50%</td><td class="num">284º</td></tr>
             </tbody>
           </table>
         </div>
@@ -167,13 +167,14 @@
             <thead><tr><th scope="col">Etapa</th><th scope="col" class="num">Cálculo</th><th scope="col" class="num">Resultado</th></tr></thead>
             <tbody>
             <tr><td>Cobertura do ranking</td><td class="num">900 / 15.000</td><td class="num">6%</td></tr>
-            <tr><td>Proporção na amostra</td><td class="num">120 / 900</td><td class="num">13,3%</td></tr>
-            <tr><td>Posição ingênua aplicada ao universo</td><td class="num">0,133 × 15.000</td><td class="num">1.995º</td></tr>
-            <tr><td>Correção por viés de amostra (+20%)</td><td class="num">1.995 × 1,20</td><td class="num"><mark>2.394º</mark></td></tr>
+            <tr><td>Posição percentual no ranking</td><td class="num">120 / 900</td><td class="num">13,3%</td></tr>
+            <tr><td>Cenário central (proporcional)</td><td class="num">120 × 15.000 / 900</td><td class="num"><mark>2.000º</mark></td></tr>
+            <tr><td>Cenário conservador (+15%)</td><td class="num">2.000 × 1,15</td><td class="num">2.300º</td></tr>
+            <tr><td>Cenário otimista (Tabela Raoni, k = 1,230)</td><td class="num">120 + 0,133 × (1,230 − 1) / 3,7125 × 14.100</td><td class="num">237º</td></tr>
             </tbody>
           </table>
         </div>
-        <p>Esse ajuste não é “pessimismo”; é compensação de viés observável.</p>
+        <p>Com 6% de cobertura a faixa vai de 237º a 2.300º e a confiança é baixa: o otimista e o conservador diferem em quase dez vezes. A leitura útil é o intervalo, nunca um número isolado, e a prioridade passa a ser encontrar um ranking com mais participantes.</p>
         <h3 id="exemplo-retificacao">Exemplo: não recalcular após retificação</h3>
         <p>Depois dos recursos, os números mudam para você e para os concorrentes próximos:</p>
         <div class="table-wrap" role="region" aria-label="Retificação: variações" tabindex="0">

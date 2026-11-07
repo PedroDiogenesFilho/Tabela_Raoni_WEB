@@ -104,32 +104,37 @@
         <p>A Tabela Raoni foi criada para transformar dados públicos e extraoficiais em uma estimativa de faixa de colocação, ajudando candidatos a decidir prioridades (recurso, acompanhamento de chamadas e gestão de expectativas).</p>
 
         <h2 id="formula">Fórmula completa da projeção</h2>
-        <p>Definimos as variáveis de entrada: <strong>I<sub>of</sub></strong> (inscritos oficiais), <strong>I<sub>rk</sub></strong> (inscritos presentes no ranking/lista), <strong>P<sub>rk</sub></strong> (sua posição no ranking) e <strong>f</strong> (percentual de faltosos em decimal).</p>
+        <p>Definimos as variáveis de entrada: <strong>I<sub>of</sub></strong> (inscritos oficiais), <strong>I<sub>rk</sub></strong> (candidatos no ranking ou lista extraoficial), <strong>P<sub>rk</sub></strong> (sua posição no ranking) e <strong>f</strong> (percentual de faltosos em decimal).</p>
         <figure class="formula">
           <ol class="formula-steps">
-            <li>Taxa de presença estimada: <code class="math"><var>p</var> = 1 − <var>f</var></code></li>
-            <li>Competidores prováveis no dia da prova: <code class="math"><var>N</var> = I<sub>of</sub> × <var>p</var></code></li>
-            <li>Chance relativa de colocação no recorte do ranking: <code class="math"><var>C</var> = (P<sub>rk</sub> / I<sub>rk</sub>) × 100</code></li>
-            <li>Constante de ajuste: <code class="math"><var>k</var>(<var>C</var>)</code>, obtida por interpolação contínua da Tabela Raoni e cauda calibrada para <var>C</var> &gt; 100.</li>
-            <li>Posição projetada: <code class="math">P<sub>proj</sub> = <var>N</var> × (P<sub>rk</sub> / I<sub>rk</sub>) × <var>k</var>(<var>C</var>)</code></li>
+            <li>Presentes estimados: <code class="math"><var>N</var> = I<sub>of</sub> × (1 − <var>f</var>)</code></li>
+            <li>Cobertura do ranking: <code class="math"><var>c</var> = I<sub>rk</sub> / <var>N</var></code></li>
+            <li>Posição percentual no ranking: <code class="math"><var>q</var> = P<sub>rk</sub> / I<sub>rk</sub></code></li>
+            <li>Constante da Tabela Raoni: <code class="math"><var>k</var>(<var>q</var>)</code>, interpolada entre as faixas da tabela pela posição percentual, de 1,0 no topo a <code class="math"><var>k</var><sub>máx</sub> = 4,7125</code> na última faixa.</li>
+            <li>Cenário central (proporcional): <code class="math">P<sub>central</sub> = P<sub>rk</sub> + <var>q</var> × (<var>N</var> − I<sub>rk</sub>) = P<sub>rk</sub> × <var>N</var> / I<sub>rk</sub></code></li>
+            <li>Cenário otimista (Tabela Raoni): <code class="math">P<sub>otimista</sub> = P<sub>rk</sub> + <var>q</var> × (<var>k</var>(<var>q</var>) − 1) / (<var>k</var><sub>máx</sub> − 1) × (<var>N</var> − I<sub>rk</sub>)</code></li>
+            <li>Cenário conservador: <code class="math">P<sub>conservador</sub> = 1,15 × P<sub>central</sub></code></li>
           </ol>
-          <figcaption>I<sub>of</sub> = inscritos oficiais; I<sub>rk</sub> = inscritos no ranking; P<sub>rk</sub> = sua posição no ranking; f = faltosos em decimal.</figcaption>
+          <figcaption>Todo cenário fica entre P<sub>rk</sub> (ninguém de fora do ranking à sua frente) e P<sub>rk</sub> + N − I<sub>rk</sub> (todos à sua frente). A posição projetada é o cenário central; a faixa exibida vai do otimista ao conservador.</figcaption>
         </figure>
-        <p>A interpolação contínua evita saltos abruptos entre faixas e melhora a estabilidade de leitura quando sua posição muda pouco entre atualizações de ranking.</p>
+        <p>Cada cenário responde à mesma pergunta: dos presentes que não estão no ranking, quantos ficam à sua frente? O <strong>central</strong> trata o ranking como amostra representativa, então essa fração é a sua própria posição percentual <var>q</var>. O <strong>otimista</strong> segue a Tabela Raoni lida pela posição percentual: quem participa de rankings tende a estar entre os melhores, por isso no topo da lista quase ninguém de fora está à sua frente e, na base, o ranking volta a se comportar como amostra representativa. A tabela foi construída para rankings que cobrem cerca de 20% dos presentes; a divisão por (<var>k</var><sub>máx</sub> − 1) estende essa leitura a qualquer cobertura. O <strong>conservador</strong> acrescenta 15% ao central para cobrir notas autodeclaradas otimistas, rankings desatualizados e candidatos fortes que não participam de listas.</p>
+        <p>Além da faixa, a calculadora informa a <strong>margem de amostragem</strong> da posição percentual (1,96 erro-padrão binomial com correção de população finita, em percentual de <var>q</var>) e a <strong>sensibilidade a faltosos</strong>, que recalcula o cenário central com <var>f</var> ± 10 pontos e some quando você marca que o percentual é o dado oficial da banca. Os três parâmetros (15%, 10 pontos e 1,96) são escolhas editoriais, documentadas aqui e no código; a única forma de calibrá-los de verdade é comparar projeções com resultados oficiais de concursos encerrados.</p>
+        <aside class="callout"><p><strong>Versões anteriores</strong> (até novembro de 2026) aplicavam a constante à posição absoluta projetada, fora da escala de 0 a 100 da Tabela Raoni. Na prática o resultado era cerca de 5,45 vezes a posição no ranking, quase não reagia aos faltosos nem ao tamanho do ranking e podia passar do número de presentes. A tabela passou a ser lida na escala certa e define o limite otimista da faixa.</p></aside>
 
         <h2 id="limites">Limites estatísticos recomendados</h2>
         <div class="table-wrap" role="region" aria-label="Confiança da estimativa conforme a cobertura do ranking" tabindex="0">
           <table class="data">
             <caption>Confiança da estimativa conforme a cobertura do ranking</caption>
-            <thead><tr><th scope="col">Cobertura do ranking</th><th scope="col">Faltosos</th><th scope="col">Confiança</th></tr></thead>
+            <thead><tr><th scope="col">Cobertura e tamanho do ranking</th><th scope="col">Presença</th><th scope="col">Confiança</th></tr></thead>
             <tbody>
-              <tr><td>Menos de 10% dos inscritos oficiais</td><td>Apenas estimados</td><td>Baixa</td></tr>
-              <tr><td>Entre 10% e 25%</td><td>Apenas estimados</td><td>Moderada</td></tr>
-              <tr><td>Acima de 25%</td><td>Próximos do dado oficial publicado</td><td>Alta</td></tr>
+              <tr><td>Menos de 10% dos presentes estimados, ou menos de 300 candidatos no ranking</td><td>Qualquer</td><td>Baixa</td></tr>
+              <tr><td>Entre 10% e 25%, ou entre 300 e 999 candidatos</td><td>Estimada ou oficial</td><td>Média</td></tr>
+              <tr><td>25% ou mais, com 1.000 candidatos ou mais</td><td>Apenas estimada</td><td>Média</td></tr>
+              <tr><td>25% ou mais, com 1.000 candidatos ou mais</td><td>Dado oficial da banca</td><td>Alta</td></tr>
             </tbody>
           </table>
         </div>
-        <aside class="callout"><p><strong>Boa prática:</strong> rode 3 cenários de faltosos (conservador, central e otimista) e trabalhe com intervalo.</p></aside>
+        <aside class="callout"><p><strong>Boa prática:</strong> leia a faixa inteira, do otimista ao conservador, e use a linha de sensibilidade a faltosos para ver quanto a presença mexe no centro antes de decidir.</p></aside>
 
         <h2 id="falhas">Quando a projeção pode falhar</h2>
         <ul>
@@ -162,6 +167,7 @@
         <ul>
           <li>revisão manual da regra de cálculo e das hipóteses estatísticas antes de publicar qualquer ajuste;</li>
           <li>checagem de consistência entre interface, texto explicativo e comportamento da calculadora;</li>
+          <li>testes automáticos do modelo a cada mudança: exemplos publicados, limites lógicos, monotonia e mensagens de erro;</li>
           <li>registro público das alterações para rastreabilidade no <a href="changelog.html">Histórico de alterações</a>.</li>
         </ul>
       </div>
