@@ -2,7 +2,7 @@
 """Gera em --out a versão de HOMOLOGAÇÃO (HMG) do site.
 
 Uso, a partir da raiz do repositório:
-    python3 scripts/build_hmg.py [--out dist] [--cname hmg.tabelaraoni.com.br]
+    python3 scripts/build_hmg.py [--out dist] [--cname dominio.exemplo.com.br]
 
 Só grava no diretório de saída; nunca altera os fontes. O que faz:
   * copia apenas arquivos versionados pelo git (mesma semântica do deploy de produção),
