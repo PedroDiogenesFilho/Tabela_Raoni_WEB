@@ -216,6 +216,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .affix > span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--tinta-2); pointer-events: none; }
 .chk { display: flex; gap: var(--s-3); align-items: flex-start; min-height: 24px; font-weight: 400; }
 .chk input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--verde); flex: none; }
+.faltosos-extra { grid-column: -2 / -1; align-self: start; display: grid; gap: var(--s-2); }
 
 /* 7.3 Marca-texto */
 mark, .marca { color: var(--marca-tinta); background-color: transparent; background-image: linear-gradient(100deg, transparent 0, var(--marca) 3%, var(--marca) 97%, transparent 100%); padding: .08em .35em .06em; margin-inline: -.1em; border-radius: 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
@@ -264,28 +265,21 @@ details > :not(summary):last-child { margin-bottom: 0; }
 /* 8. Blocos de página */
 /* 8.1 Calculadora (index.html) */
 .calc { max-width: var(--ficha); margin: 0 auto; }
-.calc h1 { margin-bottom: var(--s-2); }
+.calc h1 { margin-bottom: var(--s-2); font-size: clamp(1.75rem, 3.5vw, 2.6rem); }
 .calc .lead { margin-bottom: var(--s-5); max-width: 80ch; }
 .grid { display: grid; gap: var(--s-4) var(--s-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); align-items: stretch; }
 .rowwide { margin-top: var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; }
 .rowwide .btn { flex: 1 1 auto; }
 .content { margin: var(--s-5) auto 0; max-width: var(--coluna); }
+.content h3 { margin-top: var(--s-6); }
+.content h2 + h3 { margin-top: var(--s-4); }
+details:has(+ h3) { border-bottom: 1px solid var(--linha); }
 .result-cards { margin-top: var(--s-5); padding: var(--s-5); background: var(--papel-2); border-radius: var(--raio-2); display: grid; gap: var(--s-4); }
 .result-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-2) var(--s-4); }
 .result-head h2 { margin: 0; font-size: var(--t-600); }
 .result-head h2:focus-visible { outline-offset: 6px; }
 .result-meta, .result-subline { margin: 0; font-size: var(--t-300); color: var(--tinta-2); }
-.result-status { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
-.result-k { font-weight: 600; }
-.conf-pill { display: inline-flex; align-items: center; gap: var(--s-2); font-weight: 600; }
-.conf-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--tinta-3); flex: none; }
-.conf-low { color: var(--erro); }
-.conf-low .conf-dot { background: var(--erro); }
-.conf-med { color: var(--aviso); }
-.conf-med .conf-dot { background: var(--aviso-ponto); }
-.conf-high { color: var(--verde); }
-.conf-high .conf-dot { background: var(--verde); }
-.result-desc, .result-extra { margin: 0; color: var(--tinta-2); max-width: var(--medida); }
+.result-extra { margin: 0; color: var(--tinta-2); max-width: var(--medida); }
 .result-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
 .result-next { margin-left: auto; }
 .panel { background: var(--papel); border: 1px solid var(--linha); border-radius: var(--raio-2); padding: var(--s-4); display: grid; gap: var(--s-3); }
