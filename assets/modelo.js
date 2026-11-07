@@ -18,7 +18,6 @@
   const K_MAX = TABELA[TABELA.length - 1][2]; // 4,7125: normaliza a tabela (última faixa = amostra representativa)
 
   const MARGEM_CONSERVADORA = 0.15; // cenário conservador: proporcional + 15% (autodeclaração otimista, ranking desatualizado)
-  const DELTA_FALTOSOS = 10;        // sensibilidade: faltosos ± 10 pontos percentuais
   const Z = 1.96;                   // margem de amostragem com 95% de confiança
   const FALTOSOS_MAX = 60;
   const COBERTURA_BAIXA = 0.10;     // limites de confiança (mesmos da página Sobre)
@@ -28,7 +27,6 @@
 
   const fmt = new Intl.NumberFormat("pt-BR");
   const fmt1 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 });
-  const pct = (fracao) => `${fmt.format(Math.round(fracao * 100))}%`;
   const arredondar = (v) => Math.ceil(v - 1e-9);
   const limitar = (v, min, max) => Math.min(max, Math.max(min, v));
   const erro = (mensagem, campo) => Object.assign(new Error(mensagem), { field: campo });
@@ -95,22 +93,6 @@
     const erroPadrao = Math.sqrt((q * (1 - q)) / ranking) * Math.sqrt(fpc);
     const margemAmostral = q > 0 ? Math.min(1, (Z * erroPadrao) / q) : 0;
 
-    // Sensibilidade a faltosos (só quando a presença é estimada): cenário central com ±10 p.p.
-    let sensibilidadeFaltosos = null;
-    if (!oficial) {
-      const cenario = (f) => {
-        const n = presentesPara(inscritos, f);
-        return { faltosos: f, presentes: n, central: proporcional(pos, ranking, n) };
-      };
-      const menos = Math.max(0, faltosos - DELTA_FALTOSOS);
-      let mais = Math.min(FALTOSOS_MAX, faltosos + DELTA_FALTOSOS);
-      while (mais > faltosos && presentesPara(inscritos, mais) < ranking) mais -= 1;
-      sensibilidadeFaltosos = {
-        menos: menos < faltosos ? cenario(menos) : null,
-        mais: mais > faltosos ? cenario(mais) : null
-      };
-    }
-
     return {
       presentes,
       cobertura: ranking / presentes,
@@ -120,7 +102,6 @@
       otimista,
       conservador,
       margemAmostral,
-      sensibilidadeFaltosos,
       limites: { min, max },
       oficial,
       entrada: { inscritos, ranking, posicao: pos, faltosos }
@@ -131,41 +112,15 @@
   function confianca(r) {
     const cobertura = r.cobertura;
     const ranking = r.entrada.ranking;
-    const base = `O ranking cobre ${pct(cobertura)} dos ${fmt.format(r.presentes)} presentes estimados, com ${fmt.format(ranking)} candidatos`;
-    const motivos = [];
-
-    if (cobertura < COBERTURA_BAIXA || ranking < RANKING_PEQUENO) {
-      if (cobertura < COBERTURA_BAIXA) motivos.push(`cobertura abaixo de ${pct(COBERTURA_BAIXA)}`);
-      if (ranking < RANKING_PEQUENO) motivos.push(`menos de ${fmt.format(RANKING_PEQUENO)} participantes`);
-      return {
-        nivel: "Baixa",
-        classe: "conf-low",
-        desc: `${base}: ${motivos.join(" e ")}. Trate a faixa como hipótese e compare cenários de faltosos.`
-      };
-    }
-
-    if (cobertura < COBERTURA_ALTA || ranking < RANKING_GRANDE || !r.oficial) {
-      if (cobertura < COBERTURA_ALTA) motivos.push(`cobertura entre ${pct(COBERTURA_BAIXA)} e ${pct(COBERTURA_ALTA)}`);
-      if (ranking < RANKING_GRANDE) motivos.push(`menos de ${fmt.format(RANKING_GRANDE)} participantes`);
-      if (!r.oficial) motivos.push("presença apenas estimada");
-      const dica = r.oficial
-        ? "Acompanhe as atualizações do ranking e recalcule a cada lista nova."
-        : "Marque a presença oficial quando a banca divulgar o número de presentes.";
-      return { nivel: "Média", classe: "conf-med", desc: `${base}: ${motivos.join(", ")}. ${dica}` };
-    }
-
-    return {
-      nivel: "Alta",
-      classe: "conf-high",
-      desc: `${base} e presença oficial informada. Cenário mais estável; recursos e retificações ainda podem mover a faixa.`
-    };
+    if (cobertura < COBERTURA_BAIXA || ranking < RANKING_PEQUENO) return { nivel: "Baixa", classe: "conf-low" };
+    if (cobertura < COBERTURA_ALTA || ranking < RANKING_GRANDE || !r.oficial) return { nivel: "Média", classe: "conf-med" };
+    return { nivel: "Alta", classe: "conf-high" };
   }
 
   root.TabelaRaoni = Object.freeze({
     TABELA,
     K_MAX,
     MARGEM_CONSERVADORA,
-    DELTA_FALTOSOS,
     Z,
     FALTOSOS_MAX,
     constante,

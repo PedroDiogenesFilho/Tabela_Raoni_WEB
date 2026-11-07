@@ -118,7 +118,7 @@
           <figcaption>Todo cenário fica entre P<sub>rk</sub> (ninguém de fora do ranking à sua frente) e P<sub>rk</sub> + N − I<sub>rk</sub> (todos à sua frente). A posição projetada é o cenário central; a faixa exibida vai do otimista ao conservador.</figcaption>
         </figure>
         <p>Cada cenário responde à mesma pergunta: dos presentes que não estão no ranking, quantos ficam à sua frente? O <strong>central</strong> trata o ranking como amostra representativa, então essa fração é a sua própria posição percentual <var>q</var>. O <strong>otimista</strong> segue a Tabela Raoni lida pela posição percentual: quem participa de rankings tende a estar entre os melhores, por isso no topo da lista quase ninguém de fora está à sua frente e, na base, o ranking volta a se comportar como amostra representativa. A tabela foi construída para rankings que cobrem cerca de 20% dos presentes; a divisão por (<var>k</var><sub>máx</sub> − 1) estende essa leitura a qualquer cobertura. O <strong>conservador</strong> acrescenta 15% ao central para cobrir notas autodeclaradas otimistas, rankings desatualizados e candidatos fortes que não participam de listas.</p>
-        <p>Além da faixa, a calculadora informa a <strong>margem de amostragem</strong> da posição percentual (1,96 erro-padrão binomial com correção de população finita, em percentual de <var>q</var>) e a <strong>sensibilidade a faltosos</strong>, que recalcula o cenário central com <var>f</var> ± 10 pontos e some quando você marca que o percentual é o dado oficial da banca. Os três parâmetros (15%, 10 pontos e 1,96) são escolhas editoriais, documentadas aqui e no código; a única forma de calibrá-los de verdade é comparar projeções com resultados oficiais de concursos encerrados.</p>
+        <p>Além da faixa, a calculadora informa a cobertura do ranking, a sua posição percentual nele e a <strong>margem de amostragem</strong> dessa posição (1,96 erro-padrão binomial com correção de população finita, em percentual de <var>q</var>). Marcar que o percentual de faltosos é o dado oficial da banca não muda os cenários, só permite a confiança alta. Os dois parâmetros (15% e 1,96) são escolhas editoriais, documentadas aqui e no código; a única forma de calibrá-los de verdade é comparar projeções com resultados oficiais de concursos encerrados.</p>
         <aside class="callout"><p><strong>Versões anteriores</strong> (até novembro de 2026) aplicavam a constante à posição absoluta projetada, fora da escala de 0 a 100 da Tabela Raoni. Na prática o resultado era cerca de 5,45 vezes a posição no ranking, quase não reagia aos faltosos nem ao tamanho do ranking e podia passar do número de presentes. A tabela passou a ser lida na escala certa e define o limite otimista da faixa.</p></aside>
 
         <h2 id="limites">Limites estatísticos recomendados</h2>
@@ -134,7 +134,7 @@
             </tbody>
           </table>
         </div>
-        <aside class="callout"><p><strong>Boa prática:</strong> leia a faixa inteira, do otimista ao conservador, e use a linha de sensibilidade a faltosos para ver quanto a presença mexe no centro antes de decidir.</p></aside>
+        <aside class="callout"><p><strong>Boa prática:</strong> leia a faixa inteira, do otimista ao conservador, e recalcule com dois ou três percentuais de faltosos para ver quanto a presença mexe no centro antes de decidir.</p></aside>
 
         <h2 id="falhas">Quando a projeção pode falhar</h2>
         <ul>

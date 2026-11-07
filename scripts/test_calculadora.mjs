@@ -121,17 +121,12 @@ ok(erroDe({ inscritos: 100, ranking: 50, posicao: 10, faltosos: 61 }) === "falto
 ok(erroDe({ inscritos: 100, ranking: 50, posicao: 10, faltosos: -1 }) === "faltososPct", "faltosos < 0");
 ok(erroDe({ inscritos: 100, ranking: 50, posicao: 10, faltosos: 50 }) === null, "ranking = presentes deveria passar");
 
-// 7. Sensibilidade a faltosos e presença oficial.
+// 7. Presença oficial não muda os cenários, só a confiança.
 {
   const r = M.projetar({ inscritos: 18500, ranking: 2900, posicao: 240, faltosos: 42 });
-  const s = r.sensibilidadeFaltosos;
-  ok(s && s.menos.faltosos === 32 && s.menos.central === 1042 && s.mais.faltosos === 52 && s.mais.central === 735, "sensibilidade a faltosos do exemplo 1");
   const o = M.projetar({ inscritos: 18500, ranking: 2900, posicao: 240, faltosos: 42, oficial: true });
-  ok(o.sensibilidadeFaltosos === null && o.central === r.central && o.otimista === r.otimista, "presença oficial não deveria mudar os cenários nem ter sensibilidade");
-  const limite = M.projetar({ inscritos: 1000, ranking: 500, posicao: 100, faltosos: 45 });
-  ok(limite.sensibilidadeFaltosos.mais === null || limite.sensibilidadeFaltosos.mais.presentes >= 500, "cenário de mais faltosos não pode deixar o ranking maior que os presentes");
-  const zero = M.projetar({ inscritos: 1000, ranking: 100, posicao: 10, faltosos: 0 });
-  ok(zero.sensibilidadeFaltosos.menos === null && zero.sensibilidadeFaltosos.mais.faltosos === 10, "sensibilidade com faltosos 0");
+  ok(o.central === r.central && o.otimista === r.otimista && o.conservador === r.conservador && o.margemAmostral === r.margemAmostral, "presença oficial não deveria mudar os cenários");
+  ok(r.margemAmostral > 0.1 && r.margemAmostral < 0.11, `margem de amostragem do exemplo 1: ${r.margemAmostral}`);
 }
 
 // 8. Confiança por cobertura, tamanho do ranking e presença oficial.

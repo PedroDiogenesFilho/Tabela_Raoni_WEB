@@ -139,10 +139,11 @@
               <p class="help" id="helpFaltosos">Percentual de ausentes na prova. Sem dado da banca, use entre 35 e 50.</p>
               <div class="affix"><input id="faltososPct" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="helpFaltosos hintFaltosos" /><span aria-hidden="true">%</span></div>
             </div>
-          </div>
-          <div class="faltosos-extra">
-            <label class="chk"><input type="checkbox" id="presencaOficial" /> O percentual de faltosos é o dado oficial da banca</label>
-            <p class="help" id="notaFaltosos"><strong>Correção de novembro de 2026:</strong> o percentual de faltosos agora altera de fato a projeção. Nas versões anteriores, um erro de cálculo fazia o resultado quase não mudar com ele. <a href="changelog.html">Veja o histórico de alterações</a>.</p>
+
+            <div class="faltosos-extra">
+              <label class="chk"><input type="checkbox" id="presencaOficial" /> O percentual de faltosos é o dado oficial da banca</label>
+              <p class="help" id="notaFaltosos"><strong>Correção de novembro de 2026:</strong> o percentual de faltosos agora altera de fato a projeção. Nas versões anteriores, um erro de cálculo fazia o resultado quase não mudar com ele. <a href="changelog.html">Veja o histórico de alterações</a>.</p>
+            </div>
           </div>
 
           <div class="rowwide">
@@ -173,9 +174,7 @@
             <span class="result-k">Confiança da estimativa</span>
             <span class="conf-pill" id="cardConfianca"><span class="conf-dot" aria-hidden="true"></span><span id="cardConfiancaText">—</span></span>
           </p>
-          <p class="result-desc" id="cardConfiancaDesc">—</p>
           <p class="result-extra" id="resultadoExtra">—</p>
-          <p class="result-extra" id="resultadoSensibilidade" hidden>—</p>
           <p class="print-only" id="printLink"></p>
 
           <div class="result-actions">
@@ -232,7 +231,7 @@
           <li><strong>Inscritos no concurso:</strong> copie o número oficial divulgado pela banca examinadora (por exemplo, 12.000).</li>
           <li><strong>Candidatos no ranking:</strong> informe quantos candidatos estão na listagem de pontuação extraoficial de onde você tira os dados.</li>
           <li><strong>Sua posição no ranking:</strong> digite a sua colocação nessa listagem.</li>
-          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50. Se for o número oficial, marque a opção abaixo dos campos.</li>
+          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50. Se for o número oficial, marque a opção abaixo do campo.</li>
         </ol>
         <p>Toque em <strong>Calcular posição</strong>. O resultado mostra a posição projetada, a faixa estimada e a confiança da estimativa.</p>
         <p><strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso. A posição projetada é a proporcional aos presentes estimados; a faixa vai do cenário otimista, dado pela Tabela Raoni, ao conservador, com margem de 15%; a fórmula completa está em <a href="sobre.html">Sobre</a>.</p>
@@ -400,15 +399,6 @@
       });
     }
 
-    function textoSensibilidade(r) {
-      const s = r.sensibilidadeFaltosos;
-      if (!s || (!s.menos && !s.mais)) return "";
-      const partes = [];
-      if (s.menos) partes.push(`com ${formatPct(s.menos.faltosos)}% de faltosos a posição central seria ${formatBR(s.menos.central)}`);
-      if (s.mais) partes.push(`com ${formatPct(s.mais.faltosos)}%, ${formatBR(s.mais.central)}`);
-      return `Sensibilidade a faltosos: ${partes.join("; ")}.`;
-    }
-
     // Mantém o f com ponto decimal na URL (compatível com os links já compartilhados) e descarta o #hash.
     function buildShareUrl({ inscritosTotal, inscritosRanking, suaPosicao, faltososPct, presencaOficial }) {
       const url = new URL(location.href);
@@ -432,8 +422,6 @@
       lines.push(`Faixa estimada: de ${formatBR(r.otimista)} (otimista, Tabela Raoni) a ${formatBR(r.conservador)} (conservador, +${Math.round(modelo.MARGEM_CONSERVADORA * 100)}%)`);
       lines.push(`Presentes estimados: ${formatBR(r.presentes)}${inputs.presencaOficial ? " (presença oficial)" : ""}`);
       lines.push(`Cobertura do ranking: ${pctInt(r.cobertura)}; posição percentual: ${pct1(r.posicaoPercentual)}; margem de amostragem: ±${pctInt(r.margemAmostral)}`);
-      const sensibilidade = textoSensibilidade(r);
-      if (sensibilidade) lines.push(sensibilidade);
       lines.push(`Confiança da estimativa: ${confianca.nivel}`);
 
       if (includeInputs) {
@@ -517,11 +505,9 @@
       const cardFaixa = document.getElementById("cardFaixa");
       const cardConf = document.getElementById("cardConfianca");
       const cardConfText = document.getElementById("cardConfiancaText");
-      const cardConfDesc = document.getElementById("cardConfiancaDesc");
       const meta = document.getElementById("resultadoMeta");
       const subline = document.getElementById("resultadoSubline");
       const extra = document.getElementById("resultadoExtra");
-      const sens = document.getElementById("resultadoSensibilidade");
 
       const resultTitle = document.getElementById("resultadoTitulo");
       const ruler = document.getElementById("ruler");
@@ -629,13 +615,10 @@
         cardConf.classList.remove("conf-low", "conf-med", "conf-high");
         cardConf.classList.add(payload.confianca.classe);
         cardConfText.textContent = payload.confianca.nivel;
-        cardConfDesc.textContent = payload.confianca.desc;
 
         meta.textContent = `Atualizado em ${formatDateTimeBR(payload.updatedAt)}`;
         subline.textContent = `Para ${formatBR(i.inscritosTotal)} inscritos, ${formatBR(i.inscritosRanking)} no ranking, posição ${formatBR(i.suaPosicao)} e ${formatPct(i.faltososPct)}% de faltosos${i.presencaOficial ? " (dado oficial)" : ""}.`;
         extra.textContent = `Presentes estimados: ${formatBR(r.presentes)} candidatos. O ranking cobre ${pctInt(r.cobertura)} deles e você está em ${pct1(r.posicaoPercentual)} do ranking; margem de amostragem de ±${pctInt(r.margemAmostral)}.`;
-        sens.textContent = textoSensibilidade(r);
-        sens.hidden = !sens.textContent;
       };
 
       [elTotal, elRank, elPos, elFalt].forEach((el) => el.addEventListener("input", () => {
