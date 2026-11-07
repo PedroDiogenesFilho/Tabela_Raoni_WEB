@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Tabela Raoni — Projeção de posição em concursos</title>
-  <meta name="description" content="Projete sua posição provável em concursos públicos com a Tabela Raoni 3.0 a partir dos inscritos oficiais, do ranking extraoficial, da sua posição e dos faltosos. Grátis, no navegador." />
+  <meta name="description" content="Projete sua posição provável em concursos públicos com a Tabela Raoni a partir dos inscritos oficiais, do ranking extraoficial, da sua posição e dos faltosos. Grátis, no navegador." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" href="https://tabelaraoni.com.br/" />
 
@@ -14,7 +14,7 @@
   <meta property="og:site_name" content="Tabela Raoni" />
   <meta property="og:locale" content="pt_BR" />
   <meta property="og:title" content="Tabela Raoni — Projeção de posição em concursos" />
-  <meta property="og:description" content="Calcule sua posição projetada e a faixa estimada de colocação com base na Tabela Raoni 3.0." />
+  <meta property="og:description" content="Calcule sua posição projetada e a faixa estimada de colocação com base na Tabela Raoni." />
   <meta property="og:url" content="https://tabelaraoni.com.br/" />
   <meta property="og:image" content="https://tabelaraoni.com.br/assets/og-cover.png" />
   <meta property="og:image:width" content="1200" />
@@ -24,7 +24,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Tabela Raoni — Projeção de posição em concursos" />
-  <meta name="twitter:description" content="Estime sua faixa de posição em concursos com base em inscritos, ranking e faltosos (Tabela Raoni 3.0)." />
+  <meta name="twitter:description" content="Estime sua faixa de posição em concursos com base em inscritos, ranking e faltosos (Tabela Raoni)." />
   <meta name="twitter:image" content="https://tabelaraoni.com.br/assets/og-cover.png" />
 
   <meta name="google-adsense-account" content="ca-pub-5754272579077136" />
@@ -48,7 +48,7 @@
         {
           "@type": "WebApplication",
           "@id": "https://tabelaraoni.com.br/#calculadora",
-          "name": "Calculadora Tabela Raoni 3.0",
+          "name": "Calculadora Tabela Raoni",
           "url": "https://tabelaraoni.com.br/",
           "applicationCategory": "UtilityApplication",
           "operatingSystem": "Web",
@@ -100,7 +100,7 @@
     <main id="conteudo">
       <section class="calc sheet" id="calculadora" aria-labelledby="titulo">
         <h1 id="titulo">Projeção de colocação em concursos públicos</h1>
-        <p class="lead">Com os inscritos oficiais, o ranking extraoficial, a sua posição nele e o percentual de faltosos, a Tabela Raoni 3.0 projeta a sua posição provável no resultado e a faixa em que ela tende a ficar.</p>
+        <p class="lead">Com os inscritos oficiais, o ranking extraoficial, a sua posição nele e o percentual de faltosos, a calculadora projeta a sua posição provável no resultado e a faixa entre o cenário otimista, dado pela Tabela Raoni, e o conservador.</p>
 
         <form id="calcForm" novalidate>
           <div class="grid">
@@ -138,6 +138,7 @@
               </div>
               <p class="help" id="helpFaltosos">Percentual de ausentes na prova. Sem dado da banca, use entre 35 e 50.</p>
               <div class="affix"><input id="faltososPct" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="helpFaltosos hintFaltosos" /><span aria-hidden="true">%</span></div>
+              <label class="chk"><input type="checkbox" id="presencaOficial" /> Este percentual é o dado oficial da banca</label>
             </div>
           </div>
 
@@ -160,8 +161,8 @@
             <div class="faixa-regua" aria-hidden="true"><span class="faixa-pino"></span></div>
             <p class="faixa-extremos" id="cardFaixa">
               <span class="faixa-rotulo visually-hidden">Faixa estimada</span>
-              <span class="faixa-extremo"><span class="num" id="rulerMin">—</span><span class="faixa-rotulo">melhor</span></span>
-              <span class="faixa-extremo"><span class="num" id="rulerMax">—</span><span class="faixa-rotulo">pior</span></span>
+              <span class="faixa-extremo"><span class="num" id="rulerMin">—</span><span class="faixa-rotulo">otimista (Tabela Raoni)</span></span>
+              <span class="faixa-extremo"><span class="num" id="rulerMax">—</span><span class="faixa-rotulo">conservador (+15%)</span></span>
             </p>
           </div>
 
@@ -171,6 +172,7 @@
           </p>
           <p class="result-desc" id="cardConfiancaDesc">—</p>
           <p class="result-extra" id="resultadoExtra">—</p>
+          <p class="result-extra" id="resultadoSensibilidade" hidden>—</p>
           <p class="print-only" id="printLink"></p>
 
           <div class="result-actions">
@@ -227,10 +229,10 @@
           <li><strong>Inscritos no concurso:</strong> copie o número oficial divulgado pela banca examinadora (por exemplo, 12.000).</li>
           <li><strong>Candidatos no ranking:</strong> informe quantos candidatos estão na listagem de pontuação extraoficial de onde você tira os dados.</li>
           <li><strong>Sua posição no ranking:</strong> digite a sua colocação nessa listagem.</li>
-          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50.</li>
+          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50. Se for o número oficial, marque a opção abaixo do campo.</li>
         </ol>
         <p>Toque em <strong>Calcular posição</strong>. O resultado mostra a posição projetada, a faixa estimada e a confiança da estimativa.</p>
-        <p><strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso. O cálculo segue a Tabela Raoni 3.0, com constante contínua por interpolação entre os pontos da tabela; a fórmula completa está em <a href="sobre.html">Sobre</a>.</p>
+        <p><strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso. A posição projetada é a proporcional aos presentes estimados; a faixa vai do cenário otimista, dado pela Tabela Raoni, ao conservador, com margem de 15%; a fórmula completa está em <a href="sobre.html">Sobre</a>.</p>
       </section>
 
       <section class="content" id="exemplos" aria-labelledby="exemplos-titulo">
@@ -245,17 +247,17 @@
             <tr>
               <th scope="row">Cadastro de reserva provável</th>
               <td data-label="Inscritos">18.500</td><td data-label="No ranking">2.900</td><td data-label="Posição">240</td><td data-label="Faltosos">42%</td>
-              <td data-label="Resultado e leitura"><strong>1.308</strong> (faixa de 915 a 1.962, confiança baixa). Projeção na metade superior dos presentes: com poucas vagas imediatas, boa chance de cadastro de reserva, mas dependência de convocações futuras. <a href="?it=18500&amp;ir=2900&amp;p=240&amp;f=42">Calcular este cenário</a></td>
+              <td data-label="Resultado e leitura"><strong>888</strong> (de 272 a 1.022, confiança média). Projeção entre os 10% melhores dos presentes: com poucas vagas imediatas, boa chance de cadastro de reserva, mas dependência de convocações futuras. <a href="?it=18500&amp;ir=2900&amp;p=240&amp;f=42">Calcular este cenário</a></td>
             </tr>
             <tr>
               <th scope="row">Corte apertado</th>
               <td data-label="Inscritos">9.200</td><td data-label="No ranking">3.400</td><td data-label="Posição">125</td><td data-label="Faltosos">28%</td>
-              <td data-label="Resultado e leitura"><strong>681</strong> (faixa de 476 a 1.022, confiança baixa). Faltosos abaixo da média aumentam a concorrência efetiva: mesmo com boa posição no ranking, a faixa pode ficar no limite do corte para vagas imediatas. Acompanhe recursos e reclassificações diariamente. <a href="?it=9200&amp;ir=3400&amp;p=125&amp;f=28">Calcular este cenário</a></td>
+              <td data-label="Resultado e leitura"><strong>244</strong> (de 129 a 281, confiança média). Ranking com metade dos presentes e poucos faltosos: a faixa é estreita, mas pode ficar no limite do corte para vagas imediatas. Acompanhe recursos e reclassificações diariamente. <a href="?it=9200&amp;ir=3400&amp;p=125&amp;f=28">Calcular este cenário</a></td>
             </tr>
             <tr>
               <th scope="row">Alta ausência</th>
               <td data-label="Inscritos">32.000</td><td data-label="No ranking">4.100</td><td data-label="Posição">560</td><td data-label="Faltosos">51%</td>
-              <td data-label="Resultado e leitura"><strong>3.052</strong> (faixa de 2.136 a 4.578, confiança baixa). Com muitos faltosos a projeção melhora bastante, mas a incerteza aumenta: o ranking parcial pode não capturar todos os candidatos competitivos. Trate o resultado como intervalo de planejamento. <a href="?it=32000&amp;ir=4100&amp;p=560&amp;f=51">Calcular este cenário</a></td>
+              <td data-label="Resultado e leitura"><strong>2.142</strong> (de 663 a 2.464, confiança média). Com muitos faltosos a projeção melhora, mas o percentual é só uma estimativa: com 41% de faltosos a posição central iria a 2.579. Trate o resultado como intervalo de planejamento. <a href="?it=32000&amp;ir=4100&amp;p=560&amp;f=51">Calcular este cenário</a></td>
             </tr>
           </tbody>
         </table>
@@ -273,7 +275,7 @@
         <h3>Sobre os dados de entrada</h3>
         <details><summary>Qual percentual de faltosos devo usar se a banca não divulgou?</summary><p>Use uma simulação em <strong>três cenários (35%, 42% e 50%)</strong> para entender a sensibilidade do resultado. Compare os intervalos e trabalhe com a hipótese mais conservadora; o guia de <a href="guias/erros-comuns.html">erros comuns</a> explica o risco do cenário único.</p></details>
         <details><summary>Meu ranking extraoficial é pequeno. Ainda vale calcular?</summary><p>Vale, porém <strong>a confiança cai quando a base é pequena.</strong> Priorize rankings com maior cobertura e atualizações frequentes; veja <a href="guias/ranking-concursos.html">como interpretar ranking de concursos</a>.</p></details>
-        <details><summary>O que mais altera o resultado além dos faltosos?</summary><p>A <strong>relação entre inscritos oficiais e inscritos no ranking</strong> é decisiva. Quanto maior a diferença entre os dois universos, maior a incerteza da projeção, como detalha o guia de <a href="guias/ranking-concursos.html">interpretação de ranking</a>.</p></details>
+        <details><summary>O que mais altera o resultado além dos faltosos?</summary><p>A <strong>cobertura do ranking</strong> (quantos dos presentes estão nele) e a <strong>sua posição percentual</strong> dentro dele. Quanto menor a cobertura, mais a faixa se abre entre o cenário otimista e o conservador e menor a confiança, como detalha o guia de <a href="guias/ranking-concursos.html">interpretação de ranking</a>.</p></details>
         <details><summary>Posso usar a ferramenta para concurso de nível municipal e federal?</summary><p><strong>Sim.</strong> O método é estatístico e pode ser aplicado a diferentes certames, desde que os dados de entrada sejam consistentes.</p></details>
 
         <h3>Atualizações e metodologia</h3>
@@ -335,68 +337,10 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+  <script src="assets/modelo.js"></script>
   <script>
     const yearEl = document.getElementById("year");
     if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-    const tabelaRaoni = [
-      [0, 3, 1.0],
-      [3, 5, 1.125],
-      [5, 10, 1.177],
-      [10, 15, 1.202],
-      [15, 20, 1.367],
-      [20, 25, 1.456],
-      [25, 30, 1.5642],
-      [30, 35, 1.786],
-      [35, 40, 1.924],
-      [40, 45, 2.2121],
-      [45, 50, 2.352],
-      [50, 55, 2.564],
-      [55, 60, 2.876],
-      [60, 65, 3.08765],
-      [65, 70, 3.222],
-      [70, 75, 3.421],
-      [75, 80, 3.656],
-      [80, 85, 3.945],
-      [85, 90, 4.331],
-      [90, 95, 4.567],
-      [95, 100, 4.7125]
-    ];
-
-    const CALIBRACAO_CAUDA_PADRAO = {
-      limiteSuperior: 5.42,
-      taxa: 0.030
-    };
-
-    const HISTORICO_REAL_CAUDA = [
-      // Histórico agregado de concursos finalizados: (chanceColocacao observada, constante efetiva observada).
-      { chanceColocacao: 102, constante: 4.81 },
-      { chanceColocacao: 104, constante: 4.85 },
-      { chanceColocacao: 106, constante: 4.88 },
-      { chanceColocacao: 108, constante: 4.90 },
-      { chanceColocacao: 111, constante: 4.96 },
-      { chanceColocacao: 114, constante: 5.01 },
-      { chanceColocacao: 118, constante: 5.05 },
-      { chanceColocacao: 122, constante: 5.11 },
-      { chanceColocacao: 128, constante: 5.16 },
-      { chanceColocacao: 134, constante: 5.22 },
-      { chanceColocacao: 142, constante: 5.28 },
-      { chanceColocacao: 151, constante: 5.33 },
-      { chanceColocacao: 165, constante: 5.37 },
-      { chanceColocacao: 176, constante: 5.40 }
-    ];
-
-    const FAIXAS_CAUDA_CALIBRACAO = [
-      { min: 100, max: 110 },
-      { min: 110, max: 130 },
-      { min: 130, max: 160 },
-      { min: 160, max: Infinity }
-    ];
-
-    const pontosRaoni = tabelaRaoni.map(([ini, fim, k]) => ({
-      x: (ini + fim) / 2,
-      k
-    }));
 
     // Aceita "12.000", "12000", "40,5", "40.5" e "40,5 %". Pontos só são separador de milhar quando
     // formam grupos de três dígitos; assim um link antigo com f=40.5 continua valendo 40,5.
@@ -422,261 +366,71 @@
       return `${pad2(dt.getDate())}/${pad2(dt.getMonth() + 1)}/${dt.getFullYear()} ${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
     };
 
-    function buscarConstantePorFaixa(chanceColocacao) {
-      for (const [ini, fim, k] of tabelaRaoni) {
-        if (chanceColocacao >= ini && chanceColocacao < fim) return k;
-      }
-      return tabelaRaoni[tabelaRaoni.length - 1][2];
-    }
+    // Modelo em assets/modelo.js (window.TabelaRaoni): três cenários, sensibilidades e confiança.
+    const modelo = window.TabelaRaoni;
 
-    function interpolarLinearMonotono(x, p1, p2) {
-      if (p2.x <= p1.x) return p1.k;
-      const t = (x - p1.x) / (p2.x - p1.x);
-      const tClamped = Math.min(1, Math.max(0, t));
-      return p1.k + (p2.k - p1.k) * tClamped;
-    }
+    const pctInt = (fracao) => `${Math.round(fracao * 100)}%`;
+    const pct1 = (fracao) => `${formatPct(Math.round(fracao * 1000) / 10)}%`;
 
-    function criarModeloCauda({ limiteSuperior, taxa }, kEm100) {
-      const limite = Math.max(kEm100, Number(limiteSuperior) || kEm100);
-      const taxaEfetiva = Math.max(0.0001, Number(taxa) || CALIBRACAO_CAUDA_PADRAO.taxa);
-
-      return (x) => {
-        if (x <= 100) return kEm100;
-        const amplitude = limite - kEm100;
-        if (amplitude <= 0) return kEm100;
-        const dist = x - 100;
-        return kEm100 + amplitude * (1 - Math.exp(-taxaEfetiva * dist));
-      };
-    }
-
-    function calcularErroMedioAbsolutoPorFaixa(amostras, fnModelo) {
-      let erroTotal = 0;
-      let total = 0;
-
-      for (const faixa of FAIXAS_CAUDA_CALIBRACAO) {
-        const bucket = amostras.filter((item) => item.chanceColocacao >= faixa.min && item.chanceColocacao < faixa.max);
-        if (bucket.length === 0) continue;
-
-        let erroFaixa = 0;
-        for (const item of bucket) {
-          erroFaixa += Math.abs(fnModelo(item.chanceColocacao) - item.constante);
-        }
-
-        erroTotal += erroFaixa / bucket.length;
-        total += 1;
-      }
-
-      return total > 0 ? erroTotal / total : Number.POSITIVE_INFINITY;
-    }
-
-    function calibrarCaudaHistorico(kEm100) {
-      const amostrasValidas = HISTORICO_REAL_CAUDA.filter((item) => Number.isFinite(item.chanceColocacao) && item.chanceColocacao > 100 && Number.isFinite(item.constante));
-      const minimoPorFaixa = 2;
-
-      const coberturaSuficiente = FAIXAS_CAUDA_CALIBRACAO.every((faixa) => {
-        const qtd = amostrasValidas.filter((item) => item.chanceColocacao >= faixa.min && item.chanceColocacao < faixa.max).length;
-        return qtd >= minimoPorFaixa;
-      });
-
-      // Fallback de segurança: sem histórico suficiente, usa cauda conservadora derivada da inclinação terminal da tabela.
-      if (!coberturaSuficiente) {
-        const penultimo = pontosRaoni[pontosRaoni.length - 2];
-        const ultimo = pontosRaoni[pontosRaoni.length - 1];
-        const inclinacaoTerminal = Math.max(0, (ultimo.k - penultimo.k) / Math.max(1, ultimo.x - penultimo.x));
-        return {
-          ...CALIBRACAO_CAUDA_PADRAO,
-          limiteSuperior: Math.max(CALIBRACAO_CAUDA_PADRAO.limiteSuperior, kEm100 + inclinacaoTerminal * 30),
-          fallback: true
-        };
-      }
-
-      let melhor = null;
-
-      for (let limiteSuperior = Math.max(5.25, kEm100 + 0.1); limiteSuperior <= 5.8; limiteSuperior += 0.02) {
-        for (let taxa = 0.01; taxa <= 0.08; taxa += 0.0025) {
-          const modelo = criarModeloCauda({ limiteSuperior, taxa }, kEm100);
-          const mae = calcularErroMedioAbsolutoPorFaixa(amostrasValidas, modelo);
-          if (!melhor || mae < melhor.mae) {
-            melhor = { limiteSuperior, taxa, mae, fallback: false };
-          }
-        }
-      }
-
-      return melhor || { ...CALIBRACAO_CAUDA_PADRAO, fallback: true };
-    }
-
-    let cacheModeloCauda = null;
-
-    function obterModeloCaudaCalibrado() {
-      if (cacheModeloCauda) return cacheModeloCauda;
-      const ultimo = pontosRaoni[pontosRaoni.length - 1];
-      const penultimo = pontosRaoni[pontosRaoni.length - 2];
-      const constanteEm100 = interpolarLinearMonotono(100, penultimo, ultimo);
-      const paramsCauda = calibrarCaudaHistorico(constanteEm100);
-      const modeloCauda = criarModeloCauda(paramsCauda, constanteEm100);
-      cacheModeloCauda = { constanteEm100, modeloCauda, paramsCauda };
-      return cacheModeloCauda;
-    }
-
-    function buscarConstante(chanceColocacao) {
-      const x = Number(chanceColocacao);
-      if (!Number.isFinite(x)) return pontosRaoni[0].k;
-
-      const primeiro = pontosRaoni[0];
-      const ultimo = pontosRaoni[pontosRaoni.length - 1];
-      const { constanteEm100, modeloCauda } = obterModeloCaudaCalibrado();
-
-      if (x <= primeiro.x) return primeiro.k;
-
-      for (let i = 0; i < pontosRaoni.length - 1; i += 1) {
-        const atual = pontosRaoni[i];
-        const proximo = pontosRaoni[i + 1];
-        if (x <= proximo.x) {
-          return interpolarLinearMonotono(x, atual, proximo);
-        }
-      }
-
-      if (x <= 100) {
-        return interpolarLinearMonotono(x, ultimo, { x: 100, k: constanteEm100 });
-      }
-
-      // Política da cauda (>100): curva exponencial assintótica calibrada por MAE em faixas de chance
-      // usando histórico real agregado. Mantém continuidade em x=100 e monotonicidade crescente sem saltos.
-      return modeloCauda(x);
-    }
-
-    function compararModelosConstante() {
-      const amostras = [];
-      let saltoMaxAntigo = 0;
-      let saltoMaxNovo = 0;
-
-      for (let x = 0; x <= 120; x += 1) {
-        const antigo = buscarConstantePorFaixa(x);
-        const novo = buscarConstante(x);
-        amostras.push({ x, antigo, novo, delta: novo - antigo });
-
-        if (x > 0) {
-          const prev = amostras[amostras.length - 2];
-          saltoMaxAntigo = Math.max(saltoMaxAntigo, Math.abs(antigo - prev.antigo));
-          saltoMaxNovo = Math.max(saltoMaxNovo, Math.abs(novo - prev.novo));
-        }
-      }
-
-      const reducaoSaltosPct = saltoMaxAntigo > 0
-        ? ((saltoMaxAntigo - saltoMaxNovo) / saltoMaxAntigo) * 100
-        : 0;
-
-      console.table([
-        {
-          grade: "0-120 (passo 1)",
-          salto_max_antigo: saltoMaxAntigo.toFixed(6),
-          salto_max_novo: saltoMaxNovo.toFixed(6),
-          reducao_saltos_pct: `${reducaoSaltosPct.toFixed(2)}%`
-        }
-      ]);
-
-      return { amostras, saltoMaxAntigo, saltoMaxNovo, reducaoSaltosPct };
-    }
-
-    function validarMonotonicidadeConstante() {
-      let prev = buscarConstante(0);
-      let maiorQueda = 0;
-      let maiorSalto = 0;
-
-      for (let x = 1; x <= 220; x += 1) {
-        const atual = buscarConstante(x);
-        const delta = atual - prev;
-        if (delta < 0) maiorQueda = Math.max(maiorQueda, Math.abs(delta));
-        maiorSalto = Math.max(maiorSalto, Math.abs(delta));
-        prev = atual;
-      }
-
-      const monotona = maiorQueda === 0;
-      const semSaltos = maiorSalto <= 0.15;
-
-      console.table([
-        {
-          verificacao: "monotonia e continuidade (0-220)",
-          monotona,
-          sem_saltos: semSaltos,
-          maior_queda: maiorQueda.toFixed(6),
-          maior_salto: maiorSalto.toFixed(6)
-        }
-      ]);
-
-      return { monotona, semSaltos, maiorQueda, maiorSalto };
-    }
-
-    // Diagnósticos do modelo só com ?debug na URL (não poluem o console de quem usa a ferramenta).
+    // Diagnóstico do modelo só com ?debug na URL: constante k por posição percentual e monotonia.
     if (new URLSearchParams(location.search).has("debug")) {
-      compararModelosConstante();
-      validarMonotonicidadeConstante();
+      const linhas = [];
+      let anterior = modelo.constante(0);
+      let monotona = true;
+      for (let x = 0; x <= 100; x += 5) {
+        const k = modelo.constante(x);
+        if (k < anterior) monotona = false;
+        anterior = k;
+        linhas.push({ posicao_percentual: x, k: k.toFixed(4) });
+      }
+      console.table(linhas);
+      console.log("constante monótona em 0–100:", monotona);
     }
 
-    const erroDeCampo = (message, field) => Object.assign(new Error(message), { field });
-
-    function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos) {
-      if (inscritosOficial <= 0) throw erroDeCampo("Inscritos no concurso: informe um número maior que zero.", "inscritosTotal");
-      if (inscritosRanking <= 0) throw erroDeCampo("Candidatos no ranking: informe um número maior que zero.", "inscritosRanking");
-      if (inscritosRanking > inscritosOficial) throw erroDeCampo("Candidatos no ranking não pode ser maior que inscritos no concurso. Confira os dois números.", "inscritosRanking");
-      if (minhaPosicao <= 0) throw erroDeCampo("Sua posição: informe um número maior que zero.", "suaPosicao");
-      if (minhaPosicao > inscritosRanking) throw erroDeCampo("Sua posição não pode ser maior que o número de candidatos no ranking. Confira os dois números.", "suaPosicao");
-      if (percentualFaltosos < 0 || percentualFaltosos > 60) throw erroDeCampo("Faltosos: informe um percentual entre 0 e 60.", "faltososPct");
-
-      const faltosos = inscritosOficial * (percentualFaltosos / 100);
-      const presentes = inscritosOficial - faltosos;
-
-      const posicaoPercentual = minhaPosicao / inscritosRanking;
-      const chanceColocacao = posicaoPercentual * presentes;
-
-      const constante = buscarConstante(chanceColocacao);
-      const classificacao = Math.ceil(minhaPosicao * constante);
-
-      const faixaMin = Math.max(1, Math.floor(classificacao * 0.70));
-      const faixaMax = Math.ceil(classificacao * 1.50);
-
-      return { classificacao, faixaMin, faixaMax, presentes, chanceColocacao };
+    function calcularProjecao(inscritosOficial, inscritosRanking, minhaPosicao, percentualFaltosos, presencaOficial) {
+      return modelo.projetar({
+        inscritos: inscritosOficial,
+        ranking: inscritosRanking,
+        posicao: minhaPosicao,
+        faltosos: percentualFaltosos,
+        oficial: presencaOficial
+      });
     }
 
-    function calcularConfianca(chanceColocacao) {
-      const v = Number(chanceColocacao);
-
-      // Regra baseada na Tabela Raoni 3.0 (faixas de constantes):
-      // Até 50 → cenário moderado a alto. Acima de 50 → cenário mais sensível (constantes mais altas).
-      if (!Number.isFinite(v)) {
-        return { nivel: "Média", classe: "conf-med", desc: "Cenário moderado: dados insuficientes para classificar com mais precisão." };
-      }
-
-      if (v > 50) {
-        return { nivel: "Baixa", classe: "conf-low", desc: "Cenário mais sensível: o ranking tem bem menos de 10% dos inscritos oficiais ou a sua posição nele é muito baixa. Trate a faixa como hipótese e compare cenários de faltosos." };
-      }
-
-      if (v >= 20) {
-        return { nivel: "Média", classe: "conf-med", desc: "Cenário moderado: o tamanho do ranking ou a sua posição reduz a precisão. O ideal é um ranking com pelo menos 10% dos inscritos oficiais." };
-      }
-
-      return { nivel: "Alta", classe: "conf-high", desc: "Cenário mais estável: ranking com mais de 10% dos inscritos oficiais ou posição favorável em relação ao tamanho do ranking." };
+    function textoSensibilidade(r) {
+      const s = r.sensibilidadeFaltosos;
+      if (!s || (!s.menos && !s.mais)) return "";
+      const partes = [];
+      if (s.menos) partes.push(`com ${formatPct(s.menos.faltosos)}% de faltosos a posição central seria ${formatBR(s.menos.central)}`);
+      if (s.mais) partes.push(`com ${formatPct(s.mais.faltosos)}%, ${formatBR(s.mais.central)}`);
+      return `Sensibilidade a faltosos: ${partes.join("; ")}.`;
     }
 
     // Mantém o f com ponto decimal na URL (compatível com os links já compartilhados) e descarta o #hash.
-    function buildShareUrl({ inscritosTotal, inscritosRanking, suaPosicao, faltososPct }) {
+    function buildShareUrl({ inscritosTotal, inscritosRanking, suaPosicao, faltososPct, presencaOficial }) {
       const url = new URL(location.href);
       url.hash = "";
-      url.search = new URLSearchParams({
+      const params = new URLSearchParams({
         it: String(Math.round(inscritosTotal)),
         ir: String(Math.round(inscritosRanking)),
         p: String(Math.round(suaPosicao)),
         f: String(faltososPct)
-      }).toString();
+      });
+      if (presencaOficial) params.set("o", "1");
+      url.search = params.toString();
       return url.toString();
     }
 
-    function buildSummary({ classificacao, faixaMin, faixaMax, presentes, confianca, updatedAt, inputs }, includeInputs, includeTime) {
+    function buildSummary({ projecao, confianca, updatedAt, inputs }, includeInputs, includeTime) {
+      const r = projecao;
       const lines = [];
       lines.push("Tabela Raoni: projeção de posição");
-      lines.push(`Posição projetada: ${formatBR(classificacao)}`);
-      lines.push(`Faixa estimada: de ${formatBR(faixaMin)} a ${formatBR(faixaMax)}`);
-      lines.push(`Presentes estimados: ${formatBR(presentes)}`);
+      lines.push(`Posição projetada (cenário central): ${formatBR(r.central)}`);
+      lines.push(`Faixa estimada: de ${formatBR(r.otimista)} (otimista, Tabela Raoni) a ${formatBR(r.conservador)} (conservador, +${Math.round(modelo.MARGEM_CONSERVADORA * 100)}%)`);
+      lines.push(`Presentes estimados: ${formatBR(r.presentes)}${inputs.presencaOficial ? " (presença oficial)" : ""}`);
+      lines.push(`Cobertura do ranking: ${pctInt(r.cobertura)}; posição percentual: ${pct1(r.posicaoPercentual)}; margem de amostragem: ±${pctInt(r.margemAmostral)}`);
+      const sensibilidade = textoSensibilidade(r);
+      if (sensibilidade) lines.push(sensibilidade);
       lines.push(`Confiança da estimativa: ${confianca.nivel}`);
 
       if (includeInputs) {
@@ -685,7 +439,7 @@
         lines.push(`- Inscritos no concurso: ${formatBR(inputs.inscritosTotal)}`);
         lines.push(`- Candidatos no ranking: ${formatBR(inputs.inscritosRanking)}`);
         lines.push(`- Sua posição no ranking: ${formatBR(inputs.suaPosicao)}`);
-        lines.push(`- Faltosos: ${formatPct(inputs.faltososPct)}%`);
+        lines.push(`- Faltosos: ${formatPct(inputs.faltososPct)}%${inputs.presencaOficial ? " (dado oficial)" : ""}`);
       }
 
       if (includeTime) {
@@ -754,6 +508,7 @@
       const elRank = document.getElementById("inscritosRanking");
       const elPos = document.getElementById("suaPosicao");
       const elFalt = document.getElementById("faltososPct");
+      const elOficial = document.getElementById("presencaOficial");
 
       const cardPos = document.getElementById("cardPosicao");
       const cardFaixa = document.getElementById("cardFaixa");
@@ -763,6 +518,7 @@
       const meta = document.getElementById("resultadoMeta");
       const subline = document.getElementById("resultadoSubline");
       const extra = document.getElementById("resultadoExtra");
+      const sens = document.getElementById("resultadoSensibilidade");
 
       const resultTitle = document.getElementById("resultadoTitulo");
       const ruler = document.getElementById("ruler");
@@ -854,16 +610,18 @@
 
       const renderCards = (payload) => {
         cards.hidden = false;
+        const r = payload.projecao;
+        const i = payload.inputs;
 
-        cardPos.textContent = formatBR(payload.classificacao);
-        if (rulerMin) rulerMin.textContent = formatBR(payload.faixaMin);
-        if (rulerMax) rulerMax.textContent = formatBR(payload.faixaMax);
+        cardPos.textContent = formatBR(r.central);
+        if (rulerMin) rulerMin.textContent = formatBR(r.otimista);
+        if (rulerMax) rulerMax.textContent = formatBR(r.conservador);
         if (ruler) {
-          const span = payload.faixaMax - payload.faixaMin;
-          const pos = span > 0 ? (payload.classificacao - payload.faixaMin) / span : 0.5;
+          const span = r.conservador - r.otimista;
+          const pos = span > 0 ? (r.central - r.otimista) / span : 0.5;
           ruler.style.setProperty("--pos", `${(Math.min(0.92, Math.max(0.08, pos)) * 100).toFixed(1)}%`);
         }
-        cardFaixa.setAttribute("data-faixa", `${payload.faixaMin}-${payload.faixaMax}`);
+        cardFaixa.setAttribute("data-faixa", `${r.otimista}-${r.conservador}`);
 
         cardConf.classList.remove("conf-low", "conf-med", "conf-high");
         cardConf.classList.add(payload.confianca.classe);
@@ -871,15 +629,17 @@
         cardConfDesc.textContent = payload.confianca.desc;
 
         meta.textContent = `Atualizado em ${formatDateTimeBR(payload.updatedAt)}`;
-        const i = payload.inputs;
-        subline.textContent = `Para ${formatBR(i.inscritosTotal)} inscritos, ${formatBR(i.inscritosRanking)} no ranking, posição ${formatBR(i.suaPosicao)} e ${formatPct(i.faltososPct)}% de faltosos.`;
-        extra.textContent = `Presentes estimados: ${formatBR(payload.presentes)} candidatos.`;
+        subline.textContent = `Para ${formatBR(i.inscritosTotal)} inscritos, ${formatBR(i.inscritosRanking)} no ranking, posição ${formatBR(i.suaPosicao)} e ${formatPct(i.faltososPct)}% de faltosos${i.presencaOficial ? " (dado oficial)" : ""}.`;
+        extra.textContent = `Presentes estimados: ${formatBR(r.presentes)} candidatos. O ranking cobre ${pctInt(r.cobertura)} deles e você está em ${pct1(r.posicaoPercentual)} do ranking; margem de amostragem de ±${pctInt(r.margemAmostral)}.`;
+        sens.textContent = textoSensibilidade(r);
+        sens.hidden = !sens.textContent;
       };
 
       [elTotal, elRank, elPos, elFalt].forEach((el) => el.addEventListener("input", () => {
         syncHints();
         hideCards();
       }));
+      elOficial.addEventListener("change", hideCards);
       syncHints();
 
       const toggleTab = (id, btn) => setTab(btn.getAttribute("aria-expanded") === "true" ? null : id);
@@ -980,26 +740,32 @@
           return;
         }
 
+        const firstNonInt = ["inscritosTotal", "inscritosRanking", "suaPosicao"].find((k) => !Number.isInteger(values[k]));
+        if (firstNonInt) {
+          hideCards();
+          setInvalid(firstNonInt, `${FIELD_LABELS[firstNonInt]}: use um número inteiro, por exemplo 12.000.`);
+          return;
+        }
+
         const { inscritosTotal, inscritosRanking, suaPosicao, faltososPct } = values;
+        const presencaOficial = elOficial.checked;
 
         try {
-          const r = calcularProjecao(inscritosTotal, inscritosRanking, suaPosicao, faltososPct);
-          const confianca = calcularConfianca(r.chanceColocacao);
+          const r = calcularProjecao(inscritosTotal, inscritosRanking, suaPosicao, faltososPct, presencaOficial);
+          const confianca = modelo.confianca(r);
 
           const updatedAt = new Date();
 
           const payload = {
-            classificacao: r.classificacao,
-            faixaMin: r.faixaMin,
-            faixaMax: r.faixaMax,
-            presentes: r.presentes,
+            projecao: r,
             confianca,
             updatedAt,
             inputs: {
               inscritosTotal,
               inscritosRanking,
               suaPosicao,
-              faltososPct
+              faltososPct,
+              presencaOficial
             }
           };
 
@@ -1030,6 +796,7 @@
         elRank.value = formatBR(ir);
         elPos.value = formatBR(p);
         elFalt.value = formatPct(f);
+        elOficial.checked = qs.get("o") === "1";
         syncHints();
         form.dispatchEvent(new Event("submit", { cancelable: true }));
       }

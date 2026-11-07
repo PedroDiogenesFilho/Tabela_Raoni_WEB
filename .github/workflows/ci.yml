@@ -32,6 +32,9 @@ jobs:
       - name: Tamanho da folha de estilos (≤ 30720 bytes)
         run: test "$(wc -c < assets/styles.css)" -le 30720
 
+      - name: Modelo da calculadora (Node)
+        run: node scripts/test_calculadora.mjs
+
       - name: Links internos e sitemap
         run: python3 scripts/check_links.py
 
