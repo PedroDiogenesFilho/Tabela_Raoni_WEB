@@ -138,8 +138,11 @@
               </div>
               <p class="help" id="helpFaltosos">Percentual de ausentes na prova. Sem dado da banca, use entre 35 e 50.</p>
               <div class="affix"><input id="faltososPct" type="text" inputmode="decimal" autocomplete="off" required aria-describedby="helpFaltosos hintFaltosos" /><span aria-hidden="true">%</span></div>
-              <label class="chk"><input type="checkbox" id="presencaOficial" /> Este percentual é o dado oficial da banca</label>
             </div>
+          </div>
+          <div class="faltosos-extra">
+            <label class="chk"><input type="checkbox" id="presencaOficial" /> O percentual de faltosos é o dado oficial da banca</label>
+            <p class="help" id="notaFaltosos"><strong>Correção de novembro de 2026:</strong> o percentual de faltosos agora altera de fato a projeção. Nas versões anteriores, um erro de cálculo fazia o resultado quase não mudar com ele. <a href="changelog.html">Veja o histórico de alterações</a>.</p>
           </div>
 
           <div class="rowwide">
@@ -229,7 +232,7 @@
           <li><strong>Inscritos no concurso:</strong> copie o número oficial divulgado pela banca examinadora (por exemplo, 12.000).</li>
           <li><strong>Candidatos no ranking:</strong> informe quantos candidatos estão na listagem de pontuação extraoficial de onde você tira os dados.</li>
           <li><strong>Sua posição no ranking:</strong> digite a sua colocação nessa listagem.</li>
-          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50. Se for o número oficial, marque a opção abaixo do campo.</li>
+          <li><strong>Faltosos:</strong> informe o percentual divulgado pela banca ou uma estimativa; sem dado, use entre 35 e 50. Se for o número oficial, marque a opção abaixo dos campos.</li>
         </ol>
         <p>Toque em <strong>Calcular posição</strong>. O resultado mostra a posição projetada, a faixa estimada e a confiança da estimativa.</p>
         <p><strong>Observação:</strong> o resultado é uma estimativa. A posição final pode variar por critérios do edital, empates, recursos, alterações de gabarito, anulações de questões e outras particularidades do concurso. A posição projetada é a proporcional aos presentes estimados; a faixa vai do cenário otimista, dado pela Tabela Raoni, ao conservador, com margem de 15%; a fórmula completa está em <a href="sobre.html">Sobre</a>.</p>
