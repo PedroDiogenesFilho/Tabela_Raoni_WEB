@@ -271,6 +271,9 @@ details > :not(summary):last-child { margin-bottom: 0; }
 .rowwide { margin-top: var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-4); align-items: center; }
 .rowwide .btn { flex: 1 1 auto; }
 .content { margin: var(--s-5) auto 0; max-width: var(--coluna); }
+.content h3 { margin-top: var(--s-6); }
+.content h2 + h3 { margin-top: var(--s-4); }
+details:has(+ h3) { border-bottom: 1px solid var(--linha); }
 .result-cards { margin-top: var(--s-5); padding: var(--s-5); background: var(--papel-2); border-radius: var(--raio-2); display: grid; gap: var(--s-4); }
 .result-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-2) var(--s-4); }
 .result-head h2 { margin: 0; font-size: var(--t-600); }
