@@ -11,9 +11,24 @@
 
 3. Clique em **CALCULAR PROJEÇÃO** para ver a classificação projetada e a margem estimada.
 
+## Como funciona o cálculo
+
+O modelo fica em `assets/modelo.js` (sem DOM) e é testado por `node scripts/test_calculadora.mjs`, que roda no CI.
+Com `Iof` inscritos, `n` candidatos no ranking, posição `p` e `f`% de faltosos:
+
+- presentes estimados `N = Iof × (1 − f/100)`; cobertura do ranking `c = n / N`; posição percentual `q = p / n`;
+- os três cenários projetam quantos dos `N − n` presentes de fora do ranking estão à frente do candidato:
+  **central** (proporcional) usa a fração `q`, ou seja `P = p × N / n`; **otimista** usa a Tabela Raoni,
+  `q × (k(q) − 1) / (k̄ − 1)`, em que `k(q)` é a constante interpolada da tabela pela posição percentual e
+  `k̄ = 4,7125` a da última faixa; **conservador** é o central com margem de 15%;
+- todo cenário fica entre `p` e `p + (N − n)`; a faixa exibida vai do otimista ao conservador;
+- a margem de amostragem é `1,96 × ep / q`, com `ep = sqrt(q(1−q)/n) × sqrt((N−n)/(N−1))`; a sensibilidade
+  a faltosos recalcula o central com `f ± 10` pontos (só quando a presença não é o dado oficial);
+- confiança: Baixa com cobertura < 10% ou ranking < 300; Alta com cobertura ≥ 25%, ranking ≥ 1.000 e presença
+  oficial; Média nos demais casos.
+
 ## Observações
 
-- O cálculo usa uma tabela de multiplicadores ("Tabela Raoni") para estimar a projeção.
 - Se os campos estiverem vazios ou com valores inválidos, o aplicativo exibirá uma mensagem de erro.
 - É necessário que o usuário esteja cadastrado em um ranking de concursos e utilize os dados desse ranking para calcular a possição projetada.
 - Caso a banca do concurso não publique o percentual de faltosos a sugestão e manter em um valor padrão entre 35 a 40%
@@ -41,6 +56,7 @@ produção. Validar localmente antes de abrir PR:
 python3 scripts/check_header_nav.py && python3 scripts/check_links.py && python3 scripts/build_hmg.py
 wc -c assets/styles.css               # folha única; manter ≤ 30720 bytes
 python3 scripts/check_contrast.py     # contraste WCAG dos tokens nos temas claro e escuro
+node scripts/test_calculadora.mjs     # modelo da calculadora e exemplos da home
 python3 -m http.server -d dist 8080   # abrir http://localhost:8080/
 ```
 
